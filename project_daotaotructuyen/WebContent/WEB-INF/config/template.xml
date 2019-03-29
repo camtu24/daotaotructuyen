@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+       
+<tiles-definitions>
+ <!-- ADMIN TEMPLATE -->
+  <definition name="admin.template" template="/WEB-INF/templates/admin/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/admin/header.jsp" />
+     <put-attribute name="left-bar" value="/WEB-INF/templates/admin/left-bar.jsp" />
+    <put-attribute name="body" value="" />
+    <put-attribute name="footer" value="/WEB-INF/templates/admin/footer.jsp" />
+  </definition>
+  
+  <definition name="admin.index.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/index/index.jsp" />
+  </definition>
+  
+  <!-- ADMIN KHOA HOC -->
+  <!-- ADMIN LEVEL -->
+  <definition name="admin.level.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/level/index.jsp" />
+  </definition>
+  
+  <definition name="admin.level.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/level/add.jsp" />
+  </definition>
+  
+  <!-- ADMIN SUBJECT -->
+  <definition name="admin.subject.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/chude/index.jsp" />
+  </definition>
+  
+  <definition name="admin.subject.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/chude/add.jsp" />
+  </definition>
+  
+  <!-- ADMIN COURSE -->
+  <definition name="admin.course.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/khoahoc/index.jsp" />
+  </definition>
+  
+  <definition name="admin.course.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/khoahoc/add.jsp" />
+  </definition>
+  
+  <definition name="admin.course.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/khoahoc/edit.jsp" />
+  </definition>
+  
+  <definition name="admin.course.liststudent" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/khoahoc/liststudent.jsp" />
+  </definition>
+  
+  <!-- ADMIN COURSE DANH MUC -->
+  <definition name="admin.danhmuc.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/danhmucbaigiang/index.jsp" />
+  </definition>
+  
+  <definition name="admin.danhmuc.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/danhmucbaigiang/add.jsp" />
+  </definition>
+  
+  <definition name="admin.danhmuc.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/danhmucbaigiang/edit.jsp" />
+  </definition>
+  
+  <!-- ADMIN COURSE BAI GIANG -->
+  <definition name="admin.baigiang.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/baigiang/index.jsp" />
+  </definition>
+  
+  <definition name="admin.baigiang.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/baigiang/add.jsp" />
+  </definition>
+  
+  <definition name="admin.baigiang.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/baigiang/edit.jsp" />
+  </definition>
+  
+  <!-- ADMIN NGUOI DUNG -->
+  <!-- ADMIN TEACHER -->
+  <definition name="admin.teacher.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/giangvien/index.jsp" />
+  </definition>
+  
+  <definition name="admin.teacher.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/giangvien/add.jsp" />
+  </definition>
+  
+  <definition name="admin.teacher.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/giangvien/edit.jsp" />
+  </definition>
+  
+  <!-- ADMIN QTV -->
+  <definition name="admin.qtv.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/qtv/index.jsp" />
+  </definition>
+  
+  <definition name="admin.qtv.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/qtv/add.jsp" />
+  </definition>
+  
+  <definition name="admin.qtv.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/qtv/edit.jsp" />
+  </definition>
+  
+  <!-- ADMIN STUDENT -->
+  <definition name="admin.student.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/hocvien/index.jsp" />
+  </definition>
+  
+  <definition name="admin.student.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/hocvien/add.jsp" />
+  </definition>
+  
+  <definition name="admin.student.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/hocvien/edit.jsp" />
+  </definition>
+  
+  <!-- ADMIN PLHV -->
+  <definition name="admin.plhv.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/plhv/index.jsp" />
+  </definition>
+  
+  <definition name="admin.plhv.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/plhv/add.jsp" />
+  </definition>
+  
+  <!-- <definition name="admin.plhv.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/plhv/edit.jsp" />
+  </definition> -->
+  
+  <!-- error404 -->
+   <definition name="error404" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/error/error404.jsp" />
+  </definition>
+  
+  <!-- END ADMIN NGUOI DUNG -->
+  <!--AUTH TEMPLATE -->
+  <definition name="auth.login" template="/WEB-INF/jsp/auth/login.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/admin/header.jsp" />
+    <!-- <put-attribute name="footer" value="/WEB-INF/templates/auth/footer.jsp" /> -->
+  </definition> 
+   <!--END ADMIN TEMPLATE -->
+    <!-- ************************************************************************ -->
+   <!-- PUBLIC TEMPLATE -->
+  <definition name="public.template" template="/WEB-INF/templates/public/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
+     <put-attribute name="rightbar" value="/WEB-INF/templates/public/rightbar.jsp" />
+    <put-attribute name="body" value="" />
+    <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
+  </definition>
+  
+  <definition name="public.template1" template="/WEB-INF/templates/public/template2.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
+    <put-attribute name="body" value="" />
+    <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
+  </definition>
+  
+  <definition name="public.train.index" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/index.jsp" />
+  </definition>
+  
+  <definition name="public.train.cats" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/cat-total.jsp" />
+  </definition>
+  
+  <!-- <definition name="public.train.cat" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/cat.jsp" />
+  </definition> -->
+  
+  <definition name="public.train.cat" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/cat.jsp" />
+  </definition>
+  
+  <definition name="public.train.detail" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/detail.jsp" />
+  </definition>
+  
+  <definition name="public.train.error" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/error.jsp" />
+  </definition>
+  
+ <definition name="public.order.step1" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/order-1.jsp" />
+  </definition>
+  
+  <definition name="public.order.step2" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/order-2.jsp" />
+  </definition>
+  
+  <definition name="public.order.step3" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/order-3.jsp" />
+  </definition>
+  
+  <definition name="public.contact.index" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/contact.jsp" />
+  </definition>
+  
+  <definition name="public.mycourse.index" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/mycourse.jsp" />
+  </definition>
+  
+  
+  
+  <!--AUTH TEMPLATE -->
+  <definition name="public.login" template="/WEB-INF/jsp/loginpublic/login.jsp">
+  </definition> 
+  <!--END PUBLIC TEMPLATE -->
+</tiles-definitions>
