@@ -2,47 +2,31 @@
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
     <li class="active"><a href="${pageContext.request.contextPath }/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li> <a href="${pageContext.request.contextPath }/admin/accounts"><i class="icon icon-inbox"></i> <span>Tài khoản</span></a> </li>
-    <li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Người dùng</span> <span class="label label-important">3</span></a>
+    <li><a href="${pageContext.request.contextPath }/admin/orders"><i class="icon icon-fullscreen"></i> <span>Đơn hàng</span></a></li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Người dùng</span> <!-- <span class="label label-important">3</span> --></a>
       <ul>
         <li><a href="${pageContext.request.contextPath }/admin/accounts">Tài khoản</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/qtv">Quản trị viên</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/teachers">Giảng viên</a></li>
-        <li><a href="${pageContext.request.contextPath }/admin/plhv">Phân loại học viên</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/students">Học viên</a></li>
       </ul>
     </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Quản lý khóa học</span> <span class="label label-important">3</span></a>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Quản lý khóa học</span> <!-- <span class="label label-important">3</span> --></a>
       <ul>
-        <li><a href="${pageContext.request.contextPath }/admin/levels">Level</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/subjects">Chủ đề</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/courses">Khóa học</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/pllh">Phân loại lớp học</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/class">Lớp học</a></li>
       </ul>
     </li>
-    <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Lưu trữ</span> <!-- <span class="label label-important">3</span> --></a>
       <ul>
-        <li><a href="index2.html">Dashboard2</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="invoice.html">Invoice</a></li>
-        <li><a href="chat.html">Chat option</a></li>
+        <li><a href="${pageContext.request.contextPath }/admin/courses/storage">Khóa học</a></li>
+        <li><a href="${pageContext.request.contextPath }/admin/orders/storage">Đơn hàng</a></li>
+        <li><a href="${pageContext.request.contextPath }/admin/accounts/storage">Tài khoản</a></li>
       </ul>
     </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
-      <ul>
-        <li><a href="error403.html">Error 403</a></li>
-        <li><a href="error404.html">Error 404</a></li>
-        <li><a href="error405.html">Error 405</a></li>
-        <li><a href="error500.html">Error 500</a></li>
-      </ul>
-    </li>
-    <li class="content"> <span>Monthly Bandwidth Transfer</span>
+    <!-- <li class="content"> <span>Monthly Bandwidth Transfer</span>
       <div class="progress progress-mini progress-danger active progress-striped">
         <div style="width: 77%;" class="bar"></div>
       </div>
@@ -55,7 +39,7 @@
       </div>
       <span class="percent">87%</span>
       <div class="stat">604.44 / 4000 MB</div>
-    </li>
+    </li> -->
   </ul>
 </div>
 <!--sidebar-menu-->

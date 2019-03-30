@@ -21,11 +21,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
-import model.bean.Course;
 import model.bean.Lesson;
 import model.dao.LessonDAO;
 import model.dao.LevelDAO;
 import util.FileUtil;
+import util.SlugUtil;
 
 @Controller
 @RequestMapping("admin")
@@ -33,7 +33,8 @@ public class AdminLessonController {
 
 	@Autowired
 	private Defines defines;
-	
+	@Autowired
+	private SlugUtil slugUtil;
 	@Autowired
 	private LessonDAO lessonDao;
 	
@@ -43,6 +44,7 @@ public class AdminLessonController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("slugUtil", slugUtil);
 	}
 	
 	@RequestMapping(value="/course/{kid}/cat/{cid}/lessons", method=RequestMethod.GET)

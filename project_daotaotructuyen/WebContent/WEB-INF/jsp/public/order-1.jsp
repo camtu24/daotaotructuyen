@@ -3,11 +3,11 @@ pageEncoding="UTF-8"%>
 <%@ include file = "/templates/taglib.jsp" %>
 	<div>
 		<ul class="items-order">
-		  <li class="item-order">Đăng ký tài khoản</li>
-		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #adadad;"></span>
-		  <li class="item-order" style="background-color: #adadad;">Thanh toán</li>
-		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #adadad;"></span>
-		  <li class="item-order" style="background-color: #adadad;">Hoàn thành</li>
+		  <li class="item-order">Đăng ký tài khoản
+		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #adadad;position: absolute;top: 10px;left: 378px;"></span></li>
+		  <li class="item-order" style="background-color: #adadad;">Thanh toán
+		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #adadad;position: absolute;top: 10px;left: 378px;"></span></li>
+		  <li class="item-order" style="background-color: #adadad;margin-right:0">Hoàn thành</li>
 		</ul>
 	</div>
 	
@@ -23,6 +23,7 @@ pageEncoding="UTF-8"%>
 			<div class="block-tt">
 				<label>Username (*):</label> 
 				<input type="text" name="username" placeholder="anguyen" required/>
+				<p style="color:red">${msg1 }</p>
 			</div>
 			<div class="block-tt">
 				<label>Password (*): </label>
@@ -37,6 +38,11 @@ pageEncoding="UTF-8"%>
 			<div class="block-tt">
 				<label>Số điện thoại (*):</label> 
 				<input type="text" name="sdt" placeholder="0123456789" required/>
+			</div>
+			
+			<div class="block-tt">
+				<label>Địa chỉ (*):</label> 
+				<input type="text" name="diaChi" placeholder="Điện Ngọc - Điện Bàn - Quảng Nam" required/>
 			</div>
 			<div class="bottom">	
 				<input style="margin-left: 165px;" class="button small gradient orange" type="submit" value="Đăng ký"></input>

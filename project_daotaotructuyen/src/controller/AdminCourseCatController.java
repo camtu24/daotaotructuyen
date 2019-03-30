@@ -20,13 +20,15 @@ import model.dao.LevelDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
+import util.SlugUtil;
 
 @Controller
 @RequestMapping("admin")
 public class AdminCourseCatController {
 	@Autowired
 	private Defines defines;
-	
+	@Autowired
+	private SlugUtil slugUtil;
 	@Autowired
 	private DanhMucBaiGiangDAO dmucDao;
 	
@@ -45,6 +47,7 @@ public class AdminCourseCatController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("slugUtil", slugUtil);
 	}	
 	
 	@RequestMapping(value="/course/{kid}/cats", method=RequestMethod.GET)
@@ -66,7 +69,7 @@ public class AdminCourseCatController {
 	
 	@RequestMapping(value="/course/{id}/cat/add", method=RequestMethod.GET)
 	public String add(ModelMap modelMap,@PathVariable("id") int id) {
-		modelMap.addAttribute("listL", levelDao.getItems());
+		//modelMap.addAttribute("listL", levelDao.getItems());
 		//modelMap.addAttribute("id", id);
 		return "admin.danhmuc.add";
 	}
@@ -75,14 +78,14 @@ public class AdminCourseCatController {
 	public String add(@Valid @ModelAttribute("cat") DanhMucBaiGiang cat, BindingResult br,@PathVariable("id") int id, RedirectAttributes ra,ModelMap modelMap) {
 		cat.setId_KhoaHoc(id);
 		if(br.hasErrors()) {
-			modelMap.addAttribute("listL", levelDao.getItems());
+			//modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("cat", cat);
 			return "admin.danhmuc.add";
 		}
 		
 		//kiểm tra trùng tên danh mục
 		if(dmucDao.checkItem(cat) > 0) {
-			modelMap.addAttribute("listL", levelDao.getItems());
+			//modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("cat", cat);
 			ra.addAttribute("msg1", "Trùng tên danh mục bài giảng!");
 			return "redirect:/admin/course/{id}/cat/add";
@@ -102,7 +105,7 @@ public class AdminCourseCatController {
 	public String edit(ModelMap modelMap,@PathVariable("kid") int kid,@PathVariable("cid") int cid) {
 		DanhMucBaiGiang cat = dmucDao.getItem(cid);
 		if(cat != null) {
-			modelMap.addAttribute("listL", levelDao.getItems());
+			//modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("cat", cat);
 		}else {
 			return "error404";
@@ -113,7 +116,7 @@ public class AdminCourseCatController {
 	@RequestMapping(value="/course/{kid}/cat/edit/{cid}", method=RequestMethod.POST)
 	public String edit(@Valid @ModelAttribute("cat") DanhMucBaiGiang cat, BindingResult br,RedirectAttributes ra,ModelMap modelMap,@PathVariable("kid") int kid,@PathVariable("cid") int cid) {
 		if(br.hasErrors()) {
-			modelMap.addAttribute("listL", levelDao.getItems());
+			//modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("cat", cat);
 			return "admin.danhmuc.edit";
 		}
@@ -123,7 +126,7 @@ public class AdminCourseCatController {
 		if(DMBG != null) {
 			//kiểm tra trùng tên danh mục
 			if(dmucDao.checkItem(cat) > 0) {
-				modelMap.addAttribute("listL", levelDao.getItems());
+				//modelMap.addAttribute("listL", levelDao.getItems());
 				modelMap.addAttribute("cat", cat);
 				ra.addAttribute("msg1", "Trùng tên danh mục bài giảng!");
 				return "redirect:/admin/course/{kid}/cat/edit/{cid}";

@@ -25,7 +25,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Tên khóa học (*)</label>
-		                        <input type="text" name="tenKhoaHoc" value="${course.tenKhoaHoc }" class="form-control border-input" placeholder="Nhập họ tên">
+		                        <input type="text" name="tenKhoaHoc" value="${course.tenKhoaHoc }" class="form-control border-input" placeholder="Nhập tên khóa hoc" required>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="course.tenKhoaHoc" cssStyle="color:red"></form:errors>
 		                    </div>
@@ -33,17 +33,8 @@
 		                
 		                <div class="col-md4">
 		                    <div class="form-group">
-		                        <label>Thông tin chung (*)</label>
-		                        <input type="text" name="thongTinChung" value="${course.thongTinChung }" class="form-control border-input" placeholder="Tên đăng nhập">
-		                    	<p style="color:red">${msg1 }</p>
-                            	<form:errors path="course.thongTinChung" cssStyle="color:red"></form:errors>
-		                    </div>
-		                </div>
-		                
-		                <div class="col-md4">
-		                    <div class="form-group">
 		                        <label>Chủ đề</label>
-		                        <select name="id_ChuDe" class="form-control" style="width: 100%">
+		                        <select name="id_ChuDe" class="form-control" style="width: 72%">
 	                           		<c:forEach items="${listS }" var="Subj">
 	                                   <option value="${Subj.id_ChuDe}">${Subj.tenChuDe }</option>
 	                                </c:forEach>
@@ -54,7 +45,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Học phí (*)</label>
-		                        <input type="text" name="hocPhi" value="${course.hocPhi }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" name="hocPhi" value="${course.hocPhi }" class="form-control border-input" placeholder="Nhập học phí" required>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="course.hocPhi" cssStyle="color:red"></form:errors>
 		                    </div>
@@ -79,7 +70,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Mục tiêu (*)</label>
-		                        <input type="text" name="mucTieu" value="${course.mucTieu }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                    	<textarea name="mucTieu" style="height: 90px; width:75%" placeholder="Nhập mục tiêu" required>${course.mucTieu }</textarea>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="course.mucTieu" cssStyle="color:red"></form:errors>
 		                    </div>
@@ -88,9 +79,52 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Kết quả (*)</label>
-		                        <input type="text" name="ketQua" value="${course.ketQua }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <textarea name="ketQua" style="height: 90px; width:75%" placeholder="Nhập kết quả" required>${course.ketQua }</textarea>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="course.ketQua" cssStyle="color:red"></form:errors>
+		                    </div>
+		                </div>
+		                
+		                <div class="col-md4">
+		                    <div class="form-group">
+		                        <label>Mô tả (*)</label>
+		                        <textarea name="mieuTa" style="height: 90px; width:75%" placeholder="Nhập kết quả" required>${course.mieuTa }</textarea>
+		                    	<p style="color:red">${msg1 }</p>
+                            	<form:errors path="course.mieuTa" cssStyle="color:red"></form:errors>
+		                    </div>
+		                </div>
+		                
+		                <div class="col-md4">
+		                    <div class="form-group">
+		                        <label>Đối tượng tham gia (*)</label>
+		                        <textarea name="doiTuongThamGia" style="height: 90px; width:75%" placeholder="Nhập kết quả" required>${course.doiTuongThamGia }</textarea>
+		                    	<p style="color:red">${msg1 }</p>
+                            	<form:errors path="course.doiTuongThamGia" cssStyle="color:red"></form:errors>
+		                    </div>
+		                </div>
+		                
+		                <div class="accordion" id="collapse-group">
+				          <div class="accordion-group widget-box">
+				            <div class="accordion-heading">
+				              <div class="widget-title"> <a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-plus-sign"></i></span>
+				                <h5>Thêm giảng viên</h5>
+				                </a> </div>
+				            </div>
+				            <div class="collapse accordion-body" id="collapseGTwo">
+				              <div class="widget-content">
+				              	<c:forEach items="${listGV }" var="objGV">
+				              		<input class="input-tt" type="checkbox" name="id_GiangVienT[]" value="${objGV.id_GiangVien }"/> <span class="thanhtoan"> ${objGV.hoTen}</span>
+							    </c:forEach>
+							  </div>
+				            </div>
+				          </div>
+				        </div>
+		                 
+		                <div class="col-md4" style="width: 100%;">
+		                    <div class="form-group">
+		                        <label>Thông tin chung (*)</label>
+		                        <textarea name="thongTinChung" style="height: 23px" class="ckeditor" rows="5" placeholder="Nhập thông tin" required>${course.thongTinChung }</textarea>
+                            	<form:errors path="course.thongTinChung" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
 		                

@@ -1,0 +1,175 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+a{	text-decoration: none;}
+/* Create an active/current tablink class */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+.tab button {
+ background: -webkit-gradient( linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF) );
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border-left: 1px solid #ccc;
+  padding: 10px 39px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+.tab button:hover {
+  background: #ccc;
+}
+.tab button.active {
+  background: -webkit-gradient( linear, left top, left 40, from(#FFFFFF), color-stop(5%, #ff9900), to(#FFFFFF) );
+}
+.tabcontent1 {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+
+.wrapper{
+	clear: both;
+	width: 100%;
+		height:560px;
+}
+.wrapper .tab-content{
+	width: 30%;
+	float: left;
+
+}
+
+.wrapper .style-newspaper{
+	width: 70%;
+	float: left;
+}
+
+.footer{
+    background-color: black;
+    display: inline-block;
+    width: 100%;
+    height: 65px;
+    line-height: 65px;
+    color: white;
+}
+#overflow1{
+	height: 470px;
+    overflow: auto;
+	transition: 0.3s;
+}
+#full{transition: 0.3s;}
+#overflow2{
+	height: 470px;
+    overflow: auto;
+
+}
+.header-newspaper{
+    background-color: black;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+}
+.title-couser{
+	display: inline;
+}
+.header-newspaper .goback{
+	color: #fff;
+    float: right;
+	background-color: red;
+    height: 25px;
+    width: 40px;
+    margin-top: 8px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 11px;
+}
+.header-newspaper .goback:hover{
+	background-color: #ea1b1b;
+}
+.size-medium{
+	border: 5px solid #444444;
+    padding: 20px 10px;
+}
+.course-title{
+    border: 1px solid #ccc;
+    color: bac;
+    text-align: center;
+    font-weight: 900;
+    padding: 12px 0;
+    background: -webkit-gradient( linear, left top, left 48, from(#FFFFFF), color-stop(5%, #ff9900), to(#FFFFFF) );
+}
+.content-item,.content-list{
+	width: 100%;
+}
+.content-list .active{
+   background: darkgrey;
+}
+.content-list .content-item:hover{background: #ccc}
+.content-item{
+	height: 35px;
+}
+.item-title,.item-title1{
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 0 15px;	
+}
+.item-title a{
+    color: #1f1f1e;
+}
+.item-title1 a{
+	text-decoration: none;
+    color: #000;
+	font-weight: 900;
+}
+.course-progress-bar{
+	width:33%;
+	float:left;
+}
+.course-progress-bar .current-progress{
+	width: 85%;
+    display: inline-block;
+	font-size: 20px;
+    padding-left: 40px;
+}
+.nav-content{
+	    width: 16%;
+    float: left;
+    margin: 0 20px;
+    padding: 0px 100px;
+}
+.nav-content .col-xs-6{
+	float:left;
+    margin: inherit;
+}
+.nav-content .col-xs-6 a{
+	border: 2px solid;
+    color: #fff;
+   padding: 7px 9px;
+    border-radius: 50%;
+}
+
+.course-complete{
+	width:33%;
+	float:left;
+}
+.course-complete a{
+	    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+}
+.course-complete a .qua{
+    border: 2px solid;
+    padding: 3px 11px 7px;
+    font-size: 20px;
+    border-radius: 50%;
+    color: cyan;
+}
+.nav-content .col-xs-6 a:hover,.course-complete a:hover{
+	color: #ff9900;
+}

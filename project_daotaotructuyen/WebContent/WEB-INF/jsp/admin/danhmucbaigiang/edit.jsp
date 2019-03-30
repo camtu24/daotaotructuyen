@@ -29,22 +29,11 @@
                         </div>
                         
                         <div class="form-group">
-	                        <label>Level</label>
-	                        <select name="id_Level" class="form-control" style="width: 100%">
-                           		<c:forEach items="${listL }" var="level">
-                                   <option value="${level.id_Level}">${level.level }</option>
-                                </c:forEach>
-	                        </select>
-	                    </div>
-                        
-                        <div class="form-group">
                             <label>Mô tả</label>
                             <textarea name="moTaChung" id="moTaChung" class="ckeditor" style="height: 23px" rows="3">${cat.moTaChung }</textarea>
                             <p style="color:red">${msg1 }</p>
                             <form:errors path="cat.moTaChung" cssStyle="color:red"></form:errors>       
                         </div>
-                        
-                        
                     
                         <div class="form-group">
                             <input type="submit" value="Thực hiện" class="btn btn-primary">

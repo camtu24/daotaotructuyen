@@ -7,8 +7,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import model.bean.QuanTriVien;
-import model.bean.Student;
 import model.bean.Teacher;
 
 @Repository
@@ -18,13 +16,17 @@ public class TeacherDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Teacher> getItems(){
-		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 ORDER BY id_giangvien DESC";
+		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 && enable=1 ORDER BY id_giangvien DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 	}
 
-	public int checkItem(Teacher teacher) {
-		String sql = "SELECT COUNT(*) AS countItem FROM giangvien WHERE username=? && id_giangvien != ?";
-		return jdbcTemplate.queryForObject(sql, new Object[] {teacher.getUsername(), teacher.getId_GiangVien()},Integer.class);
+	public Teacher checkItem(Teacher teacher) {
+		try {
+			String sql = "SELECT id_qtv,username FROM quantrivien AS q WHERE q.username = ? UNION SELECT id_giangvien,username FROM giangvien AS g WHERE g.username = ? UNION SELECT id_hocvien,username FROM hocvien AS h WHERE h.username = ?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {teacher.getUsername(),teacher.getUsername(),teacher.getUsername()}, new BeanPropertyRowMapper<Teacher>(Teacher.class));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public int addItem(Teacher teacher) {
@@ -74,6 +76,20 @@ public class TeacherDAO {
 		try {
 			String sql = "SELECT * FROM giangvien AS g INNER JOIN danhsachhocvien AS d ON g.id_giangvien=d.id_giangvien WHERE storage = 1 && g.id_giangvien = ? && id_khoahoc = ? ORDER BY g.id_giangvien DESC";
 			return jdbcTemplate.queryForObject(sql, new Object[] {id,kid}, new BeanPropertyRowMapper<>( Teacher.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<Teacher> getItemsStor() {
+		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=0";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
+	}
+
+	public Teacher getItemLG(String username) {
+		try {
+			String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE username=?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {username}, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 		} catch (Exception e) {
 			return null;
 		}

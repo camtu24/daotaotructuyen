@@ -15,7 +15,7 @@
               <h1>404</h1>
               <h3>Opps, You're lost.</h3>
               <p>We can not find the page you're looking for.</p>
-              <a class="btn btn-warning btn-big"  href="${pageContext.request.contextPath }/admincp">Back to Home</a> </div>
+              <a class="btn btn-warning btn-big"  href="javascript:history.go(-1)">Go back</a> </div>
           </div>
         </div>
       </div>

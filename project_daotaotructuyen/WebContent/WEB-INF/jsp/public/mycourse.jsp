@@ -16,8 +16,9 @@
            	</c:if>
           <ul class="clear">
           	<c:forEach items="${listMyCourse }" var="objMC">
+          		<c:set value = "${pageContext.request.contextPath}/mycourse/${slugUtil.makeSlug(objMC.tenKhoaHoc)}-${objMC.id_KhoaHoc}" var="learnUrl"></c:set>
           		<li class="one_half">
-					<a href="#">
+					<a href="${learnUrl}">
 						<c:if test="${not empty objMC.hinhAnh }">
                            <img src="${pageContext.request.contextPath}/files/${objMC.hinhAnh}" alt="${objMC.hinhAnh}"/>
                        	</c:if>
@@ -29,8 +30,9 @@
 						<p>${objMC.tenKhoaHoc }</p>
 					</div>
 					
+					
 					<div class="batdau">
-						<a href="${pageContext.request.contextPath}/mycourse/${objMC.id_KhoaHoc}" class="button small gradient black">START COURSE</a>
+						<a href="${learnUrl}" class="button small gradient black">START COURSE</a>
 					</div>
 				</li>
           	</c:forEach>
@@ -41,7 +43,7 @@
 					<p>This is a W3C standards compliant free responsive</p>
 				</div>
 				<div class="batdau">
-					<a href="#" class="button small gradient orange">START COURSE</a>
+					<a href="${pageContext.request.contextPath}/mycourse/" class="button small gradient orange">START COURSE</a>
 				</div>
 			</li>
             

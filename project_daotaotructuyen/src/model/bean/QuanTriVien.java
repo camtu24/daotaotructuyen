@@ -6,6 +6,7 @@ public class QuanTriVien {
 	private String hoTen;
 	private String email;
 	private int sdt;
+	private String diaChi;
 	private String username;
 	private String password;
 	private String hinhAnh;
@@ -16,13 +17,14 @@ public class QuanTriVien {
 		super();
 	}
 	
-	public QuanTriVien(int id_Qtv, String hoTen, String email, int sdt, String username, String password,
+	public QuanTriVien(int id_Qtv, String hoTen, String email, int sdt, String diaChi, String username, String password,
 			String hinhAnh, int enable, int id_Role, String name) {
 		super();
 		this.id_Qtv = id_Qtv;
 		this.hoTen = hoTen;
 		this.email = email;
 		this.sdt = sdt;
+		this.diaChi = diaChi;
 		this.username = username;
 		this.password = password;
 		this.hinhAnh = hinhAnh;
@@ -30,7 +32,7 @@ public class QuanTriVien {
 		this.id_Role = id_Role;
 		this.name = name;
 	}
-
+	
 	public int getId_Qtv() {
 		return id_Qtv;
 	}
@@ -46,6 +48,7 @@ public class QuanTriVien {
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -93,6 +96,14 @@ public class QuanTriVien {
 
 	public void setHinhAnh(String hinhAnh) {
 		this.hinhAnh = hinhAnh;
+	}
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
 	
 }

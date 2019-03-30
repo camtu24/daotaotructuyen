@@ -16,6 +16,7 @@
 <![endif]-->
 <!-- Slider -->
 <link href="${defines.urlPublic }/css/responsiveslides.css" rel="stylesheet" type="text/css" media="all">
+<script src="https://www.paypal.com/sdk/js?client-id=AXQEEMs8T-54WgCddK4fDVct5_XEH57YTvUCmu90maYznMwWScQfnLyxrFUitO0M7j9aMepdLtA5sxCa"></script>
 </head>
 <body class="">
 <div class="wrapper row1">

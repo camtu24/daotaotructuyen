@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Account;
@@ -43,10 +45,10 @@ public class PublicTrainController {
 	private TtdkDAO ttdkDao;
 	@Autowired
 	private StudentDAO stuDao;
-	
-	
 	@Autowired
 	private SlugUtil slugUtil;
+	@Autowired
+	private BCryptPasswordEncoder passwordE;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -84,7 +86,7 @@ public class PublicTrainController {
 	
 	@RequestMapping(value="{nameChuDe}/{nameKH}-{kid}", method=RequestMethod.GET)
 	public String detail(@PathVariable("kid") int kid,ModelMap modelMap){
-		Course course = courDao.getItem(kid);
+		Course course = courDao.getItemDPH(kid);
 		if(course == null) {
 			return "public.train.error";
 		}else {
@@ -96,25 +98,32 @@ public class PublicTrainController {
 	
 	@RequestMapping(value="{nameKH}-{kid}/dangky/step1", method=RequestMethod.GET)
 	public String dangKy(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session){
-		Account acc = (Account) session.getAttribute("userInfo");
-		Course course = courDao.getItem(kid);
+		Account acc = (Account) session.getAttribute("account");
+		Course course = courDao.getItemDPH(kid);
 		int count = lessDao.getItemsCount(kid);
 		modelMap.addAttribute(kid);
 		modelMap.addAttribute("nameKH", nameKH);
 		modelMap.addAttribute("course", course);
 		modelMap.addAttribute("count", count);
 		if(acc != null) {
-			
 			return "public.order.step2";
 		}
 		return "public.order.step1";
 	}
 	
 	@RequestMapping(value="{nameKH}-{kid}/dangky/step2", method=RequestMethod.POST)
-	public String thanhToan(@ModelAttribute("TTDK") ThongTinDangKy TTDK,@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session){
-		session.setAttribute("TTDK", TTDK);
-
-		Course course = courDao.getItem(kid);
+	public String thanhToan(@ModelAttribute("TTDK") ThongTinDangKy TTDK,@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session,RedirectAttributes ra){
+		if(stuDao.checkItem1(TTDK) != null) {
+			modelMap.addAttribute("TTDK",TTDK);
+			ra.addFlashAttribute("msg1", "Trùng tên đăng nhập! Vui lòng nhập lại!");
+			return "redirect:/{nameKH}-{kid}/dangky/step1";
+		}else {
+			String password = passwordE.encode(TTDK.getPassword());
+			TTDK.setPassword(password);
+			session.setAttribute("TTDK", TTDK);
+		}
+		
+		Course course = courDao.getItemDPH(kid);
 		int count = lessDao.getItemsCount(kid);
 		modelMap.addAttribute(kid);
 		modelMap.addAttribute("nameKH", nameKH);
@@ -127,17 +136,27 @@ public class PublicTrainController {
 	public String thanhToanHT(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session, @RequestParam("id_ThanhToan") int id_ThanhToan, HttpServletRequest request) throws UnsupportedEncodingException{
 		request.setCharacterEncoding("UTF-8");
 		ThongTinDangKy TTDK = (ThongTinDangKy) session.getAttribute("TTDK");
-		if(ttdkDao.addItem(TTDK,id_ThanhToan) > 0) {
-			if(stuDao.addItemHVT(TTDK) > 0) {
+		if(ttdkDao.addItem(TTDK,kid,id_ThanhToan) > 0) {
+			Account acc = (Account) session.getAttribute("account");
+			if(acc == null) {
+				if(stuDao.addItemHVT(TTDK) > 0) {
+					session.removeAttribute(TTDK.getHoTen());
+					session.removeAttribute(TTDK.getEmail());
+					session.removeAttribute(TTDK.getPassword());
+					session.removeAttribute(TTDK.getUsername());
+					//session.removeAttribute(TTDK.getSdt());
+					System.out.println("thanhcong");
+				}else {
+					return "public.train.error";
+				}
+			}else {
 				session.removeAttribute(TTDK.getHoTen());
 				session.removeAttribute(TTDK.getEmail());
 				session.removeAttribute(TTDK.getPassword());
 				session.removeAttribute(TTDK.getUsername());
 				//session.removeAttribute(TTDK.getSdt());
-				System.out.println("thanhcong");
-			}else {
-				return "public.train.error";
 			}
+			
 		}else {
 			return "public.train.error";
 		}

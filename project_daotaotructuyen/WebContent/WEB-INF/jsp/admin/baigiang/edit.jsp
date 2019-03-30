@@ -29,24 +29,6 @@
                         </div>
                         
                         <div class="form-group">
-	                        <label>Level</label>
-	                        <select name="id_Level" class="form-control" style="width: 100%">
-	                        <c:set var="id_level" value="${lesson.id_Level }"></c:set>
-                           		<c:forEach items="${listL }" var="level">
-                           			<c:choose>
-	                           			<c:when test="${level.id_Level == id_level}">
-	                           				<c:set var="selected" value="selected = 'selected'"></c:set>
-		                           		</c:when>
-		                           		<c:otherwise>
-		                           			<c:set var="selected" value=""></c:set>
-		                           		</c:otherwise>
-	                           		</c:choose>
-                                   <option ${selected } value="${level.id_Level}">${level.level }</option>
-                                </c:forEach>
-	                        </select>
-	                    </div>
-                        
-                        <div class="form-group">
                             <label>Mô tả</label>
                             <textarea name="moTa" style="height: 23px" rows="3">${lesson.moTa }</textarea>
                         </div>

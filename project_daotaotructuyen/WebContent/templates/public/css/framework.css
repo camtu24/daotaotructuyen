@@ -394,10 +394,12 @@ a.reply:hover{
 	padding: 0;
 }
 .item-order{
+	position: relative;
 	display: inline-block;
     background-color: #ff9900;
     width: 31%;
     text-align: center;
+    margin-right: 38px;
     height: 50px;
     line-height: 50px;
     color: #fff;
@@ -415,7 +417,7 @@ a.reply:hover{
     display: inline-block;
     width: 28%;
     border: 1px solid black;
-    padding-left: 10px;
+    padding: 10px;
     font-size: 15px;
     background-color: darkslategrey;
     color: white;

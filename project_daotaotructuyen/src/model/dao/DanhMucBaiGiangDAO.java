@@ -16,7 +16,7 @@ public class DanhMucBaiGiangDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<DanhMucBaiGiang> getItemsByID(int id){
-		String sql = "SELECT id_dmb,tendanhmuc,motachung,id_khoahoc,ngaytao,nguoitao,id_level,storage FROM danhmucbaigiang WHERE id_khoahoc = ? && storage=1";
+		String sql = "SELECT id_dmb,tendanhmuc,motachung,id_khoahoc,ngaytao,nguoitao,storage FROM danhmucbaigiang WHERE id_khoahoc = ? && storage=1";
 		return jdbcTemplate.query(sql, new Object[] {id}, new BeanPropertyRowMapper<DanhMucBaiGiang>(DanhMucBaiGiang.class));
 		
 	}
@@ -27,8 +27,8 @@ public class DanhMucBaiGiangDAO {
 	}
 
 	public int addItem(DanhMucBaiGiang cat) {
-		String sql = "INSERT INTO danhmucbaigiang(tendanhmuc,motachung,id_khoahoc,nguoitao,id_level,storage) VALUES(?,?,?,?,?,1)";
-		return jdbcTemplate.update(sql, new Object[] {cat.getTenDanhMuc(),cat.getMoTaChung(),cat.getId_KhoaHoc(),cat.getNguoiTao(),cat.getId_Level()});
+		String sql = "INSERT INTO danhmucbaigiang(tendanhmuc,motachung,id_khoahoc,nguoitao,storage) VALUES(?,?,?,?,1)";
+		return jdbcTemplate.update(sql, new Object[] {cat.getTenDanhMuc(),cat.getMoTaChung(),cat.getId_KhoaHoc(),cat.getNguoiTao()});
 	}
 
 	public int storageItemByIDKH(int id) {
@@ -39,7 +39,7 @@ public class DanhMucBaiGiangDAO {
 
 	public DanhMucBaiGiang getItem(int cid) {
 		try {
-			String sql = "SELECT id_dmb,tendanhmuc,motachung,id_khoahoc,ngaytao,nguoitao,id_level,storage FROM danhmucbaigiang WHERE id_dmb=?";
+			String sql = "SELECT id_dmb,tendanhmuc,motachung,id_khoahoc,ngaytao,nguoitao,storage FROM danhmucbaigiang WHERE id_dmb=?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {cid},new BeanPropertyRowMapper<DanhMucBaiGiang>(DanhMucBaiGiang.class));
 		} catch (Exception e) {
 			return null;
@@ -47,8 +47,8 @@ public class DanhMucBaiGiangDAO {
 	}
 
 	public int editItem(DanhMucBaiGiang cat) {
-		String sql = "UPDATE danhmucbaigiang SET tendanhmuc=?,motachung=?,id_level=? WHERE id_dmb=?";
-		return jdbcTemplate.update(sql, new Object[] {cat.getTenDanhMuc(),cat.getMoTaChung(),cat.getId_Level(),cat.getId_Dmb()});
+		String sql = "UPDATE danhmucbaigiang SET tendanhmuc=?,motachung=? WHERE id_dmb=?";
+		return jdbcTemplate.update(sql, new Object[] {cat.getTenDanhMuc(),cat.getMoTaChung(),cat.getId_Dmb()});
 	}
 
 	public int storageItemByIDDM(int cid) {

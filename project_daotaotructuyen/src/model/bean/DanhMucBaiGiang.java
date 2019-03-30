@@ -14,12 +14,11 @@ public class DanhMucBaiGiang {
 	private int id_KhoaHoc;
 	private Timestamp ngayTao;
 	private String nguoiTao;
-	private int id_Level;
 	public DanhMucBaiGiang() {
 		super();
 	}
 	public DanhMucBaiGiang(int id_Dmb, String tenDanhMuc, String moTaChung, int id_KhoaHoc, Timestamp ngayTao,
-			String nguoiTao, int id_Level) {
+			String nguoiTao) {
 		super();
 		this.id_Dmb = id_Dmb;
 		this.tenDanhMuc = tenDanhMuc;
@@ -27,7 +26,6 @@ public class DanhMucBaiGiang {
 		this.id_KhoaHoc = id_KhoaHoc;
 		this.ngayTao = ngayTao;
 		this.nguoiTao = nguoiTao;
-		this.id_Level = id_Level;
 	}
 	public int getId_Dmb() {
 		return id_Dmb;
@@ -64,12 +62,6 @@ public class DanhMucBaiGiang {
 	}
 	public void setNguoiTao(String nguoiTao) {
 		this.nguoiTao = nguoiTao;
-	}
-	public int getId_Level() {
-		return id_Level;
-	}
-	public void setId_Level(int id_Level) {
-		this.id_Level = id_Level;
 	}
 	
 }

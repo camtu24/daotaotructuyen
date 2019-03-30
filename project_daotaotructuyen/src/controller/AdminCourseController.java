@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Course;
+import model.bean.QuanTriVien;
 import model.dao.ChuDeDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
@@ -27,6 +28,7 @@ import model.dao.DshvDAO;
 import model.dao.LessonDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
+import model.dao.TeacherAddDAO;
 import model.dao.TeacherDAO;
 import util.FileUtil;
 
@@ -56,6 +58,8 @@ public class AdminCourseController {
 	private TeacherDAO teaDao;
 	@Autowired
 	private QtvDAO qtvDao;
+	@Autowired
+	private TeacherAddDAO taDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -72,11 +76,12 @@ public class AdminCourseController {
 	@RequestMapping(value="/course/add", method=RequestMethod.GET)
 	public String add(ModelMap modelMap) {
 		modelMap.addAttribute("listS", chuDeDao.getItems());
+		modelMap.addAttribute("listGV", teaDao.getItems());
 		return "admin.course.add";
 	}
 	
 	@RequestMapping(value="/course/add", method=RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("course") Course course, BindingResult br, RedirectAttributes ra, @RequestParam("hinhAnh") CommonsMultipartFile cmf,@RequestParam("video") CommonsMultipartFile cmf1,ModelMap modelMap, HttpServletRequest request) {
+	public String add(@Valid @ModelAttribute("course") Course course, BindingResult br, RedirectAttributes ra, @RequestParam("hinhAnh") CommonsMultipartFile cmf,@RequestParam("video") CommonsMultipartFile cmf1,@RequestParam(value="id_GiangVienT[]", required=false) Integer[] gv,ModelMap modelMap, HttpServletRequest request) {
 		/*if(br.hasErrors()) {
 			modelMap.addAttribute("listS", chuDeDao.getItems());
 			modelMap.addAttribute("course",course);
@@ -125,11 +130,25 @@ public class AdminCourseController {
 				e.printStackTrace();
 			}
 		}
+		//Course item = null;
 		if(courDao.addItem(course) > 0) {
+			System.out.println("idKH1");
+			Course item = courDao.getItemNew(course.getDoiTuongThamGia());
+			System.out.println("idKH"+item.getId_KhoaHoc());
+			//thêm giảng viên
+			if(gv != null && item != null) {
+				for (Integer id : gv) {
+					if(taDao.addItem(item.getId_KhoaHoc(), id) > 0) {
+						System.out.println("thành công");
+					}
+				}
+			}
 			ra.addAttribute("msg", Defines.SUCCESS);
+			
 		}else {
 			ra.addAttribute("msg", Defines.ERROR);
 		}
+		
 		return "redirect:/admin/courses";
 	}
 	
@@ -138,6 +157,8 @@ public class AdminCourseController {
 		Course course = courDao.getItem(id);
 		if(course != null) {
 			modelMap.addAttribute("listS", chuDeDao.getItems());
+			modelMap.addAttribute("listGV", teaDao.getItems());
+			modelMap.addAttribute("listGVT", taDao.getItemsByIDKH(id));
 			modelMap.addAttribute("course", course);
 		}else {
 			return "error404";
@@ -147,7 +168,6 @@ public class AdminCourseController {
 	
 	@RequestMapping(value="/course/edit/{id}", method=RequestMethod.POST)
 	public String edit(@Valid @ModelAttribute("course") Course course,BindingResult br,@RequestParam("hinhAnh") CommonsMultipartFile cmf,@RequestParam("video") CommonsMultipartFile cmf1, RedirectAttributes ra,@PathVariable("id") int id,ModelMap modelMap,HttpServletRequest request) {
-		//Course course = courDao.getItem(id);
 		/*if(br.hasErrors()) {
 		modelMap.addAttribute("listS", chuDeDao.getItems());
 		modelMap.addAttribute("course",course);
@@ -223,7 +243,7 @@ public class AdminCourseController {
 
 	//xóa --> lưu trữ
 	@RequestMapping(value="/course/storage/{id}", method=RequestMethod.GET)
-	public String del(@PathVariable("id") int id,ModelMap modelMap, RedirectAttributes ra) {
+	public String storageItem(@PathVariable("id") int id,ModelMap modelMap, RedirectAttributes ra) {
 		Course course = courDao.getItem(id);
 		//lưu trư khoa hoc
 		if(course != null) {
@@ -240,6 +260,24 @@ public class AdminCourseController {
 			return "error404";
 		}
 		return "redirect:/admin/courses";
+	}
+	
+	//mục lưu trữ
+	@RequestMapping(value="/courses/storage", method=RequestMethod.GET)
+	public String storage(ModelMap modelMap, RedirectAttributes ra) {
+		modelMap.addAttribute("listC", courDao.getItemsStor());
+		return "admin.course.storage";
+	}
+	
+	@RequestMapping(value="/courses/storage/view/{kid}", method=RequestMethod.GET)
+	public String view(@PathVariable("kid") int kid,ModelMap modelMap, RedirectAttributes ra) {
+		Course course = courDao.getItem(kid);
+		if(course != null) {
+			modelMap.addAttribute("course", course);
+		}else {
+			return "error404";
+		}
+		return "admin.course.view";
 	}
 	
 	// danh sach hoc vien

@@ -38,36 +38,29 @@
               </thead>
               <tbody>
               	<c:forEach items="${listQtv }" var="objQ">
-              	
-              		<c:choose>
-              			<c:when test="${not empty listQtv}">
-			                <tr class="gradeX">
-			                  <td style="text-align: center;">${objQ.id_Qtv }</td>
-			                  <td>${objQ.hoTen }</td>
-			                  <td>${objQ.username }</td>
-			                  <td>${objQ.sdt }</td>
-			                  <td>${objQ.email }</td>
-			                  <td style="text-align: center" class="change-${objQ.id_Qtv }">
-			                    <a href= "javascript:void(0)" onclick="return changeEnable(${objQ.id_Qtv },${objQ.enable })">
-				                    <c:if test="${objQ.enable == 1 }">
-			                       		<img src="${defines.urlAdmin}/img/active.png" width="20px"/>
-			                       	</c:if>
-			                       	<c:if test="${objQ.enable != 1 }">
-			                       		<img src="${defines.urlAdmin}/img/disactive.png" width="20px"/>
-			                       	</c:if>
-		                       	</a>
-			                  </td>
-			                  <td width="15%" style="text-align: center;">
-			                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
-			                      <a href="${pageContext.request.contextPath }/admin/qtv/edit/${objQ.id_Qtv}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
-			                      <a href="${pageContext.request.contextPath }/admin/qtv/storage/${objQ.id_Qtv}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Storage</a>
-			                  </td>
-			                </tr>
-	                	</c:when>
-	                	<c:otherwise><tr> <td colspan="2">Chưa có dữ liệu!</td> </tr></c:otherwise>
-	                </c:choose>
+	                <tr class="gradeX">
+	                  <td style="text-align: center;">${objQ.id_Qtv }</td>
+	                  <td>${objQ.hoTen }</td>
+	                  <td>${objQ.username }</td>
+	                  <td>${objQ.sdt }</td>
+	                  <td>${objQ.email }</td>
+	                  <td style="text-align: center" class="change-${objQ.id_Qtv }">
+	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objQ.id_Qtv },${objQ.enable })">
+		                    <c:if test="${objQ.enable == 1 }">
+	                       		<img src="${defines.urlAdmin}/img/active.png" width="20px"/>
+	                       	</c:if>
+	                       	<c:if test="${objQ.enable != 1 }">
+	                       		<img src="${defines.urlAdmin}/img/disactive.png" width="20px"/>
+	                       	</c:if>
+                       	</a>
+	                  </td>
+	                  <td width="15%" style="text-align: center;">
+	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
+	                      <a href="${pageContext.request.contextPath }/admin/qtv/edit/${objQ.id_Qtv}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
+	                      <a href="${pageContext.request.contextPath }/admin/qtv/storage/${objQ.id_Qtv}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Storage</a>
+	                  </td>
+	                </tr>
                 </c:forEach>
-                
               </tbody>
             </table>
           </div>

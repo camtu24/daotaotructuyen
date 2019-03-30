@@ -32,7 +32,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Tên đăng nhập (*)</label>
-		                        <input type="text" name="username" value="${teacher.username }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" name="username" value="${teacher.username }" class="form-control border-input" disabled="disabled" placeholder="Tên đăng nhập">
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="teacher.username" cssStyle="color:red"></form:errors>
 		                    </div>

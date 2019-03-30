@@ -24,7 +24,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Họ tên (*)</label>
-		                        <input type="text" name="hoTen" value="${qtv.hoTen }" class="form-control border-input" placeholder="Nhập họ tên">
+		                        <input type="text" name="hoTen" value="${qtv.hoTen }" class="form-control border-input" placeholder="Nhập họ tên" required>
                             	<form:errors path="qtv.hoTen" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -32,7 +32,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Tên đăng nhập (*)</label>
-		                        <input type="text" name="username" value="${qtv.username }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" name="username" value="${qtv.username }" class="form-control border-input" placeholder="Tên đăng nhập" disabled="disabled">
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="qtv.username" cssStyle="color:red"></form:errors>
 		                    </div>
@@ -41,7 +41,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Mật khẩu (*)</label>
-		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Tên đăng nhập" required>
                             	<form:errors path="qtv.password" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -49,15 +49,23 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Số điện thoại (*)</label>
-		                        <input type="text" name="sdt" value="${qtv.sdt }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" name="sdt" value="${qtv.sdt }" class="form-control border-input" placeholder="Tên đăng nhập" required>
                             	<form:errors path="qtv.sdt" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
                         
                         <div class="col-md4">
 		                    <div class="form-group">
+		                        <label>Địa chỉ (*)</label>
+		                        <input type="text" name="sdt" value="${qtv.diaChi }" class="form-control border-input" placeholder="Tên đăng nhập" required>
+                            	<form:errors path="qtv.diaChi" cssStyle="color:red"></form:errors>
+		                    </div>
+		                </div>
+                        
+                        <div class="col-md4">
+		                    <div class="form-group">
 		                        <label>Email (*)</label>
-		                        <input type="email" name="email" value="${qtv.email }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="email" name="email" value="${qtv.email }" class="form-control border-input" placeholder="Tên đăng nhập" required>
                             	<form:errors path="qtv.email" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>

@@ -26,9 +26,13 @@ public class StudentDAO {
 		return jdbcTemplate.query(sql,new Object[] {idPlhv}, new BeanPropertyRowMapper<Student>(Student.class));
 	}
 
-	public int checkItem(Student student) {
-		String sql = "SELECT COUNT(*) AS countItem FROM hocvien WHERE username=? && id_hocvien != ?";
-		return jdbcTemplate.queryForObject(sql, new Object[] {student.getUsername(), student.getId_HocVien()},Integer.class);
+	public Student checkItem(Student student) {
+		try {
+			String sql = "SELECT id_qtv,username FROM quantrivien AS q WHERE q.username = ? UNION SELECT id_giangvien,username FROM giangvien AS g WHERE g.username = ? UNION SELECT id_hocvien,username FROM hocvien AS h WHERE h.username = ?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {student.getUsername(),student.getUsername(),student.getUsername()}, new BeanPropertyRowMapper<Student>(Student.class));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public int addItem(Student student) {
@@ -79,7 +83,31 @@ public class StudentDAO {
 	}
 
 	public int addItemHVT(ThongTinDangKy tTDK) {
-		String sql = "INSERT INTO hocvien(hoten,email,SDT,id_plhv,username,password,enable,id_role,storage) VALUES(?,?,?,2,?,?,1,3,1)";
-		return jdbcTemplate.update(sql, new Object[] {tTDK.getHoTen(),tTDK.getEmail(),tTDK.getSdt(),tTDK.getUsername(),tTDK.getPassword()});
+		String sql = "INSERT INTO hocvien(hoten,email,SDT,diachi,id_plhv,username,password,enable,id_role,storage,ghidanh) VALUES(?,?,?,?,2,?,?,1,3,1,0)";
+		return jdbcTemplate.update(sql, new Object[] {tTDK.getHoTen(),tTDK.getEmail(),tTDK.getSdt(),tTDK.getDiaChi(),tTDK.getUsername(),tTDK.getPassword()});
+	}
+
+	public List<Student> getItemsStor() {
+		String sql = "SELECT id_hocvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdohocvan,motathem,id_plhv,username,password,enable,id_role,storage FROM hocvien WHERE storage=0";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Student>(Student.class));
+	}
+
+	public ThongTinDangKy checkItem1(ThongTinDangKy tTDK) {
+		try {
+			String sql = "SELECT id_qtv,username FROM quantrivien AS q WHERE q.username = ? UNION SELECT id_giangvien,username FROM giangvien AS g WHERE g.username = ? UNION SELECT id_hocvien,username FROM hocvien AS h WHERE h.username = ?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {tTDK.getUsername(),tTDK.getUsername(),tTDK.getUsername()}, new BeanPropertyRowMapper<ThongTinDangKy>(ThongTinDangKy.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	//đăng nhập
+	public Student getItemLG(String username) {
+		try {
+			String sql = "SELECT id_hocvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdohocvan,motathem,id_plhv,username,password,enable,id_role,storage FROM hocvien WHERE username=?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {username}, new BeanPropertyRowMapper<Student>(Student.class));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

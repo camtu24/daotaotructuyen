@@ -41,7 +41,7 @@
 	                <tr class="gradeX">
 	                  <td style="text-align: center;">${objBG.id_BaiHoc}</td>
 	                  <td width="15%">${objBG.tenBaiHoc}</td>
-	                  <td>${objBG.moTa}</td>
+	                  <td>${slugUtil.substringWord(objBG.moTa,150)}</td>
 	                  <td style="text-align: center;">
 	                  	<fmt:formatDate value="${objBG.ngayTao}" pattern="dd/MM/yyyy"/>
                       </td>

@@ -3,11 +3,11 @@
 <%@ include file="/templates/taglib.jsp" %> 
 	<div>
 		<ul class="items-order">
-		  <li class="item-order">Thông tin</li>
-		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #ff9900;"></span>
-		  <li class="item-order">Thanh toán</li>
-		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #ff9900;"></span>
-		  <li class="item-order">Hoàn thành</li>
+		  <li class="item-order">Đăng ký tài khoản
+		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #ff9900;position: absolute;top: 10px;left: 378px;"></span></li>
+		  <li class="item-order">Thanh toán
+		  <span class="icon-chevron-right icon-large" style=" font-size: 20px; color: #ff9900;position: absolute;top: 10px;left: 378px;"></span></li>
+		  <li class="item-order" style="margin-right:0">Hoàn thành</li>
 		</ul>
 	</div>
 	<div class="dangkytc">

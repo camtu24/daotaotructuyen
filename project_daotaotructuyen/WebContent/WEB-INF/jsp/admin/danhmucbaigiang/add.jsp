@@ -23,29 +23,18 @@
                         <input type="hidden" name="_token" value="m539dWkPFPEJAeF2eToltGS7PJ8G2tMDWdAbRFwf">
                         <div class="form-group">
                             <label>Tên danh mục bài giảng</label>
-                            <input class="form-control" name="tenDanhMuc" value="${cat.tenDanhMuc }" style="height: 23px"> 
+                            <input class="form-control" name="tenDanhMuc" value="${cat.tenDanhMuc }" style="height: 23px" required> 
                             <p style="color:red">${msg1 }</p>
                             <form:errors path="cat.tenDanhMuc" cssStyle="color:red"></form:errors>       
                         </div>
                         
                         <div class="form-group">
-	                        <label>Level</label>
-	                        <select name="id_Level" class="form-control" style="width: 100%">
-                           		<c:forEach items="${listL }" var="level">
-                                   <option value="${level.id_Level}">${level.level }</option>
-                                </c:forEach>
-	                        </select>
-	                    </div>
-                        
-                        <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea name="moTaChung" id="moTaChung" class="ckeditor" style="height: 23px" rows="3">${cat.moTaChung }</textarea>
+                            <textarea name="moTaChung" id="moTaChung" class="ckeditor" style="height: 23px" rows="3" required>${cat.moTaChung }</textarea>
                             <p style="color:red">${msg1 }</p>
                             <form:errors path="cat.moTaChung" cssStyle="color:red"></form:errors>       
                         </div>
                         
-                        
-                    
                         <div class="form-group">
                             <input type="submit" value="Thêm" class="btn btn-primary">
                         </div> 

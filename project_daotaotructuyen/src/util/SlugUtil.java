@@ -16,4 +16,19 @@ public class SlugUtil {
     String slug = NONLATIN.matcher(normalized).replaceAll("");  
     return slug.toLowerCase(Locale.ENGLISH);  
   }  
+  
+//substringWord
+ public static String substringWord(String str, int position) {
+     String strNew = "";
+     if (str.length() <= position) {
+         strNew = str;
+     } else {
+         strNew = str.substring(0, position);
+         if (!str.substring(position, position + 1).equals(" ") || !str.substring(position, position).equals(" ")) {
+             int lastSpaceIndex = strNew.lastIndexOf(" ");
+             strNew = strNew.substring(0, lastSpaceIndex).concat("...");
+         }
+     }
+     return strNew;
+ }
 } 

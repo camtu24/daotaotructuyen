@@ -29,15 +29,6 @@
                         </div>
                         
                         <div class="form-group">
-	                        <label>Level</label>
-	                        <select name="id_Level" class="form-control" style="width: 100%">
-                           		<c:forEach items="${listL }" var="level">
-                                   <option value="${level.id_Level}">${level.level }</option>
-                                </c:forEach>
-	                        </select>
-	                    </div>
-                        
-                        <div class="form-group">
                             <label>Mô tả</label>
                             <textarea name="moTa" style="height: 23px" rows="3">${lesson.moTa }</textarea>
                         </div>

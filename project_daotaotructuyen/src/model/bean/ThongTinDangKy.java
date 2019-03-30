@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.sql.Timestamp;
+
 public class ThongTinDangKy {
 
 	private int id_Ttdk;
@@ -8,12 +10,17 @@ public class ThongTinDangKy {
 	private String password;
 	private String email;
 	private int sdt;
+	private String diaChi;
+	private int id_KhoaHoc;
+	private Timestamp ngayDangKy;
 	private int id_ThanhToan;
+	private int tinhTrang;
 	public ThongTinDangKy() {
 		super();
 	}
+	
 	public ThongTinDangKy(int id_Ttdk, String hoTen, String username, String password, String email, int sdt,
-			int id_ThanhToan) {
+			String diaChi, int id_KhoaHoc, Timestamp ngayDangKy, int id_ThanhToan, int tinhTrang) {
 		super();
 		this.id_Ttdk = id_Ttdk;
 		this.hoTen = hoTen;
@@ -21,8 +28,13 @@ public class ThongTinDangKy {
 		this.password = password;
 		this.email = email;
 		this.sdt = sdt;
+		this.diaChi = diaChi;
+		this.id_KhoaHoc = id_KhoaHoc;
+		this.ngayDangKy = ngayDangKy;
 		this.id_ThanhToan = id_ThanhToan;
+		this.tinhTrang = tinhTrang;
 	}
+
 	public int getId_Ttdk() {
 		return id_Ttdk;
 	}
@@ -64,6 +76,38 @@ public class ThongTinDangKy {
 	}
 	public void setId_ThanhToan(int id_ThanhToan) {
 		this.id_ThanhToan = id_ThanhToan;
+	}
+
+	public int getId_KhoaHoc() {
+		return id_KhoaHoc;
+	}
+
+	public void setId_KhoaHoc(int id_KhoaHoc) {
+		this.id_KhoaHoc = id_KhoaHoc;
+	}
+
+	public Timestamp getNgayDangKy() {
+		return ngayDangKy;
+	}
+
+	public void setNgayDangKy(Timestamp ngayDangKy) {
+		this.ngayDangKy = ngayDangKy;
+	}
+
+	public int getTinhTrang() {
+		return tinhTrang;
+	}
+
+	public void setTinhTrang(int tinhTrang) {
+		this.tinhTrang = tinhTrang;
+	}
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
 	}
 	
 }

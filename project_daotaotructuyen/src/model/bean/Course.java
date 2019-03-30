@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.sql.Timestamp;
+
 public class Course {
 
 	private int id_KhoaHoc;
@@ -11,6 +13,7 @@ public class Course {
 	private String ketQua;
 	private float hocPhi;
 	private int id_GiangVien;
+	private String ngayTao;
 	private String nguoiTao;
 	private int id_ChuDe;
 	private int phatHanh;
@@ -21,8 +24,8 @@ public class Course {
 	}
 	
 	public Course(int id_KhoaHoc, String tenKhoaHoc, String thongTinChung, String hinhAnh, String video, String mucTieu,
-			String ketQua, float hocPhi, int id_GiangVien, String nguoiTao, int id_ChuDe, int phatHanh, String mieuTa,
-			String doiTuongThamGia) {
+			String ketQua, float hocPhi, int id_GiangVien, String ngayTao, String nguoiTao, int id_ChuDe,
+			int phatHanh, String mieuTa, String doiTuongThamGia) {
 		super();
 		this.id_KhoaHoc = id_KhoaHoc;
 		this.tenKhoaHoc = tenKhoaHoc;
@@ -33,6 +36,7 @@ public class Course {
 		this.ketQua = ketQua;
 		this.hocPhi = hocPhi;
 		this.id_GiangVien = id_GiangVien;
+		this.ngayTao = ngayTao;
 		this.nguoiTao = nguoiTao;
 		this.id_ChuDe = id_ChuDe;
 		this.phatHanh = phatHanh;
@@ -129,6 +133,14 @@ public class Course {
 
 	public void setDoiTuongThamGia(String doiTuongThamGia) {
 		this.doiTuongThamGia = doiTuongThamGia;
+	}
+
+	public String getNgayTao() {
+		return ngayTao;
+	}
+
+	public void setNgayTao(String ngayTao) {
+		this.ngayTao = ngayTao;
 	}
 	
 }

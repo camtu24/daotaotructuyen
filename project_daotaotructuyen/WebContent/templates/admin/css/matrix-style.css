@@ -128,8 +128,8 @@ hr{ border-top-color:#dadada;}
 }
 #user-nav > ul > li > a > .label {
 	vertical-align: middle;
-	padding: 1px 4px 1px;
-	margin: -2px 4px 0;
+	padding: 0px 4px 0px;
+    margin: -6px 4px 0;
 	display: inline-block;
 }
 #user-nav > ul ul > li > a {
@@ -171,7 +171,7 @@ hr{ border-top-color:#dadada;}
 #sidebar > ul > li > a > .label {
 	margin: 0 20px 0 0;
 	float: right;
-	padding: 3px 5px 2px;
+	padding: 0px 5px 0px;
 }
 #sidebar > ul li ul {
 	display: none;

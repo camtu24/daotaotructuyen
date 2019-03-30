@@ -49,10 +49,10 @@
               	<c:forEach items="${listDM }" var="objDM">
 	                <tr class="gradeX">
 	                  <td style="text-align: center;">${objDM.id_Dmb}</td>
-	                  <td>
+	                  <td width="18%">
 	                  <a href="${pageContext.request.contextPath }/admin/course/${objDM.id_KhoaHoc}/cat/${objDM.id_Dmb}/lessons">${objDM.tenDanhMuc}</a>
 	                  </td>
-	                  <td>${objDM.moTaChung}</td>
+	                  <td width="">${slugUtil.substringWord(objDM.moTaChung,150)}</td>
 	                  <td style="text-align: center;">
 	                  	<fmt:formatDate value="${objDM.ngayTao}" pattern="dd/MM/yyyy"/>
                       </td>

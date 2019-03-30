@@ -67,7 +67,7 @@ public class AdminTeacherController {
 		}*/
 		
 		//kiểm tra trùng tên đăng nhập học viên
-		if(teaDao.checkItem(teacher) > 0) {
+		if(teaDao.checkItem(teacher) != null) {
 			modelMap.addAttribute("student",teacher);
 			modelMap.addAttribute("listRoles", roleDao.getItems());
 			ra.addFlashAttribute("msg1", "Trùng tên đăng nhập! Vui lòng nhập lại!");

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import model.bean.Account;
 import model.bean.QuanTriVien;
-import model.bean.Student;
 
 @Repository
 public class QtvDAO {
@@ -18,23 +17,27 @@ public class QtvDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<QuanTriVien> getItems(){
-		String sql = "SELECT id_qtv,hoten,email,SDT,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=1 ORDER BY id_qtv DESC";
+		String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=1 ORDER BY id_qtv DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
 	}
 
-	public int checkItem(QuanTriVien qtv) {
-		String sql = "SELECT COUNT(id_qtv,username) AS countItem FROM quantrivien WHERE username=? && id_qtv != ? UNION SELECT COUNT(id_giangvien,username) AS countItem FROM giangvien WHERE username=? && id_giangvien != ?";
-		return jdbcTemplate.queryForObject(sql, new Object[] {qtv.getUsername(), qtv.getId_Qtv()},Integer.class);
+	public QuanTriVien checkItem(QuanTriVien qtv) {
+		try {
+			String sql = "SELECT id_qtv,username FROM quantrivien AS q WHERE q.username = ? UNION SELECT id_giangvien,username FROM giangvien AS g WHERE g.username = ? UNION SELECT id_hocvien,username FROM hocvien AS h WHERE h.username = ?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {qtv.getUsername(),qtv.getUsername(),qtv.getUsername()}, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public int addItem(QuanTriVien qtv) {
-		String sql = "INSERT INTO quantrivien(hoten,email,SDT,username,password,hinhanh,enable,id_role,storage) VALUES(?,?,?,?,?,?,1,?,1)";
-		return jdbcTemplate.update(sql, new Object[] {qtv.getHoTen(),qtv.getEmail(),qtv.getSdt(),qtv.getUsername(),qtv.getPassword(),qtv.getHinhAnh(),qtv.getId_Role()});
+		String sql = "INSERT INTO quantrivien(hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage) VALUES(?,?,?,?,?,?,1,?,1)";
+		return jdbcTemplate.update(sql, new Object[] {qtv.getHoTen(),qtv.getEmail(),qtv.getSdt(),qtv.getDiaChi(),qtv.getUsername(),qtv.getPassword(),qtv.getHinhAnh(),qtv.getId_Role()});
 	}
 
 	public QuanTriVien getItem(int id) {
 		try {
-			String sql = "SELECT id_qtv,hoten,email,SDT,username,password,hinhanh,enable,id_role FROM quantrivien WHERE id_qtv=?";
+			String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role FROM quantrivien WHERE id_qtv=?";
 			return jdbcTemplate.queryForObject(sql,new Object[] {id}, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
 		} catch (Exception e) {
 			return null;
@@ -42,8 +45,8 @@ public class QtvDAO {
 	}
 
 	public int editItem(QuanTriVien qtv) {
-		String sql = "UPDATE quantrivien SET hoten=?,email=?,SDT=?,username=?,password=?,hinhanh=?,id_role=? WHERE id_qtv=?";
-		return jdbcTemplate.update(sql, new Object[] {qtv.getHoTen(),qtv.getEmail(),qtv.getSdt(),qtv.getUsername(),qtv.getPassword(),qtv.getHinhAnh(),qtv.getId_Role(),qtv.getId_Qtv()});
+		String sql = "UPDATE quantrivien SET hoten=?,email=?,SDT=?,diachi=?,username=?,password=?,hinhanh=?,id_role=? WHERE id_qtv=?";
+		return jdbcTemplate.update(sql, new Object[] {qtv.getHoTen(),qtv.getEmail(),qtv.getSdt(),qtv.getDiaChi(),qtv.getUsername(),qtv.getPassword(),qtv.getHinhAnh(),qtv.getId_Role(),qtv.getId_Qtv()});
 	}
 
 	public int storageItem(int id) {
@@ -69,7 +72,7 @@ public class QtvDAO {
 	}*/
 
 	public List<QuanTriVien> getItemsCGD(){
-		String sql = "SELECT id_qtv,hoten,email,SDT,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=1 ORDER BY id_qtv DESC";
+		String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=1 ORDER BY id_qtv DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
 	}
 
@@ -80,8 +83,23 @@ public class QtvDAO {
 
 	public QuanTriVien getItemDGD(Integer id, int kid) {
 		try {
-			String sql = "SELECT q.id_qtv,hoten,email,SDT,username,password,hinhanh,enable,id_role,storage FROM quantrivien AS q INNER JOIN danhsachhocvien AS d ON q.id_qtv=d.id_qtv WHERE storage = 1 && q.id_qtv=? && id_khoahoc = ? ORDER BY q.id_qtv DESC";
+			String sql = "SELECT q.id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage FROM quantrivien AS q INNER JOIN danhsachhocvien AS d ON q.id_qtv=d.id_qtv WHERE storage = 1 && q.id_qtv=? && id_khoahoc = ? ORDER BY q.id_qtv DESC";
 			return jdbcTemplate.queryForObject(sql, new Object[] {id,kid}, new BeanPropertyRowMapper<>( QuanTriVien.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<QuanTriVien> getItemsStor() {
+		String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=0";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
+	}
+
+	//đang nhập
+	public QuanTriVien getItemLG(String username) {
+		try {
+			String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role FROM quantrivien WHERE username=?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {username}, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
 		} catch (Exception e) {
 			return null;
 		}

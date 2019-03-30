@@ -74,7 +74,7 @@ public class AdminStudentController {
 		}*/
 		System.out.println(student.getHoTen());
 		//kiểm tra trùng tên đăng nhập học viên
-		if(stuDao.checkItem(student) > 0) {
+		if(stuDao.checkItem(student) != null) {
 			modelMap.addAttribute("student",student);
 			modelMap.addAttribute("listRoles", roleDao.getItems());
 			modelMap.addAttribute("listH", plhvDao.getItems());

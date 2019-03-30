@@ -17,12 +17,11 @@ public class Lesson {
 	private String nguoiTao;
 	private int id_Dmb;
 	private int id_KhoaHoc;
-	private int id_Level;
 	public Lesson() {
 		super();
 	}
 	public Lesson(int id_BaiHoc, String tenBaiHoc, String moTa, String chiTiet, String video, Timestamp ngayTao,
-			String nguoiTao, int id_Dmb, int id_KhoaHoc, int id_Level) {
+			String nguoiTao, int id_Dmb, int id_KhoaHoc) {
 		super();
 		this.id_BaiHoc = id_BaiHoc;
 		this.tenBaiHoc = tenBaiHoc;
@@ -33,7 +32,6 @@ public class Lesson {
 		this.nguoiTao = nguoiTao;
 		this.id_Dmb = id_Dmb;
 		this.id_KhoaHoc = id_KhoaHoc;
-		this.id_Level = id_Level;
 	}
 	public int getId_BaiHoc() {
 		return id_BaiHoc;
@@ -88,12 +86,6 @@ public class Lesson {
 	}
 	public void setId_KhoaHoc(int id_KhoaHoc) {
 		this.id_KhoaHoc = id_KhoaHoc;
-	}
-	public int getId_Level() {
-		return id_Level;
-	}
-	public void setId_Level(int id_Level) {
-		this.id_Level = id_Level;
 	}
 	
 }

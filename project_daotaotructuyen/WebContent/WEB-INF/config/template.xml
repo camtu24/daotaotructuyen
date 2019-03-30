@@ -53,6 +53,10 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/khoahoc/liststudent.jsp" />
   </definition>
   
+  <definition name="admin.course.storage" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/storage/course.jsp" />
+  </definition>
+  
   <!-- ADMIN COURSE DANH MUC -->
   <definition name="admin.danhmuc.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/danhmucbaigiang/index.jsp" />
@@ -132,6 +136,24 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/plhv/edit.jsp" />
   </definition> -->
   
+  <!-- ADMIN ORDERS -->
+  <definition name="admin.order.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/orders/index.jsp" />
+  </definition>
+  
+  <definition name="admin.order.view" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/orders/view.jsp" />
+  </definition>
+  
+  <definition name="admin.order.storage" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/storage/order.jsp" />
+  </definition>
+  
+  <!-- ADMIN ACCOUNTS -->
+  <definition name="admin.account.storage" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/storage/account.jsp" />
+  </definition>
+  
   <!-- error404 -->
    <definition name="error404" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/error/error404.jsp" />
@@ -199,11 +221,13 @@
     <put-attribute name="body" value="/WEB-INF/jsp/public/contact.jsp" />
   </definition>
   
+    <!--MY COURSE -->
   <definition name="public.mycourse.index" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/jsp/public/mycourse.jsp" />
   </definition>
   
-  
+  <definition name="public.mycourse.learn" template="/WEB-INF/jsp/public/learn.jsp">
+  </definition>
   
   <!--AUTH TEMPLATE -->
   <definition name="public.login" template="/WEB-INF/jsp/loginpublic/login.jsp">

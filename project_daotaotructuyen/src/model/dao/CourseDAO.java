@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class CourseDAO {
 	}
 
 	public int addItem(Course course) {
-		String sql = "INSERT INTO khoahoc(tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,id_chude,phathanh,storage) VALUES(?,?,?,?,?,?,?,1,?,?,0,1)";
-		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getThongTinChung(),course.getHinhAnh(),course.getVideo(),course.getMucTieu(),course.getKetQua(),course.getHocPhi(), course.getHinhAnh(),course.getId_ChuDe()});
+		String sql = "INSERT INTO khoahoc(tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,mieuta,doituongthamgia,hocphi,id_giangvien,nguoitao,id_chude,phathanh,storage) VALUES(?,?,?,?,?,?,?,?,?,1,?,?,0,1)";
+		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getThongTinChung(),course.getHinhAnh(),course.getVideo(),course.getMucTieu(),course.getKetQua(),course.getMieuTa(),course.getDoiTuongThamGia(),course.getHocPhi(), course.getMieuTa(),course.getId_ChuDe()});
 	}
 
 	public Course getItem(int id) {
 		try {
-			String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && phathanh=1 && id_khoahoc=?";
+			String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,mieuta,doituongthamgia,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && id_khoahoc=?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {id},new BeanPropertyRowMapper<Course>(Course.class));
 		} catch (Exception e) {
 			return null;
@@ -35,13 +36,18 @@ public class CourseDAO {
 	}
 
 	public int editItem(Course course) {
-		String sql = "UPDATE khoahoc SET tenkhoahoc=?,thongtinchung=?,hinhanh=?,video=?,muctieu=?,ketqua=?,hocphi=?,id_chude=? WHERE id_khoahoc=?";
-		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getThongTinChung(),course.getHinhAnh(),course.getVideo(),course.getMucTieu(),course.getKetQua(),course.getHocPhi(),course.getId_ChuDe()},course.getId_KhoaHoc());
+		String sql = "UPDATE khoahoc SET tenkhoahoc=?,thongtinchung=?,hinhanh=?,video=?,muctieu=?,ketqua=?,mieuta=?,doituongthamgia=?,hocphi=?,id_chude=? WHERE id_khoahoc=?";
+		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getThongTinChung(),course.getHinhAnh(),course.getVideo(),course.getMucTieu(),course.getKetQua(),course.getMieuTa(),course.getDoiTuongThamGia(),course.getHocPhi(),course.getId_ChuDe()},course.getId_KhoaHoc());
 	}
 
 	public int storageItem(int id) {
 		String sql = "UPDATE khoahoc SET storage=0 WHERE id_khoahoc=?";
 		return jdbcTemplate.update(sql, new Object[] {id});
+	}
+	
+	public List<Course> getItemsStor() {
+		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=0 ORDER BY id_khoahoc DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Course>(Course.class));
 	}
 	/*public*/
 	public List<Course> getItemsByC(int cid){
@@ -53,4 +59,23 @@ public class CourseDAO {
 		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && phathanh=1 && id_chude=? ORDER BY id_khoahoc DESC";
 		return jdbcTemplate.query(sql,new Object[] {cid}, new BeanPropertyRowMapper<Course>(Course.class));
 	}
+
+	public Course getItemNew(String timestamp) {
+		try {
+			String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && doituongthamgia=?";
+			return jdbcTemplate.queryForObject(sql, new Object[] {timestamp},new BeanPropertyRowMapper<Course>(Course.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Course getItemDPH(int kid) {
+		try {
+			String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,mieuta,doituongthamgia,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && phathanh=1 && id_khoahoc=?";
+			return jdbcTemplate.queryForObject(sql, new Object[] {kid},new BeanPropertyRowMapper<Course>(Course.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 }

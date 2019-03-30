@@ -125,7 +125,7 @@ public class AdminQTVController {
 		
 		//kiểm tra trùng tên đăng nhập
 		qtv.setId_Qtv(id);
-		if(qtvDao.checkItem(qtv) > 0) {
+		if(qtvDao.checkItem(qtv) != null) {
 			modelMap.addAttribute("qtv",qtv);
 			modelMap.addAttribute("listRoles", roleDao.getItems());
 			ra.addFlashAttribute("msg1", "Trùng tên đăng nhập! Vui lòng nhập lại!");
