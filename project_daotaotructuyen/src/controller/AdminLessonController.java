@@ -38,9 +38,6 @@ public class AdminLessonController {
 	@Autowired
 	private LessonDAO lessonDao;
 	
-	@Autowired
-	private LevelDAO levelDao;	
-	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
@@ -57,7 +54,6 @@ public class AdminLessonController {
 	
 	@RequestMapping(value= {"/course/{kid}/cat/{cid}/lesson/add","/course/{kid}/lesson/add"}, method=RequestMethod.GET)
 	public String add(ModelMap modelMap,@PathVariable("kid") int kid,@PathVariable(value="cid", required=false) Integer cid) {
-		modelMap.addAttribute("listL", levelDao.getItems());
 		return "admin.baigiang.add";
 	}
 	
@@ -79,7 +75,6 @@ public class AdminLessonController {
 		}*/
 		//kiểm tra trùng tên bài giảng
 		if(lessonDao.checkItem(lesson) > 0) {
-			modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("lesson", lesson);
 			ra.addAttribute("msg1", "Trùng tên bài giảng!");
 			return "redirect:/admin/course/{kid}/cat/{cid}/lesson/add";
@@ -129,7 +124,6 @@ public class AdminLessonController {
 	public String edit(RedirectAttributes ra,ModelMap modelMap,@PathVariable("kid") int kid,@PathVariable(value="cid", required=false) Integer cid,@PathVariable("lid") int lid) {
 		Lesson lesson = lessonDao.getItem(lid);
 		if(lesson != null) {
-			modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("lesson", lesson);
 		}else {
 			return "error404";

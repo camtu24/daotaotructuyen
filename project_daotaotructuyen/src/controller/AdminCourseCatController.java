@@ -16,7 +16,6 @@ import constant.Defines;
 import model.bean.DanhMucBaiGiang;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.LessonDAO;
-import model.dao.LevelDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
@@ -32,8 +31,6 @@ public class AdminCourseCatController {
 	@Autowired
 	private DanhMucBaiGiangDAO dmucDao;
 	
-	@Autowired
-	private LevelDAO levelDao;	
 	@Autowired
 	private StudentDAO stuDao;
 	@Autowired
@@ -74,9 +71,9 @@ public class AdminCourseCatController {
 		return "admin.danhmuc.add";
 	}
 	
-	@RequestMapping(value="/course/{id}/cat/add", method=RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("cat") DanhMucBaiGiang cat, BindingResult br,@PathVariable("id") int id, RedirectAttributes ra,ModelMap modelMap) {
-		cat.setId_KhoaHoc(id);
+	@RequestMapping(value="/course/{kid}/cat/add", method=RequestMethod.POST)
+	public String add(@Valid @ModelAttribute("cat") DanhMucBaiGiang cat, BindingResult br,@PathVariable("kid") int kid, RedirectAttributes ra,ModelMap modelMap) {
+		cat.setId_KhoaHoc(kid);
 		if(br.hasErrors()) {
 			//modelMap.addAttribute("listL", levelDao.getItems());
 			modelMap.addAttribute("cat", cat);

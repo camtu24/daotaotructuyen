@@ -4,11 +4,13 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import constant.Defines;
 import model.bean.Account;
 import model.bean.ChuDe;
+import model.bean.Contact;
 import model.bean.Course;
 import model.bean.ThongTinDangKy;
 import model.dao.ChuDeDAO;
+import model.dao.ContactDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.LessonDAO;
@@ -47,6 +51,8 @@ public class PublicTrainController {
 	private StudentDAO stuDao;
 	@Autowired
 	private SlugUtil slugUtil;
+	@Autowired
+	private ContactDAO contDao;
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
 	
@@ -161,5 +167,25 @@ public class PublicTrainController {
 			return "public.train.error";
 		}
 		return "public.order.step3";
+	}
+	
+	//liên hệ
+	@RequestMapping("contact")
+	public String contact(){
+		return "public.contact.index";
+	}
+	
+	@RequestMapping(value="contact", method=RequestMethod.POST)
+	public String add(@Valid @ModelAttribute("contact") Contact contact, BindingResult br, ModelMap modelMap, RedirectAttributes ra) {
+		if(br.hasErrors()) {
+			modelMap.addAttribute("contact", contact);
+			return "public.contact.index";
+		}
+		if(contDao.addItem(contact) > 0) {
+			ra.addAttribute("msg", Defines.SUCCESS);
+		}else {
+			ra.addAttribute("msg", Defines.ERROR);
+		}
+		return "redirect:/contact";
 	}
 }

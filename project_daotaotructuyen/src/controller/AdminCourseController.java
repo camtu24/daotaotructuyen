@@ -2,8 +2,11 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Course;
-import model.bean.QuanTriVien;
+import model.bean.TeacherAdd;
 import model.dao.ChuDeDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
@@ -69,6 +72,18 @@ public class AdminCourseController {
 	
 	@RequestMapping(value="/courses", method=RequestMethod.GET)
 	public String index(ModelMap modelMap) {
+		/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	    MailSender mailSender = (MailSender) context.getBean("mailSender");
+	    System.out.println("Sending text...");
+	    SimpleMailMessage message = new SimpleMailMessage();
+	    message.setFrom("traigreenglobal@gmail.com");
+	    message.setTo("camtu.qn24@gmail.com");
+	    message.setSubject("Subject");
+	    message.setText("test send gmail using spring");
+	    // sending message
+	    mailSender.send(message);
+	    System.out.println("Sending text done!");
+	    context.close();*/
 		modelMap.addAttribute("listC", courDao.getItems());
 		return "admin.course.index";
 	}
@@ -167,7 +182,7 @@ public class AdminCourseController {
 	}
 	
 	@RequestMapping(value="/course/edit/{id}", method=RequestMethod.POST)
-	public String edit(@Valid @ModelAttribute("course") Course course,BindingResult br,@RequestParam("hinhAnh") CommonsMultipartFile cmf,@RequestParam("video") CommonsMultipartFile cmf1, RedirectAttributes ra,@PathVariable("id") int id,ModelMap modelMap,HttpServletRequest request) {
+	public String edit(@Valid @ModelAttribute("course") Course course,BindingResult br,@RequestParam("hinhAnh") CommonsMultipartFile cmf,@RequestParam("video") CommonsMultipartFile cmf1,@RequestParam(value="id_GiangVienT[]", required=false) Integer[] gv, RedirectAttributes ra,@PathVariable("id") int id,ModelMap modelMap,HttpServletRequest request) {
 		/*if(br.hasErrors()) {
 		modelMap.addAttribute("listS", chuDeDao.getItems());
 		modelMap.addAttribute("course",course);
@@ -205,6 +220,7 @@ public class AdminCourseController {
 		}else {
 			course.setHinhAnh(oldCourse.getHinhAnh());
 		}
+		System.out.println("ha"+course.getHinhAnh());
 		//video
 		if (!"".equals(fileNameVD)) {
 			// check type file
@@ -230,10 +246,53 @@ public class AdminCourseController {
 			}
 		}else {
 			course.setVideo(oldCourse.getVideo());
+			/*course.setVideo("");*/
 		}
-		
+		System.out.println("vd"+course.getVideo());
 		course.setId_KhoaHoc(id);
 		if(courDao.editItem(course) > 0) {
+			//list cũ
+			List<TeacherAdd> oldList = taDao.getItemsByIDKH(course.getId_KhoaHoc());
+			if(oldList.size() != 0) {
+				if(gv == null) {
+					for (TeacherAdd oldGV : oldList) {
+						if(taDao.delItem(course.getId_KhoaHoc(), oldGV.getId_GiangVien()) > 0) {
+							System.out.println("thành công");
+						}
+					}
+				}else {
+					//xóa cũ
+					for (TeacherAdd oldGV : oldList) {
+						for (Integer id_gv : gv) {
+							if(oldGV.getId_GiangVien() != id_gv) {
+								if(taDao.delItem(course.getId_KhoaHoc(), oldGV.getId_GiangVien()) > 0) {
+									System.out.println("thành công");
+								}
+							}
+						}
+					}
+					
+					//them mới
+					for (Integer id_gv : gv) {
+						for (TeacherAdd oldGV : oldList) {
+							if(id_gv != oldGV.getId_GiangVien()) {
+								if(taDao.addItem(course.getId_KhoaHoc(), id_gv) > 0) {
+									System.out.println("thành công");
+								}
+							}
+						}
+					}
+				}
+			}else {
+				if(gv != null) {
+					for (Integer id_gv : gv) {
+						if(taDao.addItem(course.getId_KhoaHoc(), id_gv) > 0) {
+							System.out.println("thành công");
+						}
+					}
+				}
+			}
+			
 			ra.addFlashAttribute("msg", Defines.SUCCESS);
 		}else {
 			ra.addFlashAttribute("msg", Defines.ERROR);
@@ -362,5 +421,24 @@ public class AdminCourseController {
 			}
 			ra.addFlashAttribute("msg", Defines.SUCCESS);
 			return "redirect:/admin/course/{kid}/cats";
+		}
+		
+		@RequestMapping(value="/courses",method=RequestMethod.POST)
+		public String index(ModelMap modelMap, @RequestParam("aid") int id, @RequestParam("aactive") int active, HttpServletResponse response, HttpServletRequest request) {
+			modelMap.addAttribute("listC", courDao.getItems());
+			// phathanh
+			try {
+				PrintWriter out = response.getWriter();
+				if(active == 1) {
+					courDao.changeEnable(id,0);
+					out.println("<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'> <span class='label label-inactive' style='background-color : #fe892b;'>Chưa phát hành</span> </a>");
+				} else{
+					courDao.changeEnable(id,1);
+					out.println("<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><span class='label label-inactive' style='background-color : #00d627;'>Đã phát hành</span></a>");
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 }

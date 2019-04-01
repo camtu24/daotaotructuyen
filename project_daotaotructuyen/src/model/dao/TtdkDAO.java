@@ -27,7 +27,7 @@ public class TtdkDAO {
 
 	public ThongTinDangKy getItem(int oid) {
 		try {
-			String sql = "SELECT id_ttdk,hoten,SDT,email,id_thanhtoan,tinhtrang,ngaydangky,id_khoahoc,storage FROM orders WHERE id_ttdk=?";
+			String sql = "SELECT id_ttdk,hoten,username,SDT,email,diachi,id_thanhtoan,tinhtrang,ngaydangky,id_khoahoc,storage FROM orders WHERE id_ttdk=?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {oid},new BeanPropertyRowMapper<ThongTinDangKy>(ThongTinDangKy.class));
 		} catch (Exception e) {
 			return null;

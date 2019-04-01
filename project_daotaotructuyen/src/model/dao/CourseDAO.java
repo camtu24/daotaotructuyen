@@ -1,6 +1,5 @@
 package model.dao;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,8 @@ public class CourseDAO {
 	}
 
 	public int editItem(Course course) {
-		String sql = "UPDATE khoahoc SET tenkhoahoc=?,thongtinchung=?,hinhanh=?,video=?,muctieu=?,ketqua=?,mieuta=?,doituongthamgia=?,hocphi=?,id_chude=? WHERE id_khoahoc=?";
-		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getThongTinChung(),course.getHinhAnh(),course.getVideo(),course.getMucTieu(),course.getKetQua(),course.getMieuTa(),course.getDoiTuongThamGia(),course.getHocPhi(),course.getId_ChuDe()},course.getId_KhoaHoc());
+		String sql = "UPDATE khoahoc SET tenkhoahoc=?,hinhanh=?,video=?,thongtinchung=?,muctieu=?,ketqua=?,mieuta=?,doituongthamgia=?,hocphi=?,id_chude=? WHERE id_khoahoc=?";
+		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getHinhAnh(),course.getVideo(),course.getThongTinChung(),course.getMucTieu(),course.getKetQua(),course.getMieuTa(),course.getDoiTuongThamGia(),course.getHocPhi(),course.getId_ChuDe(),course.getId_KhoaHoc()});
 	}
 
 	public int storageItem(int id) {
@@ -76,6 +75,11 @@ public class CourseDAO {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public int changeEnable(int id, int active) {
+		String sql = "UPDATE khoahoc SET phathanh=? WHERE id_khoahoc=?";
+		return jdbcTemplate.update(sql, new Object[] {active,id});
 	}
 
 }

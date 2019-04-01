@@ -16,7 +16,7 @@
            	</c:if>
           <ul class="clear">
           	<c:forEach items="${listMyCourse }" var="objMC">
-          		<c:set value = "${pageContext.request.contextPath}/mycourse/${slugUtil.makeSlug(objMC.tenKhoaHoc)}-${objMC.id_KhoaHoc}" var="learnUrl"></c:set>
+          		<c:set value = "${pageContext.request.contextPath}/mycourses/${slugUtil.makeSlug(objMC.tenKhoaHoc)}-${objMC.id_KhoaHoc}" var="learnUrl"></c:set>
           		<li class="one_half">
 					<a href="${learnUrl}">
 						<c:if test="${not empty objMC.hinhAnh }">
@@ -37,34 +37,8 @@
 				</li>
           	</c:forEach>
             
-            <li class="one_half">
-				<a href="#"><img src="${defines.urlPublic}/images/laptrinh.png" alt=""></a>
-				<div class="tieude">
-					<p>This is a W3C standards compliant free responsive</p>
-				</div>
-				<div class="batdau">
-					<a href="${pageContext.request.contextPath}/mycourse/" class="button small gradient orange">START COURSE</a>
-				</div>
-			</li>
-            
           </ul>
 
         </figure>
       </section>
-      <!-- ####################################################################################################### -->
-      <nav class="pagination">
-        <ul>
-          <li class="prev"><a href="#">&laquo; Previous</a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li class="splitter"><strong>&hellip;</strong></li>
-          <li><a href="#">6</a></li>
-          <li class="current"><strong>7</strong></li>
-          <li><a href="#">8</a></li>
-          <li class="splitter"><strong>&hellip;</strong></li>
-          <li><a href="#">14</a></li>
-          <li><a href="#">15</a></li>
-          <li class="next"><a href="#">Next &raquo;</a></li>
-        </ul>
-      </nav>
     </div>

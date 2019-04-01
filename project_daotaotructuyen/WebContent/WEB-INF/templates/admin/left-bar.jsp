@@ -1,11 +1,10 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li class="active"><a href="${pageContext.request.contextPath }/admin"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="active"><a href="${pageContext.request.contextPath }/admin"><i class="icon icon-home"></i> <span>Trang chủ</span></a> </li>
     <li><a href="${pageContext.request.contextPath }/admin/orders"><i class="icon icon-fullscreen"></i> <span>Đơn hàng</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Người dùng</span> <!-- <span class="label label-important">3</span> --></a>
       <ul>
-        <li><a href="${pageContext.request.contextPath }/admin/accounts">Tài khoản</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/qtv">Quản trị viên</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/teachers">Giảng viên</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/students">Học viên</a></li>
@@ -19,6 +18,8 @@
         <li><a href="${pageContext.request.contextPath }/admin/class">Lớp học</a></li>
       </ul>
     </li>
+    <li><a href="${pageContext.request.contextPath }/admin/contacts"><i class="icon icon-fullscreen"></i> <span>Liên hệ</span></a></li>
+    <li><a href="${pageContext.request.contextPath }/admin/sliders"><i class="icon icon-fullscreen"></i> <span>Slider</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Lưu trữ</span> <!-- <span class="label label-important">3</span> --></a>
       <ul>
         <li><a href="${pageContext.request.contextPath }/admin/courses/storage">Khóa học</a></li>
@@ -26,6 +27,7 @@
         <li><a href="${pageContext.request.contextPath }/admin/accounts/storage">Tài khoản</a></li>
       </ul>
     </li>
+    
     <!-- <li class="content"> <span>Monthly Bandwidth Transfer</span>
       <div class="progress progress-mini progress-danger active progress-striped">
         <div style="width: 77%;" class="bar"></div>

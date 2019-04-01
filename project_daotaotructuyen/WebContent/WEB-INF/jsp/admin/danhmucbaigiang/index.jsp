@@ -58,11 +58,9 @@
                       </td>
 	                  <td>${objDM.nguoiTao}</td>
 	                  <td width="22%" style="text-align: center;">
-	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
 	                      <a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/edit/${objDM.id_Dmb}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
 	                      <a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/delTemp/${objDM.id_Dmb}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
 	                  </td>
-					
 	                </tr>
                 </c:forEach>
               </tbody>

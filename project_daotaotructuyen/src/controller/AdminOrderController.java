@@ -41,7 +41,7 @@ public class AdminOrderController {
 	@RequestMapping(value="/order/view/{oid}", method=RequestMethod.GET)
 	public String view(@PathVariable("oid") int oid,ModelMap modelMap) {
 		ThongTinDangKy order = (ThongTinDangKy) ttdkDao.getItem(oid);
-		System.out.println("oid" +oid);
+		//System.out.println("oid" +order.getUsername());
 		//System.out.println("ds: " + order.getId_KhoaHoc());
 		if(order != null) {
 			modelMap.addAttribute("order", order);

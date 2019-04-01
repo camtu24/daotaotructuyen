@@ -51,7 +51,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Email</label>
-		                        <input type="email" disabled="disabled" value="" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="email" disabled="disabled" value="${order.email }" class="form-control border-input">
                             	<form:errors path="student.email" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -59,7 +59,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Địa chỉ</label>
-		                        <input type="text" disabled="disabled" value="${order.diaChi }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" disabled="disabled" value="${order.diaChi }" class="form-control border-input">
                             	<form:errors path="student.diaChi" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -67,7 +67,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Ngày đăng ký</label>
-		                        <input type="date" disabled="disabled" value="${order.ngayDangKy }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" disabled="disabled" value="${order.ngayDangKy }" class="form-control border-input">
 		                    </div>
 		                </div>
 		                <hr>
@@ -79,7 +79,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Tên khóa học</label>
-		                        <input type="text" disabled="disabled" value="${course.tenKhoaHoc }" class="form-control border-input" placeholder="Nhập họ tên">
+		                        <input type="text" disabled="disabled" value="${course.tenKhoaHoc }" class="form-control border-input">
 		                    </div>
 		                </div>
 		                

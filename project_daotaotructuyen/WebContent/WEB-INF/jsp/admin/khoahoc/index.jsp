@@ -32,7 +32,7 @@
                   <th>Tên khóa học</th>
                   <th>Hình ảnh</th>
                   <th>Học phí</th>
-                  <th>Người tạo</th>
+                  <!-- <th>Người tạo</th> -->
                   <th>Danh sách học viên</th>
                   <th>Trạng thái</th>
                   <th>Chức năng</th>
@@ -54,14 +54,14 @@
 					   	</c:if>
                       </td>
 	                  <td>${objC.hocPhi}</td>
-	                  <td>${objC.nguoiTao}</td>
+	                  <%-- <td>${objC.nguoiTao}</td> --%>
 	                  <td width="13%" style="text-align: center;">
 	                 	 <a href="${pageContext.request.contextPath }/admin/course/liststudent/${objC.id_KhoaHoc}"><i class="icon icon-inbox"></i></a>
 	                  </td>
 	                  <td style="text-align: center" class="change-${objC.id_KhoaHoc }">
 	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objC.id_KhoaHoc },${objC.phatHanh })">
 		                    <c:if test="${objC.phatHanh == 1 }">
-	                       		<span class="label label-inactive" style="background-color : #fe892b;">Đã phát hành</span>
+	                       		<span class="label label-inactive" style="background-color : #00d627;">Đã phát hành</span>
 	                       	</c:if>
 	                       	<c:if test="${objC.phatHanh != 1 }">
 	                       		<span class="label label-inactive" style="background-color : #fe892b;">Chưa phát hành</span>
@@ -83,4 +83,24 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"> 
+	function changeEnable(id, active){
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/admin/courses",
+	    type: 'POST',
+	    cache: false,
+	    data: {
+	      aactive : active,
+	      aid: id
+	    },
+	    success: function(data){
+	        $(".change"+'-'+id).html(data); /* alert(id); */
+	    },
+	    error: function (){
+	      alert('Có lỗi');
+	    }
+	  }); 
+	  /* alert("Thành công") */
+	}
+</script>
 

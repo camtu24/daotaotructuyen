@@ -1,7 +1,5 @@
 package model.bean;
 
-import java.sql.Timestamp;
-
 public class Course {
 
 	private int id_KhoaHoc;

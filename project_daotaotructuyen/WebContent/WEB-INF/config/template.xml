@@ -154,6 +154,28 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/storage/account.jsp" />
   </definition>
   
+  <!-- ADMIN CONTACTS -->
+  <definition name="admin.contact.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/contact/index.jsp" />
+  </definition>
+  
+  <definition name="admin.contact.view" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/contact/view.jsp" />
+  </definition>
+  
+  <!-- ADMIN SLIDERS -->
+  <definition name="admin.slider.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/slider/index.jsp" />
+  </definition>
+  
+  <definition name="admin.slider.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/slider/add.jsp" />
+  </definition>
+  
+  <definition name="admin.slider.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/slider/edit.jsp" />
+  </definition>
+  
   <!-- error404 -->
    <definition name="error404" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/error/error404.jsp" />
@@ -217,7 +239,7 @@
     <put-attribute name="body" value="/WEB-INF/jsp/public/order-3.jsp" />
   </definition>
   
-  <definition name="public.contact.index" extends="public.template">
+  <definition name="public.contact.index" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/contact.jsp" />
   </definition>
   

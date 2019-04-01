@@ -45,7 +45,7 @@
 	                  <td>${objO.email }</td>
 	                  <td>${objO.sdt }</td>
 	                  <td>
-	                  	<fmt:formatDate value="${objO.ngayDangKy}" pattern="dd/MM/yyyy"/>
+	                  	<fmt:formatDate value="${objO.ngayDangKy}" pattern="dd/MM/yyyy hh:mm:ss"/>
 	                  </td>
 	                  <td style="text-align: center" class="change-${objO.id_Ttdk }">
 	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objO.id_Ttdk },${objO.tinhTrang })">

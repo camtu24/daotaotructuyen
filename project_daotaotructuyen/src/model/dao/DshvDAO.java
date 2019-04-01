@@ -22,17 +22,17 @@ public class DshvDAO {
 	}
 
 	public List<DanhSachHocVien> getItemsHV(int kid){
-		String sql = "SELECT id_dshv,IFNULL(madanhsach,''),IFNULL(id_lophoc,''),id_khoahoc, d.id_hocvien,hoten,email,SDT,diachi,gioitinh,ngaysinh,username FROM danhsachhocvien AS d INNER JOIN hocvien AS h ON d.id_hocvien=h.id_hocvien WHERE id_khoahoc=? ORDER BY id_dshv DESC";
+		String sql = "SELECT id_dshv,IFNULL(madanhsach,''),IFNULL(id_lophoc,''),id_khoahoc, d.id_hocvien,hoten,email,SDT,diachi,gioitinh,ngaysinh,username,ngayghidanh FROM danhsachhocvien AS d INNER JOIN hocvien AS h ON d.id_hocvien=h.id_hocvien WHERE id_khoahoc=? ORDER BY id_dshv DESC";
 		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<DanhSachHocVien>(DanhSachHocVien.class));
 	}
 	
 	public List<DanhSachHocVien> getItemsGV(int kid){
-		String sql = "SELECT id_dshv,IFNULL(madanhsach,''),IFNULL(id_lophoc,''),id_khoahoc, d.id_giangvien,hoten,email,SDT,diachi,gioitinh,ngaysinh,username FROM danhsachhocvien AS d INNER JOIN giangvien AS g ON d.id_giangvien=g.id_giangvien WHERE id_khoahoc=? ORDER BY id_dshv DESC";
+		String sql = "SELECT id_dshv,IFNULL(madanhsach,''),IFNULL(id_lophoc,''),id_khoahoc, d.id_giangvien,hoten,email,SDT,diachi,gioitinh,ngaysinh,username,ngayghidanh FROM danhsachhocvien AS d INNER JOIN giangvien AS g ON d.id_giangvien=g.id_giangvien WHERE id_khoahoc=? ORDER BY id_dshv DESC";
 		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<DanhSachHocVien>(DanhSachHocVien.class));
 	}
 	
 	public List<DanhSachHocVien> getItemsQTV(int kid){
-		String sql = "SELECT id_dshv,IFNULL(madanhsach,''),IFNULL(id_lophoc,''),id_khoahoc, d.id_qtv,hoten,email,SDT,username FROM danhsachhocvien AS d INNER JOIN quantrivien AS q ON d.id_qtv=q.id_qtv WHERE id_khoahoc=? ORDER BY id_dshv DESC";
+		String sql = "SELECT id_dshv,IFNULL(madanhsach,''),IFNULL(id_lophoc,''),id_khoahoc, d.id_qtv,hoten,email,SDT,username,ngayghidanh FROM danhsachhocvien AS d INNER JOIN quantrivien AS q ON d.id_qtv=q.id_qtv WHERE id_khoahoc=? ORDER BY id_dshv DESC";
 		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<DanhSachHocVien>(DanhSachHocVien.class));
 	}
 

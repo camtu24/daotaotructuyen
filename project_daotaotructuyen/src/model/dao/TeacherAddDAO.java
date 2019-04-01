@@ -24,4 +24,9 @@ public class TeacherAddDAO {
 		String sql = "SELECT id_giangvient,id_giangvien,id_khoahoc FROM themgiangvien WHERE id_khoahoc=?";
 		return jdbcTemplate.query(sql, new Object[] {id},new BeanPropertyRowMapper<TeacherAdd>(TeacherAdd.class));
 	}
+
+	public int delItem(int kid, Integer id_gv) {
+		String sql = "DELETE FROM themgiangvien WHERE id_khoahoc=? && id_giangvien=?";
+		return jdbcTemplate.update(sql, new Object[] {kid,id_gv});
+	}
 }

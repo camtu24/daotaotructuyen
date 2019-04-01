@@ -76,12 +76,25 @@ public class PublicMyCourseController {
 		return "public.mycourse.index";
 	}
 	
-	@RequestMapping(value="mycourse/{nameKH}-{kid}", method=RequestMethod.GET)
-	public String inMyCourse(@PathVariable("kid") int kid,@PathVariable("nameKH") String idnameKH,ModelMap modelMap){
+	@RequestMapping(value="mycourses/{nameKH}-{kid}", method=RequestMethod.GET)
+	public String inMyCourseFirst(@PathVariable("kid") int kid,@PathVariable("nameKH") String idnameKH,ModelMap modelMap){
 		Course course = courDao.getItemDPH(kid);
 		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
 		modelMap.addAttribute("nameKH", course.getTenKhoaHoc());
 		modelMap.addAttribute("lessDao", lessDao);
+		//baihoc1
+		modelMap.addAttribute("lesson", lessDao.getItemFirst(kid));
+		return "public.mycourse.learn";
+	}
+	
+	@RequestMapping(value="mycourse/{nameKH}-{kid}-{lid}", method=RequestMethod.GET)
+	public String inMyCourse(@PathVariable("kid") int kid,@PathVariable("lid") int lid,@PathVariable("nameKH") String idnameKH,ModelMap modelMap){
+		Course course = courDao.getItemDPH(kid);
+		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
+		modelMap.addAttribute("nameKH", course.getTenKhoaHoc());
+		modelMap.addAttribute("lessDao", lessDao);
+		//baihoc1
+		modelMap.addAttribute("lesson", lessDao.getItem(lid));
 		return "public.mycourse.learn";
 	}
 

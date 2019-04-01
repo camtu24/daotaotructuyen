@@ -74,6 +74,15 @@ public class LessonDAO {
 		return jdbcTemplate.queryForObject(sql, new Object[] {kid},Integer.class);
 	}
 
+	public Lesson getItemFirst(int kid) {
+		try {
+			String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_khoahoc=? LIMIT 1";
+			return jdbcTemplate.queryForObject(sql, new Object[] {kid},new BeanPropertyRowMapper<Lesson>(Lesson.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	
 
 }

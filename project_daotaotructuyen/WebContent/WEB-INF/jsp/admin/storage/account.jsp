@@ -49,7 +49,7 @@
 	                  <td>${objS.diaChi }</td>
 	                  <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
-	                      <a href="${pageContext.request.contextPath }/admin/student/view/${objS.id_HocVien}" class="btn btn-success"><i class="icon-eye-open"></i> Edit</a>
+	                      <a href="${pageContext.request.contextPath }/admin/student/view/${objS.id_HocVien}" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
 	                      <a href="${pageContext.request.contextPath }/admin/student/restore/${objS.id_HocVien}" class="btn btn-primary"><i class="icon-refresh"></i> Restore</a>
 	                  </td>
 	                </tr>

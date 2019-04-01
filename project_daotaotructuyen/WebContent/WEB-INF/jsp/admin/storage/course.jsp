@@ -56,9 +56,9 @@
 	                  </td>
 
 	                  <td width="22%" style="text-align: center;">
-	                      <a href="${pageContext.request.contextPath }/admin/course/view/${objC.id_KhoaHoc}" class="btn btn-info"><i class="btn btn-success"></i> View</a>
-	                      <a href="${pageContext.request.contextPath }/admin/course/restore/${objC.id_KhoaHoc}" class="btn btn-info"><i class="icon-edit"></i> Restore</a>
-	                      <a href="${pageContext.request.contextPath }/admin/course/delete/${objC.id_KhoaHoc}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
+	                      <a href="${pageContext.request.contextPath }/admin/course/view/${objC.id_KhoaHoc}" class="btn btn-info"><i class="icon-eye-open"></i> View</a>
+	                      <a href="${pageContext.request.contextPath }/admin/course/restore/${objC.id_KhoaHoc}" class="btn btn-success"><i class="icon-refresh"></i> Restore</a>
+	                      <a style="margin:10px" href="${pageContext.request.contextPath }/admin/course/delete/${objC.id_KhoaHoc}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
 	                  </td>
 	                </tr>
                 </c:forEach>

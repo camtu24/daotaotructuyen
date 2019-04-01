@@ -23,21 +23,16 @@
                         <input type="hidden" name="_token" value="m539dWkPFPEJAeF2eToltGS7PJ8G2tMDWdAbRFwf">
                         <div class="form-group">
                             <label>Tên bài giảng</label>
-                            <input class="form-control" name="tenBaiHoc" value="${lesson.tenBaiHoc }" style="height: 23px"> 
+                            <input class="form-control" name="tenBaiHoc" value="${lesson.tenBaiHoc }" style="height: 23px" required> 
                             <p style="color:red">${msg1 }</p>
                             <form:errors path="lesson.tenBaiHoc" cssStyle="color:red"></form:errors>       
                         </div>
                         
-                        <div class="form-group">
-                            <label>Mô tả</label>
-                            <textarea name="moTa" style="height: 23px" rows="3">${lesson.moTa }</textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Nội dung</label>
-                            <textarea name="chiTiet" class="ckeditor" style="height: 23px" rows="3">${lesson.chiTiet }</textarea>
-                            <p style="color:red">${msg1 }</p>
-                            <form:errors path="lesson.chiTiet" cssStyle="color:red"></form:errors>       
+                        <div class="col-md4">
+	                        <div class="form-group">
+	                            <label>Mô tả</label>
+	                            <textarea name="moTa" style="height: 140px;width:72%" rows="3" required>${lesson.moTa }</textarea>
+	                        </div>
                         </div>
                         
                         <div class="col-md4">
@@ -56,6 +51,13 @@
 							   	<input type="file" name="video" class="form-control border-input" >
 		                    </div>
 		                </div>
+                        
+                        <div class="form-group" style="width:100%">
+                            <label>Nội dung</label>
+                            <textarea name="chiTiet" class="ckeditor" style="height: 23px" rows="3">${lesson.chiTiet }</textarea>
+                            <p style="color:red">${msg1 }</p>
+                            <form:errors path="lesson.chiTiet" cssStyle="color:red"></form:errors>       
+                        </div>
                         
                         <div class="form-group">
                             <input type="submit" value="Thực hiện" class="btn btn-primary">

@@ -36,7 +36,7 @@
 					</tr>
 					<c:forEach items="${lessDao.getItemsByIDDM(item.id_Dmb,item.id_KhoaHoc) }" var="itemBG">
 					<c:set value = "${pageContext.request.contextPath}/mycourse/${slugUtil.makeSlug(nameKH)}-${item.id_KhoaHoc}-${itemBG.id_BaiHoc}" var="learningUrl"></c:set>
-						<tr class="content-item  active" data-id="45024">
+						<tr class="content-item" data-id="45024"> <!-- active -->
 							<td class="item-title">
 								<a href="${learningUrl }"> -- ${itemBG.tenBaiHoc }</a>
 							</td>
@@ -45,23 +45,6 @@
 								</td>
 						</tr>
 					</c:forEach>
-					
-					<tr class="content-item  " data-id="45025">
-						<td class="item-title">
-							<a href="/course/content/45025">bai 3</a>
-						</td>
-							<td class="item-action">
-								<span class="fa fa-check" style="display: none;"></span>
-							</td>
-					</tr>
-					<tr class="content-item  " data-id="45026">
-						<td class="item-title">
-							<a href="/course/content/45026">bai 4</a>
-						</td>
-							<td class="item-action">
-								<span class="fa fa-check" style="display: none;"></span>
-							</td>
-					</tr>
 				</c:forEach>
 			</table>
 	</div>
@@ -70,124 +53,21 @@
 			<div class="course-title">
 				JAVA1
 			</div>
-			<table class="content-list">
-				<tr class="content-item  " data-id="45023">
-					<td class="item-title">
-						<a href="/course/content/45023">bai 1</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  active" data-id="45024">
-					<td class="item-title">
-						<a href="/course/content/45024">bai 2</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  " data-id="45025">
-					<td class="item-title">
-						<a href="/course/content/45025">bai 3</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  " data-id="45026">
-					<td class="item-title">
-						<a href="/course/content/45026">bai 4</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-
-			</table>
+			
 	</div>
 	
 	<div id="Question" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
 			<div class="course-title">
 				JAVA1
 			</div>
-			<table class="content-list">
-				
-				<tr class="content-item  " data-id="45023">
-					<td class="item-title">
-						<a href="/course/content/45023">bai 1</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  active" data-id="45024">
-					<td class="item-title">
-						<a href="/course/content/45024">-- bai 2</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  " data-id="45025">
-					<td class="item-title">
-						<a href="/course/content/45025">-- bai 3</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  " data-id="45026">
-					<td class="item-title">
-						<a href="/course/content/45026">-- bai 4</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-
-			</table>
+			
 	</div>
 	
 	<div id="Doccument" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
 			<div class="course-title">
 				JAVA1
 			</div>
-			<table class="content-list">
-				<tr class="content-item  " data-id="45023">
-					<td class="item-title">
-						<a href="/course/content/45023">bai 1</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  active" data-id="45024">
-					<td class="item-title">
-						<a href="/course/content/45024">bai 2</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  " data-id="45025">
-					<td class="item-title">
-						<a href="/course/content/45025">bai 3</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-				<tr class="content-item  " data-id="45026">
-					<td class="item-title">
-						<a href="/course/content/45026">bai 4</a>
-					</td>
-						<td class="item-action">
-							<span class="fa fa-check" style="display: none;"></span>
-						</td>
-				</tr>
-
-			</table>
+			
 	</div>
 	
 	</div>
@@ -196,41 +76,20 @@
 		<div class="header-newspaper">
 			<a class="closebtn" href="javascript:void(0)" onclick="openNav()"><span style="font-size:14px;margin-right: 5px;color:#fff" class="icon-circle-arrow-left icon-large"></span></a>
 			<a class="closebtn" href="javascript:void(0)" onclick="closeNav()"><span style="font-size:14px;margin-right: 5px;color:#fff" class="icon-circle-arrow-right icon-large"></span></a>
-			<h3 class="title-couser">TIÊU ĐỀ BÀI HỌC</h3>
-			<a class="goback" href="javascript:history.go(-1)" title=""> <span class="icon-remove icon-large"></span> </a>
+			<h3 class="title-couser">${lesson.tenBaiHoc }</h3>
+			<a class="goback" href="${pageContext.request.contextPath}/mycourses" title=""> <span class="icon-remove icon-large"></span> </a>
 		</div>
 		<div id="overflow2" class="margin-wide size-medium" id="readInner">
-			<h1>Tốt nhất c&aacute;c trang web đ&agrave;o tạo trực tuyến</h1>
-
+		    <div>
+				<c:if test="${not empty lesson.video }">
+	                <video width="100%" height="490"  controls>
+						<source src="${pageContext.request.contextPath }/files/${lesson.video}" type="video/mp4">
+						<!-- Trình duyệt của bạn không hỗ trợ thẻ video trong HTML5. -->
+					</video>
+			   	</c:if>
+			</div>
 			<div>
-				<div class="entry-content">
-				<p>Nếu bạn l&agrave; người mới ở đ&acirc;y, bạn c&oacute; thể muốn đăng k&yacute; của t&ocirc;i <a href="https://www.techtantri.com/vi/feed/">RSS feed</a>. Cảm ơn đ&atilde; gh&eacute; thăm!</p>
-
-				<p>T&ocirc;i đ&atilde; bi&ecirc;n soạn một danh s&aacute;ch c&aacute;c 10 trang web đ&agrave;o tạo trực tuyến tốt nhất m&agrave; sẽ cho ph&eacute;p bạn để đ&agrave;o tạo cho m&igrave;nh theo tốc độ của ri&ecirc;ng bạn. C&aacute;ch thức m&agrave; c&aacute;c trang web được liệt k&ecirc; kh&ocirc;ng theo bất kỳ thứ tự ưu thế. Để c&oacute; sự c&ocirc;ng bằng, đạn được sử dụng thay v&igrave; con số. Một số c&aacute;c trang web cung cấp c&aacute;c kh&oacute;a học miễn ph&iacute; v&agrave; một số đề nghị trả c&aacute;c kh&oacute;a học. Chất lượng của c&aacute;c kh&oacute;a học gương mẫu. T&ocirc;i đ&atilde; đăng k&yacute; c&ugrave;ng một l&uacute;c hoặc kh&aacute;c v&agrave;o c&aacute;c trang web ngoại trừ &#39;totaltraining.com&rsquo; &amp; &#39;Teachertraining.com&#39;. T&ocirc;i đ&atilde; đi triệt để th&ocirc;ng qua t&agrave;i liệu học của họ. N&oacute; xứng đ&aacute;ng l&agrave; bao gồm trong số mười trang đ&agrave;o tạo trực tuyến đầu tốt nhất.</p>
-
-				<p>Ra khỏi 10 trang web đ&agrave;o tạo trực tuyến tốt nhất alison.com, dontfeartheinternet.com, microsoftvirtualacademy.com, teachertraining.com v&agrave; w3schools.com cung cấp hướng dẫn đ&agrave;o tạo miễn ph&iacute;. Udemy.com l&agrave; đặc biệt. Tuy nhi&ecirc;n, đ&oacute; l&agrave; trả tiền thu&ecirc; bao, n&oacute; cũng cung cấp một v&agrave;i hướng dẫn trực tuyến ho&agrave;n to&agrave;n miễn ph&iacute;. hơn nữa, một khi bạn ho&agrave;n th&agrave;nh c&aacute;c hướng dẫn miễn ph&iacute;, c&aacute;c kh&oacute;a học miễn ph&iacute; bổ sung được th&ecirc;m v&agrave;o con m&egrave;o của bạn. Lynda.com l&agrave; một trong những trang web đ&agrave;o tạo trực tuyến NHẤT rằng bạn đ&atilde; bao giờ c&oacute; thể t&igrave;m thấy. Video2Brain.com kh&ocirc;ng xa ph&iacute;a sau.</p>
-
-				<p>Bạn c&oacute; thể thấy 12 trang web đ&agrave;o tạo trực tuyến v&agrave; một trang web e-book được liệt k&ecirc; ở đ&acirc;y, trong khi, ti&ecirc;u đề của b&agrave;i viết n&agrave;y n&oacute;i Ten Best Online trang web Đ&agrave;o tạo. n&oacute; l&agrave; tốt để dưới cam kết v&agrave; hơn cung cấp!!! hơn thế nữa, khi t&ocirc;i đi qua trang web cung cấp gi&aacute;o dục chất lượng cao với gi&aacute; cả phải chăng đăng k&yacute;, họ chắc chắn sẽ được bao gồm ở đ&acirc;y.</p>
-
-				<h2>12 c&aacute;c trang web để đạt được tổng số th&agrave;nh c&ocirc;ng</h2>
-
-				<p><a href="https://www.techtantri.com/vi/best-online-training-websites/"><img alt="Bàn phím máy tính - Thế giới trong tầm tay của bạn! The Best Online trang web Đào tạo" class="alignright wp-image-166 size-full" height="188" src="https://www.techtantri.com/tantri/wp-content/uploads/2014/12/2014-12-15-1287-e1418591635990.jpg" width="250" /></a></p>
-
-				<h4><em>Đi! C&oacute; được cho m&igrave;nh được đ&agrave;o tạo v&agrave; bắt kịp với thế giới&hellip; Bạn sẽ kh&ocirc;ng bị tụt hậu.</em></h4>
-
-				<h2>Một Bonus cho bạn&ndash; đọc Anywhere, Bất cứ l&uacute;c n&agrave;o</h2>
-
-				<p>L&agrave;m thế n&agrave;o về giải tr&iacute; cho m&igrave;nh một số tiểu thuyết. L&atilde;ng mạn cho m&aacute;i của bạn v&agrave; phi hư cấu để gi&uacute;p bạn t&igrave;m kiếm th&ocirc;ng tin từ tự lực để tăng trưởng biz. Tải eBook miễn ph&iacute; cho cuộc sống! Chuyến thăm &ldquo;<a href="http://www.free-ebooks.net/" rel="nofollow noopener" target="_blank" title="Tải về miễn phí Fiction, Sức khỏe, Lãng mạn và nhiều ebooks hơn">www.free-ebooks.net</a>&rdquo; H&atilde;y kh&aacute;m ph&aacute; ho&agrave;n to&agrave;n mới, t&aacute;c giả v&agrave; nh&agrave; văn độc lập đ&oacute; l&agrave; chắc chắn tăng l&ecirc;n pep bạn l&ecirc;n.</p>
-
-				<p><strong>Điều li&ecirc;n quan:</strong><a href="https://www.techtantri.com/vi/top-5-free-online-graphic-design-software-and-graphic-design-resources/" title="Hàng đầu 5 Phần mềm thiết kế đồ họa trực tuyến &amp; Tài nguyên">Miễn ph&iacute; phần mềm thiết kế đồ họa trực tuyến &amp; nguồn lực thiết kế đồ họa</a></p>
-
-				<h3>&nbsp;</h3>
-
-				<h3>Bạn muốn biết 5 C&aacute;c bước để Wealth &amp; Sự th&agrave;nh c&ocirc;ng</h3>
-
-				<p><br />
-				<a href="https://heston.leadpages.co/leadbox/140ee6e73f72a2%3A167ec6723b46dc/5717424225648640/" rel="noopener" target="_blank">Click v&agrave;o đ&acirc;y để &quot;Top 5 Keys để gi&agrave;u c&oacute; v&agrave; th&agrave;nh c&ocirc;ng&rdquo;</a></p>
-				</div>
+				${lesson.chiTiet }
 			</div>
 		</div>
 	</div>
@@ -246,12 +105,12 @@
         <div class="btn-group-action nav-content">
             <div class="col-xs-6 text-right">
                     <a href="" title="B&#224;i học trước">
-                        <span class="icon-chevron-left icon-large">
+                        <span class="icon-chevron-left icon-large"></span>
                     </a>
             </div>
             <div class="col-xs-6">
                    <a href="" title="B&#224;i học tiếp theo">
-                        <span class="icon-chevron-right icon-large">
+                        <span class="icon-chevron-right icon-large"></span>
                     </a>
             </div>
         </div>

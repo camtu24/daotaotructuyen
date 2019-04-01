@@ -43,7 +43,7 @@
 <div id="navbar" class="wrapper row2">
   <nav id="topnav">
     <ul class="clear">
-      <li class="active"><a href="index.html" title="Homepage">Homepage</a></li>
+      <li class="active"><a href="${pageContext.request.contextPath }/" title="Homepage">Homepage</a></li>
       <li><a href="#" title="Pages">Giới thiệu</a> </li>
       <li><a class="drop" href="${pageContext.request.contextPath }/danhmuckhoahoc" title="Elements">Danh mục khóa học</a>
         <ul>
@@ -54,13 +54,13 @@
         </ul>
       </li>
       <li><a href="#" title="Link Text">Tin tức</a></li>
-      <li class="last-child"><a href="#" title="A Very Long Link Text">Liên hệ </a></li>
+      <li class="last-child"><a href="${pageContext.request.contextPath}/contact" title="A Very Long Link Text">Liên hệ </a></li>
       <c:if test="${userInfo.username != null }">
 	      <li class="taikhoan" style="float:right"><a class="drop" href="#" style="padding: 14px 0 14px 15px;" title="Gallery Layouts"> User 
 			<img class="img-taikhoan" src="images/demo/slider/1.jpg" alt=""></a> 
 			<ul>
-	          <li><a href="" title="Full Width Gallery">Khóa học của tôi</a></li>
-	          <li><a href="" title="2 Column Grid">Tài khoản cá nhân</a></li>
+	          <li><a href="${pageContext.request.contextPath}/mycourses" title="Full Width Gallery">Khóa học của tôi</a></li>
+	          <li><a href="${pageContext.request.contextPath}/myprofile" title="2 Column Grid">Tài khoản cá nhân</a></li>
 	          <li><a href="${pageContext.request.contextPath }/logout" title="2 Column Grid + Left Sidebar">Đăng xuất</a></li>
 	        </ul>
 		  </li>

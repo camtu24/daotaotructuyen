@@ -56,6 +56,7 @@ a{	text-decoration: none;}
     height: 65px;
     line-height: 65px;
     color: white;
+    margin-bottom: -4px;
 }
 #overflow1{
 	height: 470px;
@@ -130,6 +131,7 @@ a{	text-decoration: none;}
 .course-progress-bar{
 	width:33%;
 	float:left;
+	height: 65px;
 }
 .course-progress-bar .current-progress{
 	width: 85%;
@@ -157,6 +159,7 @@ a{	text-decoration: none;}
 .course-complete{
 	width:33%;
 	float:left;
+	height: 65px;
 }
 .course-complete a{
 	    color: #fff;

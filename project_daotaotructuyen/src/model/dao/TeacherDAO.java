@@ -30,7 +30,7 @@ public class TeacherDAO {
 	}
 
 	public int addItem(Teacher teacher) {
-		String sql = "INSERT INTO giangvien(hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,1)";
+		String sql = "INSERT INTO giangvien(hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage,ghidanh) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,1,0)";
 		return jdbcTemplate.update(sql, new Object[] {teacher.getHoTen(),teacher.getEmail(),teacher.getSdt(),teacher.getDiaChi(),teacher.getHinhAnh(),teacher.getGioiTinh(),teacher.getNgaySinh(),teacher.getTrinhDo(),teacher.getMoTaThem(),teacher.getBangCap(),teacher.getChuyenMonChinh(),teacher.getUsername(),teacher.getPassword(),teacher.getId_Role()});
 	}
 
