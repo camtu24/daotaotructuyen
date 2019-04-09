@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.bean.PLHV;
-import model.bean.Student;
 
 @Repository
 public class PlhvDAO {

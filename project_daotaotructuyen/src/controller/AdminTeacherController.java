@@ -20,8 +20,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
-import model.bean.Student;
 import model.bean.Teacher;
+import model.dao.CommentDAO;
 import model.dao.RoleDAO;
 import model.dao.TeacherDAO;
 import util.FileUtil;
@@ -37,6 +37,8 @@ public class AdminTeacherController {
 	private TeacherDAO teaDao;
 	@Autowired
 	private RoleDAO roleDao;
+	@Autowired
+	private CommentDAO cmtDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
@@ -145,7 +147,9 @@ public class AdminTeacherController {
 			fileName = FileUtil.getFileReName(fileName);
 			teacher.setHinhAnh(fileName);
 			String filePath = dirPath + File.separator + fileName;
-
+			//thay anh trong cmt
+			cmtDao.changeHA(fileName,oldTeacher.getHinhAnh());
+			
 			try {
 				cmf.transferTo(new File(filePath));
 			} catch (IOException e) {

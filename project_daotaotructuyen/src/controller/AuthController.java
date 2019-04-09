@@ -33,7 +33,6 @@ public class AuthController {
 		if(msg != null) {
 			modelMap.addAttribute("msg", msg);
 		}
-		System.out.println("mệt");
 		return "public.login";
 	}
 }

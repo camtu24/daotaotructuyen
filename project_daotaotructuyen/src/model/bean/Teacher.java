@@ -10,7 +10,7 @@ public class Teacher {
 	private String diaChi;
 	private String moTaThem;
 	private String hinhAnh;
-	private String trinhDo;
+	private String chucVu;
 	private String gioiTinh;
 	private Date ngaySinh;
 	private String bangCap;
@@ -25,7 +25,7 @@ public class Teacher {
 	}
 	
 	public Teacher(int id_GiangVien, String hoTen, String email, int sdt, String diaChi, String moTaThem,
-			String hinhAnh, String trinhDo, String gioiTinh, Date ngaySinh, String bangCap, String chuyenMonChinh,
+			String hinhAnh, String chucVu, String gioiTinh, Date ngaySinh, String bangCap, String chuyenMonChinh,
 			String username, String password, int enable, int id_Role, String name) {
 		super();
 		this.id_GiangVien = id_GiangVien;
@@ -35,7 +35,7 @@ public class Teacher {
 		this.diaChi = diaChi;
 		this.moTaThem = moTaThem;
 		this.hinhAnh = hinhAnh;
-		this.trinhDo = trinhDo;
+		this.chucVu = chucVu;
 		this.gioiTinh = gioiTinh;
 		this.ngaySinh = ngaySinh;
 		this.bangCap = bangCap;
@@ -89,11 +89,11 @@ public class Teacher {
 	public void setHinhAnh(String hinhAnh) {
 		this.hinhAnh = hinhAnh;
 	}
-	public String getTrinhDo() {
-		return trinhDo;
+	public String getChucVu() {
+		return chucVu;
 	}
-	public void setTrinhDo(String trinhDo) {
-		this.trinhDo = trinhDo;
+	public void setChucVu(String chucVu) {
+		this.chucVu = chucVu;
 	}
 	public String getGioiTinh() {
 		return gioiTinh;

@@ -40,13 +40,18 @@ public class CourseDAO {
 	}
 
 	public int storageItem(int id) {
-		String sql = "UPDATE khoahoc SET storage=0 WHERE id_khoahoc=?";
+		String sql = "UPDATE khoahoc SET storage=0,phathanh=0 WHERE id_khoahoc=?";
 		return jdbcTemplate.update(sql, new Object[] {id});
 	}
 	
 	public List<Course> getItemsStor() {
 		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=0 ORDER BY id_khoahoc DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Course>(Course.class));
+	}
+	
+	public List<Course> getItemsBySubjectDel(int sid) {
+		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && id_chude=? ORDER BY id_khoahoc DESC LIMIT 2";
+		return jdbcTemplate.query(sql,new Object[] {sid}, new BeanPropertyRowMapper<Course>(Course.class));
 	}
 	/*public*/
 	public List<Course> getItemsByC(int cid){
@@ -59,10 +64,10 @@ public class CourseDAO {
 		return jdbcTemplate.query(sql,new Object[] {cid}, new BeanPropertyRowMapper<Course>(Course.class));
 	}
 
-	public Course getItemNew(String timestamp) {
+	public Course getItemNew() {
 		try {
-			String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && doituongthamgia=?";
-			return jdbcTemplate.queryForObject(sql, new Object[] {timestamp},new BeanPropertyRowMapper<Course>(Course.class));
+			String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 ORDER BY id_khoahoc DESC LIMIT 1";
+			return jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<Course>(Course.class));
 		} catch (Exception e) {
 			return null;
 		}
@@ -81,5 +86,7 @@ public class CourseDAO {
 		String sql = "UPDATE khoahoc SET phathanh=? WHERE id_khoahoc=?";
 		return jdbcTemplate.update(sql, new Object[] {active,id});
 	}
+
+	
 
 }

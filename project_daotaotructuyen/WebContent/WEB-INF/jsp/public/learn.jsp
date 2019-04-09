@@ -7,69 +7,158 @@
 <title>RS-1200 Prototype 50</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="${defines.urlAdmin }/css/course.css" rel="stylesheet" type="text/css" media="all">
+<link href="${defines.urlPublic }/css/course.css" rel="stylesheet" type="text/css" media="all">
 <link href="${defines.urlAdmin }/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
 </head>
 <body class="">
 <div class="wrapper">
 	<div id="overflow1" class="tab-content part-content">
-		    <div class="tab">
-			  <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'courseTimeline')"><span class="icon-list-ul icon-large"></span></button>
-			  <button class="tablinks" onclick="openCity(event, 'Comment')"><em style="font-size:20px;" class="icon-comments-alt"></em></button>
-			  <button class="tablinks" onclick="openCity(event, 'Question')"><span class="icon-question-sign icon-large"></span></button>
-			  <button class="tablinks" onclick="openCity(event, 'Doccument')"><span class="icon-paste icon-large"></span></button>
-			</div>
-		<div id="courseTimeline" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
-			<div class="course-title">
-				${nameKH }
-			</div>
-			<table class="content-list">
-				<c:forEach items="${listDMBG }" var="item">
-					<tr class="content-item  " data-id="45023">
-						<td class="item-title1">
-							<a href="javascript:void(0)">${item.tenDanhMuc }</a>
-						</td>
-							<td class="item-action">
-								<span class="fa fa-check" style="display: none;"></span>
-							</td>
-					</tr>
-					<c:forEach items="${lessDao.getItemsByIDDM(item.id_Dmb,item.id_KhoaHoc) }" var="itemBG">
-					<c:set value = "${pageContext.request.contextPath}/mycourse/${slugUtil.makeSlug(nameKH)}-${item.id_KhoaHoc}-${itemBG.id_BaiHoc}" var="learningUrl"></c:set>
-						<tr class="content-item" data-id="45024"> <!-- active -->
-							<td class="item-title">
-								<a href="${learningUrl }"> -- ${itemBG.tenBaiHoc }</a>
+	    <div class="tab">
+		  <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'courseTimeline')"><span class="icon-list-ul icon-large"></span></button>
+		  <button class="tablinks" onclick="openCity(event, 'Comment')"><em style="font-size:20px;" class="icon-comments-alt"></em></button>
+		  <button class="tablinks" onclick="openCity(event, 'Question')"><span class="icon-question-sign icon-large"></span></button>
+		  <button class="tablinks" onclick="openCity(event, 'Doccument')"><span class="icon-paste icon-large"></span></button>
+		</div>
+			
+		<div id="wrapper-left">
+			<div id="courseTimeline" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
+				<div class="course-title">
+					${nameKH }
+				</div>
+				<table class="content-list">
+					<c:forEach items="${listDMBG }" var="item">
+						<tr class="content-item  " data-id="45023">
+							<td class="item-title1">
+								<a href="javascript:void(0)">${item.tenDanhMuc }</a>
 							</td>
 								<td class="item-action">
 									<span class="fa fa-check" style="display: none;"></span>
 								</td>
 						</tr>
+						<c:forEach items="${lessDao.getItemsByIDDM(item.id_Dmb,item.id_KhoaHoc) }" var="itemBG">
+						<c:set value = "${pageContext.request.contextPath}/mycourse/${slugUtil.makeSlug(nameKH)}-${item.id_KhoaHoc}-${itemBG.id_BaiHoc}" var="learningUrl"></c:set>
+							<tr class="content-item" data-id="45024"> <!-- active -->
+								<td class="item-title">
+									<a href="${learningUrl }"> -- ${itemBG.tenBaiHoc }</a>
+								</td>
+									<td class="item-action">
+										<span class="fa fa-check" style="display: none;"></span>
+									</td>
+							</tr>
+						</c:forEach>
 					</c:forEach>
-				</c:forEach>
-			</table>
-	</div>
-	
-	<div id="Comment" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
+				</table>
+		</div>
+		
+		<div id="Comment" class="tabcontent1 tab-pane fade in active" style="padding: 15px;">
+			<div class="submit-comment">
+				<form action="javascript:void(0)">
+					<textarea class="form-control cmt-text" id="txtAreaSendPost"></textarea> <!--onkeypress="checkContent(event, this)"-->
+					<input type="submit" class="pull-right" value="Gửi" id="btnSendPost" onclick="doComment()">
+				</form>
+			</div>	
+			
+			<div class="comment-list">
+				<div class="comment-item">
+				<c:forEach items="${listCmt }" var="objCmt">
+					<div class="post topic" data-id="5131">
+						<div class="owner-avatar">
+							<c:if test="${not empty objCmt.hinhAnh }">
+	                           <img src="${pageContext.request.contextPath}/files/${objCmt.hinhAnh}" />
+	                       	</c:if>
+	                       	<c:if test="${empty objCmt.hinhAnh }">
+	                          	<img src="${defines.urlAdmin }/img/user-cmt.png">
+						   	</c:if>
+						</div>
+						<div class="post-info">
+							<div class="post-detail">
+								<span class="name" style="font-weight:bold">- ${objCmt.hoTen }</span>
+								<span class="created" style="font-size: 13px;">
+									<fmt:formatDate value="${objCmt.ngayDang }" pattern="dd/MM/yyyy hh:mm:ss"/>
+								</span>
+									<span class="action">
+										<span class="thumbs-up-counter"></span>
+										<button class="btn btn-action" style="background: none;border: none;margin-left: 10px;" onclick="showReply(${objCmt.id_BinhLuan})">
+											<em class="icon-comment-alt"></em>
+										</button>
+									</span>
+							</div>
+							<div class="post-content">${objCmt.noiDung } </div>
+						</div>
+					</div>
+					<div class="replies rep-${objCmt.id_BinhLuan }">
+						<c:forEach items="${cmtDao.getItemsByIdP(objCmt.id_BinhLuan) }" var="objScmt">
+							<div class="post" data-id="1310">
+								<div class="owner-avatar">
+									<c:if test="${not empty objScmt.hinhAnh }">
+			                           <img src="${pageContext.request.contextPath}/files/${objScmt.hinhAnh}" />
+			                       	</c:if>
+			                       	<c:if test="${empty objScmt.hinhAnh }">
+			                          	<img src="${defines.urlAdmin }/img/user-cmt.png">
+								   	</c:if>
+								</div>
+								<div class="post-info">
+									<div class="post-detail">
+										<span class="name" style="font-weight:bold">${objScmt.hoTen }</span>
+										<span class="created" style="font-size: 13px;">
+											<fmt:formatDate value="${objScmt.ngayDang }" pattern="dd/MM/yyyy hh:mm:ss"/>
+										</span>
+											<span class="action">
+												<span class="thumbs-up-counter"></span>
+												<button class="btn btn-action like-reply ">
+													<span class="fa fa-thumbs-o-up"></span>
+												</button>
+												<button class="btn btn-action" onclick="showReply(this)">
+													<span class="fa fa-comment-o"></span>
+												</button>
+													<button class="btn btn-action delete-reply">
+														<span class="fa fa-trash-o"></span>
+													</button>
+											</span>
+									</div>
+									<div class="post-content">${objScmt.noiDung }</div>
+								</div>
+							</div>
+						</c:forEach>
+						<div class="post reply-action-${objCmt.id_BinhLuan }" style="display: none;">
+							<div class="owner-avatar">
+								<c:if test="${not empty userInfo.hinhAnh }">
+		                           <img src="${pageContext.request.contextPath}/files/${userInfo.hinhAnh}" />
+		                       	</c:if>
+		                       	<c:if test="${empty userInfo.hinhAnh }">
+		                          	<img src="${defines.urlAdmin }/img/user-cmt.png">
+							   	</c:if>
+							</div>
+							<div class="post-info">
+								<form action="javascript:void(0)">
+									<div class="post-content">
+										<textarea class="form-control reply-box" id="content-rep-${objCmt.id_BinhLuan }"></textarea>
+										<input type="submit" class="pull-right" value="Gửi" id="btnSendPost" onclick="doRepComment(${objCmt.id_BinhLuan})">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+		
+		<div id="Question" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
 			<div class="course-title">
 				JAVA1
 			</div>
-			
+				
+		</div>
+		
+		<div id="Doccument" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
+				<div class="course-title">
+					JAVA1
+				</div>
+				
+		</div>
 	</div>
-	
-	<div id="Question" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
-			<div class="course-title">
-				JAVA1
-			</div>
-			
-	</div>
-	
-	<div id="Doccument" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
-			<div class="course-title">
-				JAVA1
-			</div>
-			
-	</div>
-	
 	</div>
 	
 	<div id="full" class="style-newspaper" id="readOverlay">
@@ -124,15 +213,8 @@
     </div>
 
 <!-- Scripts -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
-<script>window.jQuery || document.write('<script src="layout/scripts/jquery-latest.min.js"><\/script>\
-<script src="layout/scripts/jquery-ui.min.js"><\/script>')</script>
-<script>jQuery(document).ready(function($){ $('img').removeAttr('width height'); });</script>
-<%-- <script src="${defines.urlAdmin }/js/responsiveslides.js-v1.53/responsiveslides.min.js"></script>
-<script src="${defines.urlAdmin }/js/jquery-mobilemenu.min.js"></script> --%>
-
-<script>
+<script src="${defines.urlPublic }/js/jquery-latest.min.js"></script>
+<script type="text/javascript">
 function openNav() {
   document.getElementById("full").style.width = "100%";
   document.getElementById("overflow1").style.width = "0";
@@ -158,5 +240,77 @@ function openCity(evt, cityName) {
 //Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>
+
+<script type="text/javascript">
+	function showReply(idCmt){  
+	   $(".reply-action-"+idCmt).slideToggle();
+	}
+</script>
+
+<script>
+ 	function doComment(){
+       var content_tmp = $('#txtAreaSendPost').val();
+       var id_less = ${lesson.id_BaiHoc};
+       var hoTen = "${userInfo.hoTen}";
+       var hinhAnh = "${userInfo.hinhAnh}"
+       console.log(content_tmp)
+       $('#txtAreaSendPost').val('');
+       if(content_tmp==""){
+    	   alert('Vui lòng nhập bình luận!');
+       }else{
+    	   $.ajax({
+    			url:'${pageContext.request.contextPath}/comments',
+    			type: 'POST',
+    			cache:false,
+    			data:{
+    				acontent : content_tmp,
+    				aid : id_less,
+    				ahoten: hoTen,
+    				ahinhanh: hinhAnh
+    			},
+    			success:function(data){
+    				$('.comment-list').html(data);
+    			},
+    			error:function(){
+    				alert('Có lỗi');
+    			}
+    		});
+       }
+ 	}
+ </script>
+ 
+ <script>
+ 	function doRepComment(idCmt){
+ 		var id_cmt = idCmt;
+       var content_tmp = $('#content-rep-'+idCmt).val();
+       var id_less = ${lesson.id_BaiHoc};
+       var hoTen = "${userInfo.hoTen}";
+       var hinhAnh = "${userInfo.hinhAnh}"
+    	console.log(content_tmp)
+       $('#content-rep').val('');
+       if(content_tmp==""){
+    	   alert('Vui lòng nhập nội dung bình luận!');
+       }else{
+    	   $.ajax({
+    			url:'${pageContext.request.contextPath}/repcomments',
+    			type: 'POST',
+    			cache:false,
+    			data:{
+    				aidCmt : id_cmt,
+    				acontent : content_tmp,
+    				aidLess : id_less,
+    				ahoten: hoTen,
+    				ahinhanh: hinhAnh
+    			},
+    			success:function(data){
+    				$('.rep-'+idCmt).html(data);
+    			},
+    			error:function(){
+    				alert('Có lỗi');
+    			}
+    		});
+       }
+ 	}
+ </script>
 </body>
 </html>

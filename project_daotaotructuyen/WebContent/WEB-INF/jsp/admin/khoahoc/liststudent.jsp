@@ -26,9 +26,11 @@
             <h5>Data table</h5>
           </div>
           <div class="widget-content nopadding">
+           <form action="${pageContext.request.contextPath }/admin/course/${kid }/delete" method="POST">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
+                  <th></th>
                   <th>ID</th>
                   <th>Họ Tên</th>
                   <th>Username</th>
@@ -42,6 +44,9 @@
               <tbody>
               	<c:forEach items="${listStu }" var="objS">
 	                <tr class="gradeX">
+	                  <td width="3.3%" >
+                          <input type="checkbox" name="delete[]" value="${objS.id_Dshv }" />
+                      </td>
 	                  <td style="text-align: center;">${objS.id_HocVien }</td>
 	                  <td>${objS.hoTen }</td>
 	                  <td>${objS.username }</td>
@@ -58,6 +63,10 @@
                 </c:forEach>
               </tbody>
             </table>
+            <c:if test="${listStu.size() != 0 }">
+            <input type="submit" style="padding-bottom: 25px;" value="Xóa khỏi danh sách" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this items?')" >
+            </c:if>
+            </form>
           </div>
         </div>
       </div>
@@ -70,9 +79,11 @@
             <h5>Data table</h5>
           </div>
           <div class="widget-content nopadding">
+           <form action="${pageContext.request.contextPath }/admin/course/${kid }/delete" method="POST">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
+                  <th></th>
                   <th>ID</th>
                   <th>Họ Tên</th>
                   <th>Username</th>
@@ -86,6 +97,9 @@
               <tbody>
               	<c:forEach items="${listTea }" var="objT">
 	                <tr class="gradeX">
+	                  <td width="3.3%" >
+                          <input type="checkbox" name="delete[]" value="${objT.id_Dshv }" />
+                      </td>
 	                  <td style="text-align: center;">${objT.id_GiangVien }</td>
 	                  <td>${objT.hoTen }</td>
 	                  <td>${objT.username }</td>
@@ -102,6 +116,10 @@
                 </c:forEach>
               </tbody>
             </table>
+            <c:if test="${listTea.size() != 0 }">
+            <input type="submit" style="padding-bottom: 25px;" value="Xóa khỏi danh sách" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this items?')" >
+            </c:if>
+            </form>
           </div>
         </div>
       </div>
@@ -114,9 +132,11 @@
             <h5>Data table</h5>
           </div>
           <div class="widget-content nopadding">
+           <form action="${pageContext.request.contextPath }/admin/course/${kid }/delete" method="POST">
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
+                  <th></th>
                   <th>ID</th>
                   <th>Họ Tên</th>
                   <th>Username</th>
@@ -128,6 +148,9 @@
               <tbody>
               	<c:forEach items="${listQtv }" var="objQ">
 	                <tr class="gradeX">
+	                  <td width="3.3%" >
+                          <input type="checkbox" name="delete[]" value="${objQ.id_Dshv }" />
+                      </td>
 	                  <td style="text-align: center;">${objQ.id_Qtv }</td>
 	                  <td>${objQ.hoTen }</td>
 	                  <td>${objQ.username }</td>
@@ -140,6 +163,10 @@
                 </c:forEach>
               </tbody>
             </table>
+            <c:if test="${listQtv.size() != 0 }">
+            <input type="submit" style="padding-bottom: 25px;" value="Xóa khỏi danh sách" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this items?')" >
+            </c:if>
+            </form>
           </div>
         </div>
       </div>

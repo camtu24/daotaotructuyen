@@ -35,8 +35,17 @@
 		                    <div class="form-group">
 		                        <label>Chủ đề</label>
 		                        <select name="id_ChuDe" class="form-control" style="width: 72%">
+		                          <c:set var="id_cd" value="${course.id_ChuDe }"></c:set>
 	                           		<c:forEach items="${listS }" var="Subj">
-	                                   <option value="${Subj.id_ChuDe}">${Subj.tenChuDe }</option>
+	                           		   <c:choose>
+		                           			<c:when test="${Subj.id_ChuDe == id_cd}">
+		                           				<c:set var="selected" value="selected = 'selected'"></c:set>
+			                           		</c:when>
+			                           		<c:otherwise>
+			                           			<c:set var="selected" value=""></c:set>
+			                           		</c:otherwise>
+		                           		</c:choose>
+	                                   <option ${selected } value="${Subj.id_ChuDe}">${Subj.tenChuDe }</option>
 	                                </c:forEach>
 		                        </select>
 		                    </div>

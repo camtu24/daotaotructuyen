@@ -17,7 +17,7 @@
       <div class="span12">
       	<div class="">
 			<a href="${pageContext.request.contextPath }/admin/subject/add" class="button">
-			 <span style = "width: 155px;" class=addtop>Thêm <i class="icon-plus"></i></span> </a>
+			 <span class=addtop>Thêm <i class="icon-plus"></i></span> </a>
 		</div>
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>

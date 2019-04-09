@@ -69,7 +69,7 @@ public class AdminContactController {
 		return "redirect:/contacts";
 	}
 	
-	@RequestMapping(value="/contact/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/contact/delete", method=RequestMethod.POST)
 	public String delItems(@RequestParam("delete[]") Integer[] delete,ModelMap modelMap, RedirectAttributes ra) {
 		for (Integer cid : delete) {
 			if(contDao.delItem(cid) > 0) {

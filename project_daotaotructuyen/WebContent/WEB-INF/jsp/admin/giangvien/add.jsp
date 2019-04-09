@@ -24,7 +24,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Họ tên (*)</label>
-		                        <input type="text" name="hoTen" value="${teacher.hoTen }" class="form-control border-input" placeholder="Nhập họ tên">
+		                        <input type="text" name="hoTen" value="${teacher.hoTen }" class="form-control border-input" placeholder="Nhập họ tên" required>
                             	<form:errors path="teacher.hoTen" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -32,7 +32,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Tên đăng nhập (*)</label>
-		                        <input type="text" name="username" value="${teacher.username }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" name="username" value="${teacher.username }" class="form-control border-input" placeholder="Tên đăng nhập" required>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="teacher.username" cssStyle="color:red"></form:errors>
 		                    </div>
@@ -41,7 +41,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Mật khẩu (*)</label>
-		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Nhập mật khẩu" required>
                             	<form:errors path="student.password" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -49,7 +49,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Số điện thoại (*)</label>
-		                        <input type="text" name="sdt" value="${teacher.sdt }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="text" name="sdt" value="${teacher.sdt }" class="form-control border-input" placeholder="Nhập số điện thoại" required>
                             	<form:errors path="teacher.sdt" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -57,15 +57,15 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Email (*)</label>
-		                        <input type="email" name="email" value="${teacher.email }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="email" name="email" value="${teacher.email }" class="form-control border-input" placeholder="Nhập email" required>
                             	<form:errors path="teacher.email" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
 		                
 		                <div class="col-md4">
 		                    <div class="form-group">
-		                        <label>Địa chỉ</label>
-		                        <input type="text" name="diaChi" value="${teacher.diaChi }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <label>Địa chỉ (*)</label>
+		                        <input type="text" name="diaChi" value="${teacher.diaChi }" class="form-control border-input" placeholder="Nhập địa chỉ" required>
                             	<form:errors path="teacher.diaChi" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -81,7 +81,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Giới tính</label>
-		                        <select name="gioiTinh" class="form-control" style="width: 100%">
+		                        <select name="gioiTinh" class="form-control" style="width: 72%">
                                    <option value="nam">Nam</option>
                                    <option value="nu">Nữ</option>
 		                        </select>
@@ -91,35 +91,35 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Ngày sinh</label>
-		                        <input type="date" name="ngaySinh" value="${teacher.ngaySinh }" class="form-control border-input" placeholder="Tên đăng nhập">
+		                        <input type="date" name="ngaySinh" value="${teacher.ngaySinh }" class="form-control border-input" required>
                             	<form:errors path="teacher.ngaySinh" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
 		                
 		                <div class="form-group">
-                            <label>Trình độ</label>
-                            <textarea name="trinhDo" style="height: 23px" rows="5">${teacher.trinhDo }</textarea>
+                            <label>Chức vụ</label>
+                            <textarea name="chucVu" style="height: 60px;width:75%" required>${teacher.chucVu }</textarea>
                         </div>
                         
                         <div class="form-group">
                             <label>Mô tả</label>
-                            <textarea name="moTaThem" style="height: 23px" rows="5">${teacher.moTaThem }</textarea>
+                            <textarea name="moTaThem" style="height: 90px;width:75%">${teacher.moTaThem }</textarea>
                         </div>
                         
                         <div class="form-group">
                             <label>Bằng cấp</label>
-                            <textarea name="bangCap" style="height: 23px" rows="5">${teacher.bangCap }</textarea>
+                            <textarea name="bangCap" style="height: 90px;width:75%">${teacher.bangCap }</textarea>
                         </div>
                         
                         <div class="form-group">
                             <label>Chuyên môn chính</label>
-                            <textarea name="chuyenMonChinh" style="height: 23px" rows="5">${teacher.chuyenMonChinh }</textarea>
+                            <textarea name="chuyenMonChinh" style="height: 90px;width:75%" required>${teacher.chuyenMonChinh }</textarea>
                         </div>
                         
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>
-		                        <select name="id_Role" class="form-control" style="width: 100%">
+		                        <select name="id_Role" class="form-control" style="width: 72%">
 	                           		<c:forEach items="${listRoles }" var="role">
 	                                   <option value="${role.id_Role}">${role.name }</option>
 	                                </c:forEach>

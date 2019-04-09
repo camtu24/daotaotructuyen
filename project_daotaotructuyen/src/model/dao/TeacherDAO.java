@@ -16,7 +16,7 @@ public class TeacherDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Teacher> getItems(){
-		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 && enable=1 ORDER BY id_giangvien DESC";
+		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 && enable=1 ORDER BY id_giangvien DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 	}
 
@@ -30,13 +30,13 @@ public class TeacherDAO {
 	}
 
 	public int addItem(Teacher teacher) {
-		String sql = "INSERT INTO giangvien(hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage,ghidanh) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,1,0)";
-		return jdbcTemplate.update(sql, new Object[] {teacher.getHoTen(),teacher.getEmail(),teacher.getSdt(),teacher.getDiaChi(),teacher.getHinhAnh(),teacher.getGioiTinh(),teacher.getNgaySinh(),teacher.getTrinhDo(),teacher.getMoTaThem(),teacher.getBangCap(),teacher.getChuyenMonChinh(),teacher.getUsername(),teacher.getPassword(),teacher.getId_Role()});
+		String sql = "INSERT INTO giangvien(hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage,ghidanh) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,1,0)";
+		return jdbcTemplate.update(sql, new Object[] {teacher.getHoTen(),teacher.getEmail(),teacher.getSdt(),teacher.getDiaChi(),teacher.getHinhAnh(),teacher.getGioiTinh(),teacher.getNgaySinh(),teacher.getChucVu(),teacher.getMoTaThem(),teacher.getBangCap(),teacher.getChuyenMonChinh(),teacher.getUsername(),teacher.getPassword(),teacher.getId_Role()});
 	}
 
 	public Teacher getItem(int id) {
 		try {
-			String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE id_giangvien=?";
+			String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE id_giangvien=?";
 			return jdbcTemplate.queryForObject(sql,new Object[] {id}, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 		} catch (Exception e) {
 			return null;
@@ -44,8 +44,8 @@ public class TeacherDAO {
 	}
 
 	public int editItem(Teacher teacher) {
-		String sql = "UPDATE giangvien SET hoten=?,email=?,SDT=?,diachi=?,hinhanh=?,gioitinh=?,ngaysinh=?,trinhdo=?,motathem=?,bangcap=?,chuyenmonchinh=?,password=?,id_role=? WHERE id_giangvien=?";
-		return jdbcTemplate.update(sql, new Object[] {teacher.getHoTen(),teacher.getEmail(),teacher.getSdt(),teacher.getDiaChi(),teacher.getHinhAnh(),teacher.getGioiTinh(),teacher.getNgaySinh(),teacher.getTrinhDo(),teacher.getMoTaThem(),teacher.getBangCap(),teacher.getChuyenMonChinh(),teacher.getPassword(),teacher.getId_Role(),teacher.getId_GiangVien()});
+		String sql = "UPDATE giangvien SET hoten=?,email=?,SDT=?,diachi=?,hinhanh=?,gioitinh=?,ngaysinh=?,chucvu=?,motathem=?,bangcap=?,chuyenmonchinh=?,password=?,id_role=? WHERE id_giangvien=?";
+		return jdbcTemplate.update(sql, new Object[] {teacher.getHoTen(),teacher.getEmail(),teacher.getSdt(),teacher.getDiaChi(),teacher.getHinhAnh(),teacher.getGioiTinh(),teacher.getNgaySinh(),teacher.getChucVu(),teacher.getMoTaThem(),teacher.getBangCap(),teacher.getChuyenMonChinh(),teacher.getPassword(),teacher.getId_Role(),teacher.getId_GiangVien()});
 	}
 
 	public int storageItem(int id) {
@@ -63,7 +63,7 @@ public class TeacherDAO {
 	}
 
 	public List<Teacher> getItemsCGD() {
-		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 ORDER BY id_giangvien DESC";
+		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 ORDER BY id_giangvien DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 	}
 
@@ -82,13 +82,13 @@ public class TeacherDAO {
 	}
 
 	public List<Teacher> getItemsStor() {
-		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=0";
+		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=0";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 	}
 
 	public Teacher getItemLG(String username) {
 		try {
-			String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdo,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE username=?";
+			String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE username=?";
 			return jdbcTemplate.queryForObject(sql,new Object[] {username}, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 		} catch (Exception e) {
 			return null;

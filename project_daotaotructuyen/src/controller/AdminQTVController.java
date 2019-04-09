@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.QuanTriVien;
+import model.dao.CommentDAO;
 import model.dao.QtvDAO;
 import model.dao.RoleDAO;
 import util.FileUtil;
@@ -37,6 +38,8 @@ public class AdminQTVController {
 	
 	@Autowired
 	private RoleDAO roleDao;
+	@Autowired
+	private CommentDAO cmtDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
@@ -153,6 +156,9 @@ public class AdminQTVController {
 			qtv.setHinhAnh(fileName);
 			String filePath = dirPath + File.separator + fileName;
 			System.out.println("fileName:"+filePath);
+			
+			//thay anh trong cmt
+			cmtDao.changeHA(fileName,oldQtv.getHinhAnh());
 			try {
 				cmf.transferTo(new File(filePath));
 			} catch (IOException e) {

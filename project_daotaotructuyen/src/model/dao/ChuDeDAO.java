@@ -39,4 +39,14 @@ public class ChuDeDAO {
 			return null;
 		}
 	}
+
+	public int editItem(ChuDe subject) {
+		String sql = "UPDATE chude SET tenchude=? WHERE id_chude=?";
+		return jdbcTemplate.update(sql, new Object[] {subject.getTenChuDe(),subject.getId_ChuDe()});
+	}
+
+	public int delItem(ChuDe subject) {
+		String sql = "DELETE FROM chude WHERE id_chude=?";
+		return jdbcTemplate.update(sql, new Object[] {subject.getId_ChuDe()});
+	}
 }

@@ -53,7 +53,8 @@
         	</c:forEach>
         </ul>
       </li>
-      <li><a href="#" title="Link Text">Tin tức</a></li>
+      <li><a href="${pageContext.request.contextPath}/teacher" title="Link Text">Giảng viên</a></li>
+      <li><a href="${pageContext.request.contextPath}/news" title="Link Text">Tin tức</a></li>
       <li class="last-child"><a href="${pageContext.request.contextPath}/contact" title="A Very Long Link Text">Liên hệ </a></li>
       <c:if test="${userInfo.username != null }">
 	      <li class="taikhoan" style="float:right"><a class="drop" href="#" style="padding: 14px 0 14px 15px;" title="Gallery Layouts"> User 

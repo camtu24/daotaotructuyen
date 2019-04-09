@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import constant.Defines;
 import model.bean.Course;
 import model.bean.MyCourse;
+import model.dao.CommentDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.DshvDAO;
@@ -47,6 +48,8 @@ public class PublicMyCourseController {
 	private DanhMucBaiGiangDAO dmucDao;
 	@Autowired
 	private LessonDAO lessDao;
+	@Autowired
+	private CommentDAO cmtDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -82,8 +85,12 @@ public class PublicMyCourseController {
 		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
 		modelMap.addAttribute("nameKH", course.getTenKhoaHoc());
 		modelMap.addAttribute("lessDao", lessDao);
+		
 		//baihoc1
 		modelMap.addAttribute("lesson", lessDao.getItemFirst(kid));
+		//comment
+		modelMap.addAttribute("listCmt", cmtDao.getItems(lessDao.getItemFirst(kid).getId_BaiHoc()));
+		modelMap.addAttribute("cmtDao", cmtDao);
 		return "public.mycourse.learn";
 	}
 	
@@ -95,6 +102,9 @@ public class PublicMyCourseController {
 		modelMap.addAttribute("lessDao", lessDao);
 		//baihoc1
 		modelMap.addAttribute("lesson", lessDao.getItem(lid));
+		//comment parent
+		modelMap.addAttribute("listCmt", cmtDao.getItems(lid));
+		modelMap.addAttribute("cmtDao", cmtDao);
 		return "public.mycourse.learn";
 	}
 

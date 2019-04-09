@@ -163,6 +163,19 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/contact/view.jsp" />
   </definition>
   
+    <!-- ADMIN NEWS -->
+  <definition name="admin.news.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/news/index.jsp" />
+  </definition>
+  
+  <definition name="admin.news.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/news/add.jsp" />
+  </definition>
+  
+  <definition name="admin.news.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/news/edit.jsp" />
+  </definition>
+  
   <!-- ADMIN SLIDERS -->
   <definition name="admin.slider.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/slider/index.jsp" />
@@ -207,13 +220,10 @@
     <put-attribute name="body" value="/WEB-INF/jsp/public/index.jsp" />
   </definition>
   
+  <!-- hien thi thong tin khoa hoc -->
   <definition name="public.train.cats" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/jsp/public/cat-total.jsp" />
   </definition>
-  
-  <!-- <definition name="public.train.cat" extends="public.template">
-    <put-attribute name="body" value="/WEB-INF/jsp/public/cat.jsp" />
-  </definition> -->
   
   <definition name="public.train.cat" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/cat.jsp" />
@@ -223,10 +233,12 @@
     <put-attribute name="body" value="/WEB-INF/jsp/public/detail.jsp" />
   </definition>
   
+  <!-- loi -->
   <definition name="public.train.error" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/error.jsp" />
   </definition>
   
+  <!-- mua khoa hoc -->
  <definition name="public.order.step1" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/order-1.jsp" />
   </definition>
@@ -239,8 +251,23 @@
     <put-attribute name="body" value="/WEB-INF/jsp/public/order-3.jsp" />
   </definition>
   
+  <!-- lien he -->
   <definition name="public.contact.index" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/contact.jsp" />
+  </definition>
+  
+  <!-- giang vien -->
+  <definition name="public.teacher.index" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/teacher.jsp" />
+  </definition>
+  
+  <!-- tin tuc -->
+  <definition name="public.news.index" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/news.jsp" />
+  </definition>
+  
+  <definition name="public.news.detail" extends="public.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/news-detail.jsp" />
   </definition>
   
     <!--MY COURSE -->

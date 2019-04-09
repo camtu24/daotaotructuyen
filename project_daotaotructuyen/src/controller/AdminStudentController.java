@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Student;
+import model.dao.CommentDAO;
 import model.dao.PlhvDAO;
 import model.dao.RoleDAO;
 import model.dao.StudentDAO;
@@ -39,6 +40,8 @@ public class AdminStudentController {
 	private RoleDAO roleDao;
 	@Autowired
 	private PlhvDAO plhvDao;
+	@Autowired
+	private CommentDAO cmtDao;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
@@ -155,6 +158,8 @@ public class AdminStudentController {
 			student.setHinhAnh(fileName);
 			String filePath = dirPath + File.separator + fileName;
 
+			//thay anh trong cmt
+			cmtDao.changeHA(fileName,oldStudent.getHinhAnh());
 			try {
 				cmf.transferTo(new File(filePath));
 			} catch (IOException e) {

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.ChuDe;
-import model.bean.PLHV;
+import model.bean.Course;
 import model.dao.ChuDeDAO;
-import model.dao.PlhvDAO;
+import model.dao.CourseDAO;
+import model.dao.DanhMucBaiGiangDAO;
+import model.dao.LessonDAO;
 
 @Controller
 @RequestMapping("admin")
@@ -26,6 +31,12 @@ public class AdminSubjectController {
 	
 	@Autowired
 	private ChuDeDAO chuDeDao;
+	@Autowired
+	private CourseDAO courDao;
+	@Autowired
+	private DanhMucBaiGiangDAO dmucDao;
+	@Autowired
+	private LessonDAO lessDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -62,5 +73,64 @@ public class AdminSubjectController {
 		}
 		
 		return "redirect:/admin/subjects";
+	}
+	
+	@RequestMapping(value="/subject/edit/{sid}", method=RequestMethod.GET)
+	public String edit(@PathVariable("sid") int sid, ModelMap modelMap) {
+		ChuDe subject = chuDeDao.getItem(sid);
+		if(subject != null) {
+			modelMap.addAttribute("subject", subject);
+		}else {
+			return "error404";
+		}
+		return "admin.subject.add";
+	}
+	
+	@RequestMapping(value="/subject/edit/{sid}", method=RequestMethod.POST)
+	public String edit(@Valid @ModelAttribute("subject") ChuDe subject, BindingResult br,@PathVariable("sid") int sid, ModelMap modelMap, RedirectAttributes ra) {
+		if(br.hasErrors()) {
+			modelMap.addAttribute("subject", subject);
+			return "admin.subject.edit";
+		}
+		//kiểm tra trùng loại học viên
+		if(chuDeDao.checkItem(subject) > 0) {
+			modelMap.addAttribute("subject", subject);
+			ra.addAttribute("msg1", "Trùng tên chủ đề!");
+			return "redirect:/admin/subject/edit/{sid}";
+		}
+		subject.setId_ChuDe(sid);
+		if(chuDeDao.editItem(subject) > 0) {
+			ra.addAttribute("msg", Defines.SUCCESS);
+		}else {
+			ra.addAttribute("msg", Defines.ERROR);
+		}
+		
+		return "redirect:/admin/subjects";
+	}
+	
+	@RequestMapping(value="/subject/del/{sid}", method=RequestMethod.GET)
+	public String del(@PathVariable("sid") int sid, ModelMap modelMap,RedirectAttributes ra) {
+		ChuDe subject = chuDeDao.getItem(sid);
+		if(subject != null) {
+			if(chuDeDao.delItem(subject) > 0) {
+				//lưu tru khoa hoc
+				List<Course> list = courDao.getItemsBySubjectDel(sid);
+				for (Course course : list) {
+					if(courDao.storageItem(course.getId_KhoaHoc()) > 0) {
+						if(dmucDao.storageItemByIDKH(course.getId_KhoaHoc()) > 0) {
+							if(lessDao.storageItemByIDKH(course.getId_KhoaHoc()) > 0) {
+								ra.addFlashAttribute("msg", Defines.SUCCESS);
+							}
+						}
+					}
+				}
+				ra.addAttribute("msg", Defines.SUCCESS);
+			}else {
+				ra.addAttribute("msg", Defines.ERROR);
+			}
+		}else {
+			return "error404";
+		}
+		return "admin.subject.add";
 	}
 }

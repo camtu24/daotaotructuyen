@@ -19,6 +19,7 @@
       </ul>
     </li>
     <li><a href="${pageContext.request.contextPath }/admin/contacts"><i class="icon icon-fullscreen"></i> <span>Liên hệ</span></a></li>
+    <li><a href="${pageContext.request.contextPath }/admin/news"><i class="icon icon-fullscreen"></i> <span>Tin tức</span></a></li>
     <li><a href="${pageContext.request.contextPath }/admin/sliders"><i class="icon icon-fullscreen"></i> <span>Slider</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Lưu trữ</span> <!-- <span class="label label-important">3</span> --></a>
       <ul>

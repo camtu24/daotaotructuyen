@@ -23,13 +23,16 @@ import model.bean.Account;
 import model.bean.ChuDe;
 import model.bean.Contact;
 import model.bean.Course;
+import model.bean.News;
 import model.bean.ThongTinDangKy;
 import model.dao.ChuDeDAO;
 import model.dao.ContactDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.LessonDAO;
+import model.dao.NewsDAO;
 import model.dao.StudentDAO;
+import model.dao.TeacherDAO;
 import model.dao.TtdkDAO;
 import util.SlugUtil;
 
@@ -53,6 +56,10 @@ public class PublicTrainController {
 	private SlugUtil slugUtil;
 	@Autowired
 	private ContactDAO contDao;
+	@Autowired
+	private TeacherDAO teaDao;
+	@Autowired
+	private NewsDAO newsDao;
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
 	
@@ -187,5 +194,43 @@ public class PublicTrainController {
 			ra.addAttribute("msg", Defines.ERROR);
 		}
 		return "redirect:/contact";
+	}
+	
+	//giang vien
+	@RequestMapping("teacher")
+	public String teacherView(ModelMap modelMap){
+		modelMap.addAttribute("listTea", teaDao.getItems());
+		return "public.teacher.index";
+	}
+	
+	//tin tức
+	@RequestMapping("news")
+	public String news(ModelMap modelMap){
+		modelMap.addAttribute("listNews", newsDao.getItems());
+		return "public.news.index";
+	}
+	
+	//chi tiết tin tức
+	@RequestMapping("{nameTT}-{idTT}.html")
+	public String newsDetail(@PathVariable("idTT") int idTT, ModelMap modelMap, @PathVariable("nameTT") String nameTT){
+		News news = newsDao.getItem(idTT);
+		if(news == null) {
+			return "public.train.error";
+		}
+		int count_views = news.getLuotXem() +1 ;
+		news.setLuotXem(count_views);
+		newsDao.getchangeCV(count_views,idTT);
+		String nName = SlugUtil.makeSlug(news.getTenTin());
+		
+		if(!nameTT.equals(nName)) {
+			return "redirect:/"+nName+"-"+idTT+".html";
+		}
+		// chi tiêt tin
+		modelMap.addAttribute("news", news);
+		//tin tuc khac
+		modelMap.addAttribute("listTTK", newsDao.getItemsTTK(idTT));
+		
+		//modelMap.addAttribute("listNews", newsDao.getItems());
+		return "public.news.detail";
 	}
 }

@@ -53,4 +53,9 @@ public class DshvDAO {
 		return jdbcTemplate.query(sql,new Object[] {username,username,username}, new BeanPropertyRowMapper<MyCourse>(MyCourse.class));
 	
 	}
+
+	public int delItemHV(Integer id) {
+		String sql = "DELETE FROM danhsachhocvien WHERE id_dshv=?";
+		return jdbcTemplate.update(sql, new Object[] {id});
+	}
 }
