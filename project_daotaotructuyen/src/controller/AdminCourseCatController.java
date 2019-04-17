@@ -50,7 +50,7 @@ public class AdminCourseCatController {
 	@RequestMapping(value="/course/{kid}/cats", method=RequestMethod.GET)
 	public String index(@PathVariable(value="kid", required=false) Integer kid,ModelMap modelMap) {
 		modelMap.addAttribute("listDM", dmucDao.getItemsByID(kid));
-		modelMap.addAttribute("listBG", lessonDao.getItemsByIDKH(kid));
+		//modelMap.addAttribute("listBG", lessonDao.getItemsByIDKH(kid));
 		//ghi danh
 		//hocvien thường
 		modelMap.addAttribute("listStu", stuDao.getItemsCGD(2));

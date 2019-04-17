@@ -18,13 +18,17 @@
   </definition>
   
   <!-- ADMIN KHOA HOC -->
-  <!-- ADMIN LEVEL -->
-  <definition name="admin.level.index" extends="admin.template">
-    <put-attribute name="body" value="/WEB-INF/jsp/admin/level/index.jsp" />
+  <!-- ADMIN CLASS -->
+  <definition name="admin.class.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/class/index.jsp" />
   </definition>
   
-  <definition name="admin.level.add" extends="admin.template">
-    <put-attribute name="body" value="/WEB-INF/jsp/admin/level/add.jsp" />
+  <definition name="admin.class.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/class/add.jsp" />
+  </definition>
+  
+  <definition name="admin.class.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/class/edit.jsp" />
   </definition>
   
   <!-- ADMIN SUBJECT -->
@@ -280,6 +284,8 @@
   
   <!--AUTH TEMPLATE -->
   <definition name="public.login" template="/WEB-INF/jsp/loginpublic/login.jsp">
+  </definition> 
+  <definition name="public.forgotPassword" template="/WEB-INF/jsp/loginpublic/forgot_password.jsp">
   </definition> 
   <!--END PUBLIC TEMPLATE -->
 </tiles-definitions>

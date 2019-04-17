@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ include file = "/templates/taglib.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<title>Tour du lịch</title>
+<title>Đăng nhập-Admin</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="${defines.urlAdmin }/css/bootstrap.min.css" />
@@ -17,7 +18,9 @@
 
 </head>
 <body>
-
+	<c:if test="${not empty msg }">
+		<script type="text/javascript">alert("${msg}")</script>
+	  </c:if>
 	<div id="loginbox">
 		<form id="loginform" class="form-vertical" action="${pageContext.request.contextPath}/admin/auth/login" method="post">
 			<div class="control-group normal_text">

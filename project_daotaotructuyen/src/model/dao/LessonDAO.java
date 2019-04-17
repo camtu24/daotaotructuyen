@@ -16,13 +16,18 @@ public class LessonDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Lesson> getItemsByIDKH(int kid){
-		String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,IFNULL(id_dmb,''),id_khoahoc,storage FROM baihoc WHERE id_dmb IS NULL && id_khoahoc=? && storage=1 ORDER BY id_baihoc DESC";
+		String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_khoahoc=? && storage=1 ORDER BY id_dmb";
 		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
 	}
 	
 	public List<Lesson> getItemsByIDDM(int cid, int kid){
 		String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_dmb=? && id_khoahoc=? && storage=1";
 		return jdbcTemplate.query(sql,new Object[] {cid,kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
+	}
+	
+	public List<Lesson> getItemsByIDDMCH(int cid, int kid, String username){
+		String sql = "SELECT b.id_baihoc,b.tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,b.id_dmb,b.id_khoahoc,b.storage FROM baihoc AS b LEFT JOIN (SELECT * FROM quatrinhhoc WHERE username=? && hoanthanh != 0) AS q ON b.id_baihoc = q.id_baihoc WHERE q.id_baihoc IS NULL && b.id_dmb=? && b.id_khoahoc=? && b.storage=1";
+		return jdbcTemplate.query(sql,new Object[] {username,cid,kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
 	}
 
 	public int checkItem(Lesson lesson) {
@@ -58,6 +63,15 @@ public class LessonDAO {
 			return null;
 		}
 	}
+	
+	public Lesson getItemNext(int kid,int position) {
+		try {
+			String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_khoahoc = ? ORDER BY id_dmb LIMIT ?,1";
+			return jdbcTemplate.queryForObject(sql, new Object[] {kid,position},new BeanPropertyRowMapper<Lesson>(Lesson.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	public int editItem(Lesson lesson) {
 		String sql = "UPDATE baihoc SET tenbaihoc=?,mota=?,chitiet=?,video=? WHERE id_baihoc=?";
@@ -81,6 +95,11 @@ public class LessonDAO {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public List<Lesson> getItemsTwo(int kid) {
+		String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_khoahoc=? ORDER BY id_dmb LIMIT 2";
+		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
 	}
 
 	

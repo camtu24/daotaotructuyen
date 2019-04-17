@@ -53,14 +53,14 @@ public class TeacherDAO {
 		return jdbcTemplate.update(sql, new Object[] {id});
 	}
 
-	public Teacher getItemU(String username) {
+	/*public Teacher getItemU(String username) {
 		try {
 			String sql = "SELECT * FROM giangvien WHERE username = ?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {username}, new BeanPropertyRowMapper<>( Teacher.class));
 		} catch (Exception e) {
 			return null;
 		}
-	}
+	}*/
 
 	public List<Teacher> getItemsCGD() {
 		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 ORDER BY id_giangvien DESC";

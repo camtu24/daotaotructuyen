@@ -69,7 +69,7 @@ public class AdminQTVController {
 		}*/
 		System.out.println("role"+qtv.getId_Role());
 		//kiểm tra trùng tên đăng nhập
-		if(qtvDao.getItemU(qtv.getUsername()) != null) {
+		if(qtvDao.checkItem(qtv.getUsername()) != null) {
 			modelMap.addAttribute("qtv",qtv);
 			modelMap.addAttribute("listRoles", roleDao.getItems());
 			ra.addFlashAttribute("msg1", "Trùng tên đăng nhập! Vui lòng nhập lại!");
@@ -128,12 +128,6 @@ public class AdminQTVController {
 		
 		//kiểm tra trùng tên đăng nhập
 		qtv.setId_Qtv(id);
-		if(qtvDao.checkItem(qtv) != null) {
-			modelMap.addAttribute("qtv",qtv);
-			modelMap.addAttribute("listRoles", roleDao.getItems());
-			ra.addFlashAttribute("msg1", "Trùng tên đăng nhập! Vui lòng nhập lại!");
-			return "redirect:/admin/qtv/add";
-		}
 		
 		String fileName = cmf.getOriginalFilename();
 		String appPath = request.getServletContext().getRealPath("");

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Properties;
@@ -50,19 +49,14 @@ import util.FileUtil;
 public class AdminCourseController {
 	@Autowired
 	private Defines defines;
-	
 	@Autowired
 	private CourseDAO courDao;
-	
 	@Autowired
 	private DanhMucBaiGiangDAO dmucDao;
-	
 	@Autowired
 	private LessonDAO lessDao;
-	
 	@Autowired
 	private ChuDeDAO chuDeDao;
-	
 	@Autowired
 	private DshvDAO dsDao;
 	@Autowired
@@ -338,7 +332,7 @@ public class AdminCourseController {
 	
 	// danh sach hoc vien
 	@RequestMapping(value="/course/liststudent/{kid}", method=RequestMethod.GET)
-	public String danhsach(ModelMap modelMap, RedirectAttributes ra,@PathVariable("kid") int kid) {
+	public String danhSach(ModelMap modelMap, RedirectAttributes ra,@PathVariable("kid") int kid) {
 		modelMap.addAttribute("listStu", dsDao.getItemsHV(kid));
 		modelMap.addAttribute("listTea", dsDao.getItemsGV(kid));
 		modelMap.addAttribute("listQtv", dsDao.getItemsQTV(kid));
@@ -348,7 +342,7 @@ public class AdminCourseController {
 	
 	//ghi danh hoc vien
 	@RequestMapping(value="/course/{kid}/ghidanhhocvien", method=RequestMethod.POST)
-	public String ghidanhhv(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
+	public String ghiDanhHV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
 		if(ghi.length == 0) {
 			ra.addFlashAttribute("msg", "Bạn chưa chọn học viên ghi danh!");
 		}
@@ -404,7 +398,7 @@ public class AdminCourseController {
 	
 	//ghi danh giang vien
 	@RequestMapping(value="/course/{kid}/ghidanhgiangvien", method=RequestMethod.POST)
-	public String ghidanhgv(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
+	public String ghiDanhGV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
 		if(ghi.length == 0) {
 			ra.addFlashAttribute("msg", "Bạn chưa chọn học viên ghi danh!");
 		}
@@ -457,7 +451,7 @@ public class AdminCourseController {
 		
 		//ghi danh quan tri vien
 		@RequestMapping(value="/course/{kid}/ghidanhqtv", method=RequestMethod.POST)
-		public String ghidanhqtv(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
+		public String ghiDanhQTV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
 			if(ghi.length == 0) {
 				ra.addFlashAttribute("msg", "Bạn chưa chọn học viên ghi danh!");
 			}
@@ -534,7 +528,7 @@ public class AdminCourseController {
 		
 	//xoa khoi danh sach
 	@RequestMapping(value="/course/{kid}/delete", method=RequestMethod.POST)
-	public String xoaghidanhhv(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="delete[]", required=false) Integer[] del,@PathVariable("kid") int kid) {
+	public String xoaGhiDanhHV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="delete[]", required=false) Integer[] del,@PathVariable("kid") int kid) {
 		if(del.length == 0) {
 			ra.addFlashAttribute("msg", "Bạn chưa chọn học viên!");
 			return "redirect:/admin/course/{kid}/cats";

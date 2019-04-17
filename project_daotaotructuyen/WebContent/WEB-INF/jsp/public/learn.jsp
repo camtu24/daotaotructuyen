@@ -36,17 +36,28 @@
 									<span class="fa fa-check" style="display: none;"></span>
 								</td>
 						</tr>
-						<c:forEach items="${lessDao.getItemsByIDDM(item.id_Dmb,item.id_KhoaHoc) }" var="itemBG">
-						<c:set value = "${pageContext.request.contextPath}/mycourse/${slugUtil.makeSlug(nameKH)}-${item.id_KhoaHoc}-${itemBG.id_BaiHoc}" var="learningUrl"></c:set>
-							<tr class="content-item" data-id="45024"> <!-- active -->
-								<td class="item-title">
-									<a href="${learningUrl }"> -- ${itemBG.tenBaiHoc }</a>
-								</td>
-									<td class="item-action">
-										<span class="fa fa-check" style="display: none;"></span>
+							<c:forEach items="${qthDao.getItemsByIDDM(item.id_Dmb,item.id_KhoaHoc,account.username) }" var="itemBGDH">
+							<c:set value = "${pageContext.request.contextPath}/mycourse/${nameKHSl}-${item.id_KhoaHoc}-${itemBGDH.id_BaiHoc}" var="learningUrl1"></c:set>
+								<tr class="content-item" data-id="45024"> <!-- active -->
+									<td class="item-title">
+										<a href="${learningUrl1 }"> -- ${itemBGDH.tenBaiHoc }</a>
 									</td>
-							</tr>
-						</c:forEach>
+										<td class="item-action">
+											<span class="fa fa-check" style="display: none;"></span>
+										</td>
+								</tr>
+							</c:forEach>
+							
+							<c:forEach items="${lessDao.getItemsByIDDMCH(item.id_Dmb,item.id_KhoaHoc,account.username) }" var="itemBG">
+								<tr class="content-item" data-id="45024"> <!-- active -->
+									<td class="item-title">
+										<a href="javascript:void(0)" style="opacity: 0.6"> -- ${itemBG.tenBaiHoc }</a>
+									</td>
+										<td class="item-action">
+											<span class="fa fa-check" style="display: none;"></span>
+										</td>
+								</tr>
+							</c:forEach>
 					</c:forEach>
 				</table>
 		</div>
@@ -193,21 +204,45 @@
 		</div>
         <div class="btn-group-action nav-content">
             <div class="col-xs-6 text-right">
-                    <a href="" title="B&#224;i học trước">
+            		<c:if test="${not empty prevLess }">
+            			<c:set value = "${pageContext.request.contextPath}/mycourse/${nameKHSl}-${prevLess.id_KhoaHoc}-${prevLess.id_BaiHoc}" var="prevLess"></c:set>
+            			<c:set value = "" var="style"></c:set>
+            		</c:if>
+            		<c:if test="${empty prevLess }">
+            			<c:set value = "javascript:void(0)" var="prevLess"></c:set>
+            			<c:set value = "style='opacity:0.5'" var="style"></c:set>
+            		</c:if>
+                    <a href="${prevLess }" ${style } title="B&#224;i học trước">
                         <span class="icon-chevron-left icon-large"></span>
                     </a>
             </div>
             <div class="col-xs-6">
-                   <a href="" title="B&#224;i học tiếp theo">
+            		<c:if test="${not empty nextLess }">
+            			<c:set value = "${pageContext.request.contextPath}/mycourse/${nameKHSl}-${nextLess.id_KhoaHoc}-${nextLess.id_BaiHoc}" var="nextLess"></c:set>
+            			<c:set value = "" var="style"></c:set>
+            		</c:if>
+            		<c:if test="${empty nextLess }">
+            			<c:set value = "javascript:void(0)" var="nextLess"></c:set>
+            			<c:set value = "style='opacity:0.5'" var="style"></c:set>
+            		</c:if>
+            		
+                   	<a href="${nextLess }" ${style } title="B&#224;i học tiếp theo">
                         <span class="icon-chevron-right icon-large"></span>
                     </a>
             </div>
         </div>
 		
 		<div class="course-complete">
-			<a href="" title="Qua bài">
-				<span class="qua">»</span> Qua b&#224;i 
-			</a>
+			<c:if test="${less.hoanThanh != 2 }">
+				<a href="${pageContext.request.contextPath}/mycourse/${nameKHSl}-${nextLessN.id_KhoaHoc}-${nextLessN.id_BaiHoc}" title="Qua bài">
+					<span class="qua">»</span> Qua b&#224;i 
+				</a>
+			</c:if>
+			<c:if test="${less.hoanThanh == 2 }">
+				<a href="javascript:void(0)" title="Qua bài">
+					<span class="qua">»</span> Đã hoàn thành 
+				</a>
+			</c:if>
 		</div>
 
     </div>

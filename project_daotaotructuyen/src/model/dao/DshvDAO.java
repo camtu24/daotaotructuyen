@@ -47,9 +47,9 @@ public class DshvDAO {
 	}
 
 	public List<MyCourse> getItemMyCourse(String username) {
-		String sql = "SELECT k.id_khoahoc, tenkhoahoc, k.hinhAnh FROM danhsachhocvien AS d INNER JOIN khoahoc AS k ON k.id_khoahoc=d.id_khoahoc INNER JOIN hocvien AS h ON h.id_hocvien=d.id_hocvien WHERE username = ? "
-				+ " UNION SELECT k.id_khoahoc, tenkhoahoc, k.hinhAnh FROM danhsachhocvien AS d INNER JOIN khoahoc AS k ON k.id_khoahoc=d.id_khoahoc INNER JOIN giangvien AS g ON g.id_giangvien=d.id_giangvien WHERE username = ? "
-				+ " UNION SELECT k.id_khoahoc, tenkhoahoc, k.hinhAnh FROM danhsachhocvien AS d INNER JOIN khoahoc AS k ON k.id_khoahoc=d.id_khoahoc INNER JOIN quantrivien AS q ON q.id_qtv=d.id_qtv WHERE username = ?";
+		String sql = "SELECT k.id_khoahoc, tenkhoahoc, k.hinhAnh FROM danhsachhocvien AS d INNER JOIN khoahoc AS k ON k.id_khoahoc=d.id_khoahoc INNER JOIN hocvien AS h ON h.id_hocvien=d.id_hocvien WHERE username = ? && phathanh=1 && k.storage=1 "
+				+ " UNION SELECT k.id_khoahoc, tenkhoahoc, k.hinhAnh FROM danhsachhocvien AS d INNER JOIN khoahoc AS k ON k.id_khoahoc=d.id_khoahoc INNER JOIN giangvien AS g ON g.id_giangvien=d.id_giangvien WHERE username = ? && phathanh=1 && k.storage=1 "
+				+ " UNION SELECT k.id_khoahoc, tenkhoahoc, k.hinhAnh FROM danhsachhocvien AS d INNER JOIN khoahoc AS k ON k.id_khoahoc=d.id_khoahoc INNER JOIN quantrivien AS q ON q.id_qtv=d.id_qtv WHERE username = ? && phathanh=1 && k.storage=1";
 		return jdbcTemplate.query(sql,new Object[] {username,username,username}, new BeanPropertyRowMapper<MyCourse>(MyCourse.class));
 	
 	}

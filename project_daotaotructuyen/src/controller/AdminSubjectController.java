@@ -83,7 +83,7 @@ public class AdminSubjectController {
 		}else {
 			return "error404";
 		}
-		return "admin.subject.add";
+		return "admin.subject.edit";
 	}
 	
 	@RequestMapping(value="/subject/edit/{sid}", method=RequestMethod.POST)
@@ -92,13 +92,14 @@ public class AdminSubjectController {
 			modelMap.addAttribute("subject", subject);
 			return "admin.subject.edit";
 		}
+		subject.setId_ChuDe(sid);
 		//kiểm tra trùng loại học viên
 		if(chuDeDao.checkItem(subject) > 0) {
 			modelMap.addAttribute("subject", subject);
 			ra.addAttribute("msg1", "Trùng tên chủ đề!");
 			return "redirect:/admin/subject/edit/{sid}";
 		}
-		subject.setId_ChuDe(sid);
+		
 		if(chuDeDao.editItem(subject) > 0) {
 			ra.addAttribute("msg", Defines.SUCCESS);
 		}else {
@@ -131,6 +132,6 @@ public class AdminSubjectController {
 		}else {
 			return "error404";
 		}
-		return "admin.subject.add";
+		return "redirect:/admin/subjects";
 	}
 }

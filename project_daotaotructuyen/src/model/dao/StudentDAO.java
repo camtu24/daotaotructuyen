@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.bean.Student;
-import model.bean.ThongTinDangKy;
+import model.bean.Order;
 
 @Repository
 public class StudentDAO {
@@ -64,14 +64,14 @@ public class StudentDAO {
 		return jdbcTemplate.update(sql, new Object[] {id});
 	}
 
-	public Student getItemU(String username) {
+	/*public Student getItemU(String username) {
 		try {
 			String sql = "SELECT * FROM hocvien WHERE username = ?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {username}, new BeanPropertyRowMapper<>( Student.class));
 		} catch (Exception e) {
 			return null;
 		}
-	}
+	}*/
 
 	public Student getItemDGD(int id, int kid) {
 		try {
@@ -82,7 +82,7 @@ public class StudentDAO {
 		}
 	}
 
-	public int addItemHVT(ThongTinDangKy tTDK) {
+	public int addItemHVT(Order tTDK) {
 		String sql = "INSERT INTO hocvien(hoten,email,SDT,diachi,id_plhv,username,password,enable,id_role,storage,ghidanh) VALUES(?,?,?,?,2,?,?,1,3,1,0)";
 		return jdbcTemplate.update(sql, new Object[] {tTDK.getHoTen(),tTDK.getEmail(),tTDK.getSdt(),tTDK.getDiaChi(),tTDK.getUsername(),tTDK.getPassword()});
 	}
@@ -92,10 +92,10 @@ public class StudentDAO {
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Student>(Student.class));
 	}
 
-	public ThongTinDangKy checkItem1(ThongTinDangKy tTDK) {
+	public Order checkItem1(Order tTDK) {
 		try {
 			String sql = "SELECT id_qtv,username FROM quantrivien AS q WHERE q.username = ? UNION SELECT id_giangvien,username FROM giangvien AS g WHERE g.username = ? UNION SELECT id_hocvien,username FROM hocvien AS h WHERE h.username = ?";
-			return jdbcTemplate.queryForObject(sql,new Object[] {tTDK.getUsername(),tTDK.getUsername(),tTDK.getUsername()}, new BeanPropertyRowMapper<ThongTinDangKy>(ThongTinDangKy.class));
+			return jdbcTemplate.queryForObject(sql,new Object[] {tTDK.getUsername(),tTDK.getUsername(),tTDK.getUsername()}, new BeanPropertyRowMapper<Order>(Order.class));
 		} catch (Exception e) {
 			return null;
 		}

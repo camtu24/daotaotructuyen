@@ -35,7 +35,7 @@ public class PublicCommentControlller {
 	
 	@ResponseBody
 	@RequestMapping(value="/comments", method=RequestMethod.POST)
-	public String index(HttpServletResponse response,HttpServletRequest request,ModelMap modelMap,@RequestParam("acontent") String acontent,@RequestParam("aid") int aid,@RequestParam("ahoten") String ahoten,@RequestParam("ahinhanh") String ahinhanh) {
+	public String comment(HttpServletResponse response,HttpServletRequest request,ModelMap modelMap,@RequestParam("acontent") String acontent,@RequestParam("aid") int aid,@RequestParam("ahoten") String ahoten,@RequestParam("ahinhanh") String ahinhanh) {
 		System.out.println("truyen thanh cong");
 		try {
 			request.setCharacterEncoding("UTF-8");

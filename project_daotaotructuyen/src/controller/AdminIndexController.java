@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import constant.Defines;
+import model.dao.AccountDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
@@ -22,11 +23,13 @@ public class AdminIndexController {
 	@Autowired
 	private Defines defines;
 	@Autowired
+	private AccountDAO accDao;
+	@Autowired
 	private QtvDAO qtvDao;
 	@Autowired
-	private TeacherDAO teaDao;
-	@Autowired
 	private StudentDAO stuDao;
+	@Autowired
+	private TeacherDAO teaDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -35,9 +38,17 @@ public class AdminIndexController {
 	
 	@RequestMapping("")
 	public String index(Principal principal, HttpSession session){
+		
 		System.out.println("Username: "+ principal.getName());
-		session.setAttribute("userInfo", qtvDao.getItemU(principal.getName()));
-		System.out.println("user " +qtvDao.getItemU(principal.getName()).getUsername());
+		session.setAttribute("account", accDao.getItemByU(principal.getName()));
+		if(qtvDao.getItemLG(principal.getName()) != null) {
+			session.setAttribute("userInfo", qtvDao.getItemLG(principal.getName()));
+		} else if(teaDao.getItemLG(principal.getName()) != null){
+			session.setAttribute("userInfo", teaDao.getItemLG(principal.getName()));
+		}else if(stuDao.getItemLG(principal.getName()) != null){
+			session.setAttribute("userInfo", stuDao.getItemLG(principal.getName()));
+		}
+		
 		return "admin.index.index";
 	}
 }

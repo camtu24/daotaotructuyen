@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
-import model.bean.ThongTinDangKy;
+import model.bean.Order;
 import model.dao.CourseDAO;
-import model.dao.TtdkDAO;
+import model.dao.OrderDAO;
 
 @Controller
 @RequestMapping("admin")
@@ -23,7 +23,7 @@ public class AdminOrderController {
 	private Defines defines;
 	
 	@Autowired
-	private TtdkDAO ttdkDao;
+	private OrderDAO ttdkDao;
 	@Autowired
 	private CourseDAO courDao;
 	
@@ -40,7 +40,7 @@ public class AdminOrderController {
 	
 	@RequestMapping(value="/order/view/{oid}", method=RequestMethod.GET)
 	public String view(@PathVariable("oid") int oid,ModelMap modelMap) {
-		ThongTinDangKy order = (ThongTinDangKy) ttdkDao.getItem(oid);
+		Order order = (Order) ttdkDao.getItem(oid);
 		//System.out.println("oid" +order.getUsername());
 		//System.out.println("ds: " + order.getId_KhoaHoc());
 		if(order != null) {
@@ -55,7 +55,7 @@ public class AdminOrderController {
 	//lưu trữ 1 đối tượng
 	@RequestMapping(value="order/storage/{oid}", method=RequestMethod.GET)
 	public String storageItem(@PathVariable("oid") int oid,ModelMap modelMap, RedirectAttributes ra) {
-		ThongTinDangKy order = (ThongTinDangKy) ttdkDao.getItem(oid);
+		Order order = (Order) ttdkDao.getItem(oid);
 		if(order != null) {
 			if(ttdkDao.storageItem(oid) > 0) {
 				ra.addFlashAttribute("msg", Defines.SUCCESS);

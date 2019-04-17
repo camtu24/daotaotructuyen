@@ -14,7 +14,6 @@
       <ul>
         <li><a href="${pageContext.request.contextPath }/admin/subjects">Chủ đề</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/courses">Khóa học</a></li>
-        <li><a href="${pageContext.request.contextPath }/admin/pllh">Phân loại lớp học</a></li>
         <li><a href="${pageContext.request.contextPath }/admin/class">Lớp học</a></li>
       </ul>
     </li>

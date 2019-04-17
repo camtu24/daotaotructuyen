@@ -26,7 +26,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		
 		<form-login login-page='/auth/login' login-processing-url="/admin/auth/login"
             default-target-url="/admin" always-use-default-target="false"
-            authentication-failure-url="/auth/login?msg" username-parameter="username"
+            authentication-failure-url="/auth/login?msg=Sai username or password!!!" username-parameter="username"
             password-parameter="password" />  
  
         <logout logout-url="/admin/auth/logout" logout-success-url="/auth/login"
@@ -43,7 +43,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		
 		<form-login login-page='/login' login-processing-url="/login"
             default-target-url="/mycourses" always-use-default-target="false"
-            authentication-failure-url="/login?msg=Sai username or password!" username-parameter="username"
+            authentication-failure-url="/login?msg=Sai username or password!!!" username-parameter="username"
             password-parameter="password" />  
  
         <logout logout-url="/logout" logout-success-url="/login"

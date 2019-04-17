@@ -24,7 +24,7 @@ import model.bean.ChuDe;
 import model.bean.Contact;
 import model.bean.Course;
 import model.bean.News;
-import model.bean.ThongTinDangKy;
+import model.bean.Order;
 import model.dao.ChuDeDAO;
 import model.dao.ContactDAO;
 import model.dao.CourseDAO;
@@ -33,7 +33,7 @@ import model.dao.LessonDAO;
 import model.dao.NewsDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
-import model.dao.TtdkDAO;
+import model.dao.OrderDAO;
 import util.SlugUtil;
 
 @Controller
@@ -49,7 +49,7 @@ public class PublicTrainController {
 	@Autowired
 	private LessonDAO lessDao;
 	@Autowired
-	private TtdkDAO ttdkDao;
+	private OrderDAO ttdkDao;
 	@Autowired
 	private StudentDAO stuDao;
 	@Autowired
@@ -110,7 +110,7 @@ public class PublicTrainController {
 	}
 	
 	@RequestMapping(value="{nameKH}-{kid}/dangky/step1", method=RequestMethod.GET)
-	public String dangKy(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session){
+	public String order1(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session){
 		Account acc = (Account) session.getAttribute("account");
 		Course course = courDao.getItemDPH(kid);
 		int count = lessDao.getItemsCount(kid);
@@ -125,7 +125,7 @@ public class PublicTrainController {
 	}
 	
 	@RequestMapping(value="{nameKH}-{kid}/dangky/step2", method=RequestMethod.POST)
-	public String thanhToan(@ModelAttribute("TTDK") ThongTinDangKy TTDK,@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session,RedirectAttributes ra){
+	public String order2(@ModelAttribute("TTDK") Order TTDK,@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session,RedirectAttributes ra){
 		if(stuDao.checkItem1(TTDK) != null) {
 			modelMap.addAttribute("TTDK",TTDK);
 			ra.addFlashAttribute("msg1", "Trùng tên đăng nhập! Vui lòng nhập lại!");
@@ -146,9 +146,9 @@ public class PublicTrainController {
 	}
 	
 	@RequestMapping(value="{nameKH}-{kid}/dangky/step3", method=RequestMethod.POST)
-	public String thanhToanHT(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session, @RequestParam("id_ThanhToan") int id_ThanhToan, HttpServletRequest request) throws UnsupportedEncodingException{
+	public String order3(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session, @RequestParam("id_ThanhToan") int id_ThanhToan, HttpServletRequest request) throws UnsupportedEncodingException{
 		request.setCharacterEncoding("UTF-8");
-		ThongTinDangKy TTDK = (ThongTinDangKy) session.getAttribute("TTDK");
+		Order TTDK = (Order) session.getAttribute("TTDK");
 		if(ttdkDao.addItem(TTDK,kid,id_ThanhToan) > 0) {
 			Account acc = (Account) session.getAttribute("account");
 			if(acc == null) {
@@ -183,7 +183,7 @@ public class PublicTrainController {
 	}
 	
 	@RequestMapping(value="contact", method=RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("contact") Contact contact, BindingResult br, ModelMap modelMap, RedirectAttributes ra) {
+	public String addContact(@Valid @ModelAttribute("contact") Contact contact, BindingResult br, ModelMap modelMap, RedirectAttributes ra) {
 		if(br.hasErrors()) {
 			modelMap.addAttribute("contact", contact);
 			return "public.contact.index";

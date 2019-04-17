@@ -2,7 +2,7 @@ package model.bean;
 
 import java.sql.Timestamp;
 
-public class ThongTinDangKy {
+public class Order {
 
 	private int id_Ttdk;
 	private String hoTen;
@@ -15,11 +15,11 @@ public class ThongTinDangKy {
 	private Timestamp ngayDangKy;
 	private int id_ThanhToan;
 	private int tinhTrang;
-	public ThongTinDangKy() {
+	public Order() {
 		super();
 	}
 	
-	public ThongTinDangKy(int id_Ttdk, String hoTen, String username, String password, String email, int sdt,
+	public Order(int id_Ttdk, String hoTen, String username, String password, String email, int sdt,
 			String diaChi, int id_KhoaHoc, Timestamp ngayDangKy, int id_ThanhToan, int tinhTrang) {
 		super();
 		this.id_Ttdk = id_Ttdk;

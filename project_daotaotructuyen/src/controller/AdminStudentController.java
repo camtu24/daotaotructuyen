@@ -186,7 +186,7 @@ public class AdminStudentController {
 	
 	//xóa --> lưu trữ
 		@RequestMapping(value="/student/storage/{id}", method=RequestMethod.GET)
-		public String del(@PathVariable("id") int id,ModelMap modelMap, RedirectAttributes ra) {
+		public String storage(@PathVariable("id") int id,ModelMap modelMap, RedirectAttributes ra) {
 			Student student = stuDao.getItem(id);
 			//lưu trư qtv
 			if(student != null) {
