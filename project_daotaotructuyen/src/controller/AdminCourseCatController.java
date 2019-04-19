@@ -60,7 +60,11 @@ public class AdminCourseCatController {
 		modelMap.addAttribute("listTea", teaDao.getItemsCGD());
 		//qtv
 		modelMap.addAttribute("listQtv", qtvDao.getItemsCGD());
+		
 		modelMap.addAttribute("kid", kid);
+		modelMap.addAttribute("stuDao", stuDao);
+		modelMap.addAttribute("teaDao", teaDao);
+		modelMap.addAttribute("qtvDao", qtvDao);
 		return "admin.danhmuc.index";
 	}
 	

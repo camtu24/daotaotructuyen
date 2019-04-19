@@ -15,7 +15,7 @@
     <hr>
     
     <div class="tab">
-	  <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'Khoahoc')">Khóa học</button>
+	  <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'Khoahoc')">Nội dung khóa học</button>
 	  <button class="tablinks" onclick="openCity(event, 'Hocvien')">Học viên thường</button>
 	  <button class="tablinks" onclick="openCity(event, 'Hocviennb')">Học viên nội bộ</button>
 	  <button class="tablinks" onclick="openCity(event, 'Giangvien')">Giảng viên</button>
@@ -77,12 +77,12 @@
             <h5>Data table</h5>
           </div>
           <div class="widget-content nopadding">
-	          <form action="${pageContext.request.contextPath }/admin/course/${kid }/ghidanhhocvien" method="POST">
+	          <form action="${pageContext.request.contextPath }/admin/course/${kid }/ghidanhhocvien/2" method="POST">
 	          	<table class="table table-bordered data-table">
 	              <thead>
 	                <tr>
 	                  <th>ID</th>
-	                  <th>Học Tên</th>
+	                  <th>Họ Tên</th>
 	                  <th>Username</th>
 	                  <th>Số điện thoại</th>
 	                  <th>Email</th>
@@ -98,7 +98,16 @@
 		                  <td>${objS.sdt }</td>
 		                  <td>${objS.email }</td>
 		                  <td style="text-align: center;">
-                              <input type="checkbox" name="ghidanh[]" value="${objS.id_HocVien }" />
+		                  		<c:set var="checked" value=""></c:set>
+		              			<c:choose>
+                           			<c:when test="${not empty stuDao.getItemDGD(objS.id_HocVien,kid)}">
+                           				<c:set var="checked" value="checked"></c:set>
+	                           		</c:when>
+	                           		<c:otherwise>
+	                           			<c:set var="checked" value=""></c:set>
+	                           		</c:otherwise>
+                           		</c:choose>
+                              <input type="checkbox" name="ghidanh[]" value="${objS.id_HocVien }" ${checked}/>
                           </td>
 		                </tr>
 	                </c:forEach>
@@ -119,12 +128,12 @@
             <h5>Data table</h5>
           </div>
           <div class="widget-content nopadding">
-	          <form action="${pageContext.request.contextPath }/admin/course/${kid }/ghidanhhocvien" method="POST">
+	          <form action="${pageContext.request.contextPath }/admin/course/${kid }/ghidanhhocvien/1" method="POST">
 	          	<table class="table table-bordered data-table">
 	              <thead>
 	                <tr>
 	                  <th>ID</th>
-	                  <th>Học Tên</th>
+	                  <th>Họ Tên</th>
 	                  <th>Username</th>
 	                  <th>Số điện thoại</th>
 	                  <th>Email</th>
@@ -140,7 +149,16 @@
 		                  <td>${objSnb.sdt }</td>
 		                  <td>${objSnb.email }</td>
 		                  <td style="text-align: center;">
-                              <input type="checkbox" name="ghidanh[]" value="${objSnb.id_HocVien }" />
+		                  		<c:set var="checked" value=""></c:set>
+		              			<c:choose>
+                           			<c:when test="${not empty stuDao.getItemDGD(objSnb.id_HocVien,kid)}">
+                           				<c:set var="checkednb" value="checked"></c:set>
+	                           		</c:when>
+	                           		<c:otherwise>
+	                           			<c:set var="checkednb" value=""></c:set>
+	                           		</c:otherwise>
+                           		</c:choose>
+                              <input type="checkbox" name="ghidanh[]" value="${objSnb.id_HocVien }" ${checkednb}/>
                           </td>
 		                </tr>
 	                </c:forEach>
@@ -166,7 +184,7 @@
 	              <thead>
 	                <tr>
 	                  <th>ID</th>
-	                  <th>Học Tên</th>
+	                  <th>Họ Tên</th>
 	                  <th>Username</th>
 	                  <th>Số điện thoại</th>
 	                  <th>Email</th>
@@ -182,7 +200,16 @@
 		                  <td>${objTea.sdt }</td>
 		                  <td>${objTea.email }</td>
 		                  <td style="text-align: center;">
-                              <input type="checkbox" name="ghidanh[]" value="${objTea.id_GiangVien }" />
+		                  		<c:set var="checked" value=""></c:set>
+		              			<c:choose>
+                           			<c:when test="${not empty teaDao.getItemDGD(objTea.id_GiangVien,kid)}">
+                           				<c:set var="checkedgv" value="checked"></c:set>
+	                           		</c:when>
+	                           		<c:otherwise>
+	                           			<c:set var="checkedgv" value=""></c:set>
+	                           		</c:otherwise>
+                           		</c:choose>
+                              <input type="checkbox" name="ghidanh[]" value="${objTea.id_GiangVien }" ${checkedgv }/>
                           </td>
 		                </tr>
 	                </c:forEach>
@@ -208,7 +235,7 @@
 	              <thead>
 	                <tr>
 	                  <th>ID</th>
-	                  <th>Học Tên</th>
+	                  <th>Họ Tên</th>
 	                  <th>Username</th>
 	                  <th>Số điện thoại</th>
 	                  <th>Email</th>
@@ -224,7 +251,16 @@
 		                  <td>${objQtv.sdt }</td>
 		                  <td>${objQtv.email }</td>
 		                  <td style="text-align: center;">
-                              <input type="checkbox" name="ghidanh[]" value="${objQtv.id_Qtv }" />
+		                  		<c:set var="checked" value=""></c:set>
+		              			<c:choose>
+                           			<c:when test="${not empty qtvDao.getItemDGD(objQtv.id_Qtv ,kid)}">
+                           				<c:set var="checkedqtv" value="checked"></c:set>
+	                           		</c:when>
+	                           		<c:otherwise>
+	                           			<c:set var="checkedqtv" value=""></c:set>
+	                           		</c:otherwise>
+                           		</c:choose>
+                              <input type="checkbox" name="ghidanh[]" value="${objQtv.id_Qtv }" ${checkedqtv }/>
                           </td>
 		                </tr>
 	                </c:forEach>
@@ -240,7 +276,19 @@
   </div>
 </div>
 
+<!-- <script type="text/javascript">
+function ghidanh(idHv) {
+	alert("hi");
+    var chk = $(this).prop('checked');
+    if (chk) {
+        $("#SelectLop-"+idHv).prop('disabled', false);
+    } else {
+        $("#SelectLop-"+idHv).prop('disabled', true);
+    }
+};
+</script> -->
 <script>
+
 function openCity(evt, cityName) {
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent1");
@@ -256,4 +304,8 @@ function openCity(evt, cityName) {
 }
 //Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+
+
+
 </script>
+

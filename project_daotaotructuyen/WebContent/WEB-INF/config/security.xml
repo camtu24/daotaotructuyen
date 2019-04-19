@@ -6,11 +6,11 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<http use-expressions="true" pattern="/admin/**">  <!-- pattern="/admin/**" -->
+	<http use-expressions="true" pattern="/admin/**">
 		<csrf disabled="true"/>
-		<intercept-url pattern="/admin" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
-		<!-- <intercept-url pattern="/admin/news" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
-		<intercept-url pattern="/admin/search/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/admin" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/orders" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<!-- <intercept-url pattern="/admin/search/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN'" />
 		<intercept-url pattern="/admin/news/edit/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/admin/news/del/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/admin/news/add" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
@@ -20,9 +20,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<intercept-url pattern="/admin/cat/add" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
 		<intercept-url pattern="/admin/user/edit/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
-		 -->
-		<!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
-		<!-- <intercept-url pattern="/**" access="permitAll"/> --> <!--  permitAll: all đều truy cập được -->
+		
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/**" access="permitAll"/>  permitAll: all đều truy cập được -->
 		
 		<form-login login-page='/auth/login' login-processing-url="/admin/auth/login"
             default-target-url="/admin" always-use-default-target="false"

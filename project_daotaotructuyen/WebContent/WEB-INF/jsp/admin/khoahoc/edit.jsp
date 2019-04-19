@@ -139,17 +139,15 @@
 				              <div class="widget-content">
 				              	<c:forEach items="${listGV }" var="objGV">
 				              		<c:set var="checked" value=""></c:set>
-				              		<c:forEach items="${listGVT }" var="objGVT">
-				              			<c:choose>
-		                           			<c:when test="${objGVT.id_GiangVien == objGV.id_GiangVien}">
-		                           				<c:set var="checked" value="checked"></c:set>
-			                           		</c:when>
-			                           		<c:otherwise>
-			                           			<c:set var="checked" value=""></c:set>
-			                           		</c:otherwise>
-		                           		</c:choose>
-							    	</c:forEach>
-							    	<input class="input-tt" type="checkbox" name="id_GiangVienT[]" value="${objGV.id_GiangVien }" ${checked }/>  ${objGV.hoTen}
+			              			<c:choose>
+	                           			<c:when test="${not empty taDao.getItemByIDGV(objGV.id_GiangVien,course.id_KhoaHoc) }">
+	                           				<c:set var="checked" value="checked"></c:set>
+		                           		</c:when>
+		                           		<c:otherwise>
+		                           			<c:set var="checked" value=""></c:set>
+		                           		</c:otherwise>
+	                           		</c:choose>
+							    	<input class="input-tt" type="checkbox" name="id_GiangVienT[]" value="${objGV.id_GiangVien }" ${checked }/>  ${objGV.hoTen} <br> <br>
 							    </c:forEach>
 							  </div>
 				            </div>

@@ -15,6 +15,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
+import model.bean.Account;
 import model.bean.Course;
+import model.bean.DanhSachHocVien;
 import model.bean.TeacherAdd;
 import model.dao.ChuDeDAO;
 import model.dao.CourseDAO;
@@ -167,6 +170,7 @@ public class AdminCourseController {
 			modelMap.addAttribute("listGV", teaDao.getItems());
 			modelMap.addAttribute("listGVT", taDao.getItemsByIDKH(id));
 			modelMap.addAttribute("course", course);
+			modelMap.addAttribute("taDao", taDao);
 		}else {
 			return "error404";
 		}
@@ -254,24 +258,26 @@ public class AdminCourseController {
 				}else {
 					//xóa cũ
 					for (TeacherAdd oldGV : oldList) {
+						int dem = 0;
 						for (Integer id_gv : gv) {
-							if(oldGV.getId_GiangVien() != id_gv) {
-								if(taDao.delItem(course.getId_KhoaHoc(), oldGV.getId_GiangVien()) > 0) {
-									System.out.println("thành công");
-								}
+							if(oldGV.getId_GiangVien() == id_gv) {
+								dem = 1; break;
+							}
+						}
+						if(dem == 0) {
+							if(taDao.delItem(course.getId_KhoaHoc(), oldGV.getId_GiangVien()) > 0) {
+								System.out.println("thành công");
 							}
 						}
 					}
 					
 					//them mới
 					for (Integer id_gv : gv) {
-						for (TeacherAdd oldGV : oldList) {
-							if(id_gv != oldGV.getId_GiangVien()) {
+							if(taDao.getItemByIDGV(id_gv,course.getId_KhoaHoc()) == null) {
 								if(taDao.addItem(course.getId_KhoaHoc(), id_gv) > 0) {
 									System.out.println("thành công");
 								}
 							}
-						}
 					}
 				}
 			}else {
@@ -333,7 +339,7 @@ public class AdminCourseController {
 	// danh sach hoc vien
 	@RequestMapping(value="/course/liststudent/{kid}", method=RequestMethod.GET)
 	public String danhSach(ModelMap modelMap, RedirectAttributes ra,@PathVariable("kid") int kid) {
-		modelMap.addAttribute("listStu", dsDao.getItemsHV(kid));
+		modelMap.addAttribute("listStu", dsDao.getItemsHVC(kid));
 		modelMap.addAttribute("listTea", dsDao.getItemsGV(kid));
 		modelMap.addAttribute("listQtv", dsDao.getItemsQTV(kid));
 		modelMap.addAttribute("kid", kid);
@@ -341,136 +347,81 @@ public class AdminCourseController {
 	}
 	
 	//ghi danh hoc vien
-	@RequestMapping(value="/course/{kid}/ghidanhhocvien", method=RequestMethod.POST)
-	public String ghiDanhHV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
-		if(ghi.length == 0) {
-			ra.addFlashAttribute("msg", "Bạn chưa chọn học viên ghi danh!");
-		}
-		if(ghi != null) {
-			for (Integer id : ghi) {
-				if(stuDao.getItemDGD(id,kid) == null) {
-					if(dsDao.addItemHV(id,kid) > 0) {
-						System.out.println("thanh công");
-					}else {
-						ra.addFlashAttribute("msg", Defines.ERROR);
-						return "redirect:/admin/course/{kid}/cats";
+	@RequestMapping(value="/course/{kid}/ghidanhhocvien/{idLHV}", method=RequestMethod.POST)
+	public String ghiDanhHV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid,@PathVariable("idLHV") int idLHV, HttpSession session) throws AddressException, MessagingException {
+		Account acc = (Account) session.getAttribute("account");
+		List<DanhSachHocVien> oldList = dsDao.getItemsHV(kid,idLHV);
+		
+		if(oldList.size() != 0) {
+			if(ghi == null) {
+				for (DanhSachHocVien oldHV : oldList) {
+					if(dsDao.delItemsHV(kid, oldHV.getId_HocVien()) > 0) {
+						System.out.println("thành công");
 					}
-					
-					if(stuDao.ghiItem(id) > 0) {
-						System.out.println("thanh công");
-					}else {
-						ra.addFlashAttribute("msg", Defines.ERROR);
-						return "redirect:/admin/course/{kid}/cats";
+				}
+			}else {
+				//xóa cũ
+				for (DanhSachHocVien oldHV : oldList) {
+					int dem = 0;
+					for (Integer idHV : ghi) {
+						if(oldHV.getId_HocVien() == idHV) {
+							dem = 1; break;
+						}
 					}
-					
-					String email = stuDao.getItem(id).getEmail();
-					System.out.println("email: "+ email);
-					
-					Properties mailServerProperties;
-				    Session getMailSession;
-				    MimeMessage mailMessage;
-					// Step1: setup Mail Server
-				    mailServerProperties = System.getProperties();
-				    mailServerProperties.put("mail.smtp.port", "587");
-				    mailServerProperties.put("mail.smtp.auth", "true");
-				    mailServerProperties.put("mail.smtp.starttls.enable", "true");
-				 
-				    // Step2: get Mail Session
-				    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
-				    mailMessage = new MimeMessage(getMailSession);
-				    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
-				    mailMessage.setSubject("Thông báo đăng ký khóa học từ GreenGlobal");
-				    mailMessage.setText("Demo send text by gmail from Java");
-				 
-				    // Step3: Send mail
-				    Transport transport = getMailSession.getTransport("smtp");
-				    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
-				    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
-				    transport.close();
-					
+					if(dem == 0) {
+						if(dsDao.delItemsHV(kid, oldHV.getId_HocVien()) > 0) {
+							System.out.println("thành công");
+						}
+					}
+				}
+				//them mới
+				for (Integer idHV : ghi) {
+					if(stuDao.getItemDGD(idHV,kid) == null) {
+						if(dsDao.addItemHV(idHV,kid,acc.getUsername()) > 0) {
+							System.out.println("thành công");
+							
+							String email = stuDao.getItem(idHV).getEmail();
+							System.out.println("email: "+ email);
+							
+							Properties mailServerProperties;
+						    Session getMailSession;
+						    MimeMessage mailMessage;
+							// Step1: setup Mail Server
+						    mailServerProperties = System.getProperties();
+						    mailServerProperties.put("mail.smtp.port", "587");
+						    mailServerProperties.put("mail.smtp.auth", "true");
+						    mailServerProperties.put("mail.smtp.starttls.enable", "true");
+						 
+						    // Step2: get Mail Session
+						    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+						    mailMessage = new MimeMessage(getMailSession);
+						    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
+						    mailMessage.setSubject("Information of registration for a course from GreenGlobal");
+						    mailMessage.setText("Demo send text by gmail from Java");
+						 
+						    // Step3: Send mail
+						    Transport transport = getMailSession.getTransport("smtp");
+						    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
+						    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+						    transport.close();
+						}else {
+							ra.addFlashAttribute("msg", Defines.ERROR);
+							return "redirect:/admin/course/{kid}/cats";
+						}
+						
+						if(stuDao.ghiItem(idHV) > 0) {
+							System.out.println("thanh công");
+						}
+					}
 				}
 			}
-		}
-		
-		ra.addFlashAttribute("msg", Defines.SUCCESS);
-		return "redirect:/admin/course/{kid}/cats";
-	}
-	
-	//ghi danh giang vien
-	@RequestMapping(value="/course/{kid}/ghidanhgiangvien", method=RequestMethod.POST)
-	public String ghiDanhGV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
-		if(ghi.length == 0) {
-			ra.addFlashAttribute("msg", "Bạn chưa chọn học viên ghi danh!");
-		}
-		if(ghi != null) {
-			for (Integer id : ghi) {
-				if(teaDao.getItemDGD(id,kid) == null) {
-					if(dsDao.addItemGV(id,kid) > 0) {
-						System.out.println("thanh công");
-					}else {
-						ra.addFlashAttribute("msg", Defines.ERROR);
-					}
-					
-					if(teaDao.ghiItem(id) > 0){
-						System.out.println("thanh công");
-					}else {
-						ra.addFlashAttribute("msg", Defines.ERROR);
-					}
-					
-					String email = teaDao.getItem(id).getEmail();
-					System.out.println("email: "+ email);
-					
-					Properties mailServerProperties;
-				    Session getMailSession;
-				    MimeMessage mailMessage;
-					// Step1: setup Mail Server
-				    mailServerProperties = System.getProperties();
-				    mailServerProperties.put("mail.smtp.port", "587");
-				    mailServerProperties.put("mail.smtp.auth", "true");
-				    mailServerProperties.put("mail.smtp.starttls.enable", "true");
-				 
-				    // Step2: get Mail Session
-				    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
-				    mailMessage = new MimeMessage(getMailSession);
-				    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
-				    mailMessage.setSubject("Demo send gmail from Java");
-				    mailMessage.setText("Demo send text by gmail from Java");
-				 
-				    // Step3: Send mail
-				    Transport transport = getMailSession.getTransport("smtp");
-				    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
-				    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
-				    transport.close();
-				}
-			}
-		}
-		
-		ra.addFlashAttribute("msg", Defines.SUCCESS);
-		return "redirect:/admin/course/{kid}/cats";
-	}
-		
-		//ghi danh quan tri vien
-		@RequestMapping(value="/course/{kid}/ghidanhqtv", method=RequestMethod.POST)
-		public String ghiDanhQTV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid) throws AddressException, MessagingException {
-			if(ghi.length == 0) {
-				ra.addFlashAttribute("msg", "Bạn chưa chọn học viên ghi danh!");
-			}
+		}else {
 			if(ghi != null) {
-				for (Integer id : ghi) {
-					if(qtvDao.getItemDGD(id,kid) == null) {
-						if(dsDao.addItemQTV(id,kid) > 0) {
-							System.out.println("thanh công");
-						}else {
-							ra.addFlashAttribute("msg", Defines.ERROR);
-						}
+				for (Integer idHV : ghi) {
+					if(dsDao.addItemHV(idHV,kid,acc.getUsername()) > 0) {
+						System.out.println("thành công");
 						
-						if(qtvDao.ghiItem(id) > 0){
-							System.out.println("thanh công");
-						}else {
-							ra.addFlashAttribute("msg", Defines.ERROR);
-						}
-						
-						String email = qtvDao.getItem(id).getEmail();
+						String email = stuDao.getItem(idHV).getEmail();
 						System.out.println("email: "+ email);
 						
 						Properties mailServerProperties;
@@ -486,7 +437,7 @@ public class AdminCourseController {
 					    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 					    mailMessage = new MimeMessage(getMailSession);
 					    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
-					    mailMessage.setSubject("Demo send gmail from Java");
+					    mailMessage.setSubject("Information of registration for a course from GreenGlobal");
 					    mailMessage.setText("Demo send text by gmail from Java");
 					 
 					    // Step3: Send mail
@@ -494,37 +445,275 @@ public class AdminCourseController {
 					    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 					    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 					    transport.close();
+					}else {
+						ra.addFlashAttribute("msg", Defines.ERROR);
+						return "redirect:/admin/course/{kid}/cats";
+					}
+					
+					if(stuDao.ghiItem(idHV) > 0) {
+						System.out.println("thanh công");
 					}
 				}
 			}
-			ra.addFlashAttribute("msg", Defines.SUCCESS);
-			return "redirect:/admin/course/{kid}/cats";
+		}
+		ra.addFlashAttribute("msg", Defines.SUCCESS);
+		return "redirect:/admin/course/{kid}/cats";
+	}
+	
+	//ghi danh giang vien
+	@RequestMapping(value="/course/{kid}/ghidanhgiangvien", method=RequestMethod.POST)
+	public String ghiDanhGV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid, HttpSession session) throws AddressException, MessagingException {
+		Account acc = (Account) session.getAttribute("account");
+		List<DanhSachHocVien> oldList = dsDao.getItemsGV(kid);
+		
+		if(oldList.size() != 0) {
+			if(ghi == null) {
+				for (DanhSachHocVien oldGV : oldList) {
+					if(dsDao.delItemsGV(kid, oldGV.getId_GiangVien()) > 0) {
+						System.out.println("thành công");
+					}
+				}
+			}else {
+				//xóa cũ
+				for (DanhSachHocVien oldGV : oldList) {
+					int dem = 0;
+					for (Integer idGV : ghi) {
+						if(oldGV.getId_GiangVien() == idGV) {
+							dem = 1; break;
+						}
+					}
+					if(dem == 0) {
+						if(dsDao.delItemsGV(kid, oldGV.getId_GiangVien()) > 0) {
+							System.out.println("thành công");
+						}
+					}
+				}
+				//them mới
+				for (Integer idGV : ghi) {
+					if(teaDao.getItemDGD(idGV,kid) == null) {
+						if(dsDao.addItemGV(idGV,kid,acc.getUsername()) > 0) {
+							System.out.println("thành công");
+							
+							String email = teaDao.getItem(idGV).getEmail();
+							System.out.println("email: "+ email);
+							
+							Properties mailServerProperties;
+						    Session getMailSession;
+						    MimeMessage mailMessage;
+							// Step1: setup Mail Server
+						    mailServerProperties = System.getProperties();
+						    mailServerProperties.put("mail.smtp.port", "587");
+						    mailServerProperties.put("mail.smtp.auth", "true");
+						    mailServerProperties.put("mail.smtp.starttls.enable", "true");
+						 
+						    // Step2: get Mail Session
+						    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+						    mailMessage = new MimeMessage(getMailSession);
+						    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
+						    mailMessage.setSubject("Thông báo đăng ký khóa học từ GreenGlobal");
+						    mailMessage.setText("Demo send text by gmail from Java");
+						 
+						    // Step3: Send mail
+						    Transport transport = getMailSession.getTransport("smtp");
+						    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
+						    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+						    transport.close();
+						}else {
+							ra.addFlashAttribute("msg", Defines.ERROR);
+							return "redirect:/admin/course/{kid}/cats";
+						}
+						
+						if(teaDao.ghiItem(idGV) > 0) {
+							System.out.println("thanh công");
+						}
+					}
+				}
+			}
+		}else {
+			if(ghi != null) {
+				for (Integer idGV : ghi) {
+					if(dsDao.addItemGV(idGV,kid,acc.getUsername()) > 0) {
+						System.out.println("thành công");
+						
+						String email = teaDao.getItem(idGV).getEmail();
+						System.out.println("email: "+ email);
+						
+						Properties mailServerProperties;
+					    Session getMailSession;
+					    MimeMessage mailMessage;
+						// Step1: setup Mail Server
+					    mailServerProperties = System.getProperties();
+					    mailServerProperties.put("mail.smtp.port", "587");
+					    mailServerProperties.put("mail.smtp.auth", "true");
+					    mailServerProperties.put("mail.smtp.starttls.enable", "true");
+					 
+					    // Step2: get Mail Session
+					    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+					    mailMessage = new MimeMessage(getMailSession);
+					    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
+					    mailMessage.setSubject("Information of registration for a course from GreenGlobal");
+					    mailMessage.setText("Demo send text by gmail from Java");
+					 
+					    // Step3: Send mail
+					    Transport transport = getMailSession.getTransport("smtp");
+					    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
+					    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+					    transport.close();
+					}else {
+						ra.addFlashAttribute("msg", Defines.ERROR);
+						return "redirect:/admin/course/{kid}/cats";
+					}
+					
+					if(teaDao.ghiItem(idGV) > 0) {
+						System.out.println("thanh công");
+					}
+				}
+			}
 		}
 		
-		//active phat hanh khoa hoc
-		@ResponseBody
-		@RequestMapping(value="/courses",method=RequestMethod.POST)
-		public String index(ModelMap modelMap, @RequestParam("aid") int id, @RequestParam("aactive") int active, HttpServletResponse response, HttpServletRequest request) {
-			modelMap.addAttribute("listC", courDao.getItems());
-			// phathanh
-			
-			try {
-				request.setCharacterEncoding("UTF-8");
-			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
+		ra.addFlashAttribute("msg", Defines.SUCCESS);
+		return "redirect:/admin/course/{kid}/cats";
+	}
+		
+	//ghi danh quan tri vien
+	@RequestMapping(value="/course/{kid}/ghidanhqtv", method=RequestMethod.POST)
+	public String ghiDanhQTV(ModelMap modelMap, RedirectAttributes ra,@RequestParam(value="ghidanh[]", required=false) Integer[] ghi,@PathVariable("kid") int kid, HttpSession session) throws AddressException, MessagingException {
+		Account acc = (Account) session.getAttribute("account");
+		List<DanhSachHocVien> oldList = dsDao.getItemsQTV(kid);
+		
+		if(oldList.size() != 0) {
+			if(ghi == null) {
+				for (DanhSachHocVien oldQTV : oldList) {
+					if(dsDao.delItemsQTV(kid, oldQTV.getId_Qtv()) > 0) {
+						System.out.println("thành công");
+					}
+				}
+			}else {
+				//xóa cũ
+				for (DanhSachHocVien oldQTV : oldList) {
+					int dem = 0;
+					for (Integer idGV : ghi) {
+						if(oldQTV.getId_Qtv() == idGV) {
+							dem = 1; break;
+						}
+					}
+					if(dem == 0) {
+						if(dsDao.delItemsQTV(kid, oldQTV.getId_Qtv()) > 0) {
+							System.out.println("thành công");
+						}
+					}
+				}
+				//them mới
+				for (Integer idQTV : ghi) {
+					if(qtvDao.getItemDGD(idQTV,kid) == null) {
+						if(dsDao.addItemsQTV(idQTV,kid,acc.getUsername()) > 0) {
+							System.out.println("thành công");
+							
+							String email = qtvDao.getItem(idQTV).getEmail();
+							System.out.println("email: "+ email);
+							
+							Properties mailServerProperties;
+						    Session getMailSession;
+						    MimeMessage mailMessage;
+							// Step1: setup Mail Server
+						    mailServerProperties = System.getProperties();
+						    mailServerProperties.put("mail.smtp.port", "587");
+						    mailServerProperties.put("mail.smtp.auth", "true");
+						    mailServerProperties.put("mail.smtp.starttls.enable", "true");
+						 
+						    // Step2: get Mail Session
+						    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+						    mailMessage = new MimeMessage(getMailSession);
+						    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
+						    mailMessage.setSubject("Thông báo đăng ký khóa học từ GreenGlobal");
+						    mailMessage.setText("Demo send text by gmail from Java");
+						 
+						    // Step3: Send mail
+						    Transport transport = getMailSession.getTransport("smtp");
+						    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
+						    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+						    transport.close();
+						}else {
+							ra.addFlashAttribute("msg", Defines.ERROR);
+							return "redirect:/admin/course/{kid}/cats";
+						}
+						
+						if(qtvDao.ghiItem(idQTV) > 0) {
+							System.out.println("thanh công");
+						}
+					}
+				}
 			}
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html");
-			String out = "";
-			if(active == 1) {
-				courDao.changeEnable(id,0);
-				out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'> <span class='label label-inactive' style='background-color : #fe892b;'>Chưa phát hành</span> </a>";
-			} else{
-				courDao.changeEnable(id,1);
-				out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><span class='label label-inactive' style='background-color : #00d627;'>Đã phát hành</span></a>";
+		}else {
+			if(ghi != null) {
+				for (Integer idQTV : ghi) {
+					if(dsDao.addItemsQTV(idQTV,kid,acc.getUsername()) > 0) {
+						System.out.println("thành công");
+						
+						String email = qtvDao.getItem(idQTV).getEmail();
+						System.out.println("email: "+ email);
+						
+						Properties mailServerProperties;
+					    Session getMailSession;
+					    MimeMessage mailMessage;
+						// Step1: setup Mail Server
+					    mailServerProperties = System.getProperties();
+					    mailServerProperties.put("mail.smtp.port", "587");
+					    mailServerProperties.put("mail.smtp.auth", "true");
+					    mailServerProperties.put("mail.smtp.starttls.enable", "true");
+					 
+					    // Step2: get Mail Session
+					    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+					    mailMessage = new MimeMessage(getMailSession);
+					    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
+					    mailMessage.setSubject("Thông báo đăng ký khóa học từ GreenGlobal");
+					    mailMessage.setText("Demo send text by gmail from Java");
+					 
+					    // Step3: Send mail
+					    Transport transport = getMailSession.getTransport("smtp");
+					    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
+					    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
+					    transport.close();
+					}else {
+						ra.addFlashAttribute("msg", Defines.ERROR);
+						return "redirect:/admin/course/{kid}/cats";
+					}
+					
+					if(qtvDao.ghiItem(idQTV) > 0) {
+						System.out.println("thanh công");
+					}
+				}
 			}
-			return out;
 		}
+		
+		ra.addFlashAttribute("msg", Defines.SUCCESS);
+		return "redirect:/admin/course/{kid}/cats";
+	}
+	
+	//active phat hanh khoa hoc
+	@ResponseBody
+	@RequestMapping(value="/courses",method=RequestMethod.POST)
+	public String index(ModelMap modelMap, @RequestParam("aid") int id, @RequestParam("aactive") int active, HttpServletResponse response, HttpServletRequest request) {
+		modelMap.addAttribute("listC", courDao.getItems());
+		// phathanh
+		
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		String out = "";
+		if(active == 1) {
+			courDao.changeEnable(id,0);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'> <span class='label label-inactive' style='background-color : #fe892b;'>Chưa phát hành</span> </a>";
+		} else{
+			courDao.changeEnable(id,1);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><span class='label label-inactive' style='background-color : #00d627;'>Đã phát hành</span></a>";
+		}
+		return out;
+	}
 		
 	//xoa khoi danh sach
 	@RequestMapping(value="/course/{kid}/delete", method=RequestMethod.POST)

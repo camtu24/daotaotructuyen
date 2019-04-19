@@ -30,7 +30,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Mã lớp học</th>
-                  <th>Danh sách học viên</th>
+                  <th>Học viên</th>
                   <th>Chức năng</th>
                 </tr>
               </thead>
@@ -40,7 +40,7 @@
 	                  <td style="text-align: center;">${objClass.id_LopHoc}</td>
 	                  <td> ${objClass.maLopHoc} </td>
 	                  <td width="17%" style="text-align: center;">
-	                 	 <a href="${pageContext.request.contextPath }/admin/class/liststudent/${objClass.id_LopHoc}"><i class="icon icon-inbox"></i></a>
+	                 	 <a href="${pageContext.request.contextPath }/admin/class/students/${objClass.id_LopHoc}"><i class="icon icon-inbox"></i></a>
 	                  </td>
 	                  <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->

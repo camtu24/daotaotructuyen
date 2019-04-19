@@ -2,17 +2,17 @@ package model.bean;
 
 import java.sql.Timestamp;
 
-public class Class {
+public class Lop {
 
 	private int id_LopHoc;
 	private String maLopHoc;
 	private Timestamp ngayTao;
 	private String nguoiTao;
-	public Class() {
+	public Lop() {
 		super();
 	}
 	
-	public Class(int id_LopHoc, String maLopHoc, Timestamp ngayTao, String nguoiTao) {
+	public Lop(int id_LopHoc, String maLopHoc, Timestamp ngayTao, String nguoiTao) {
 		super();
 		this.id_LopHoc = id_LopHoc;
 		this.maLopHoc = maLopHoc;

@@ -5,7 +5,7 @@
 	<div id="content-header">
 		<div id="breadcrumb">
 			<a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
-			<a href="${pageContext.request.contextPath }/admin/course" class="tip-bottom">Lớp học</a> <a href="#" class="current">Thêm lớp học</a>
+			<a href="${pageContext.request.contextPath }/admin/class" class="tip-bottom">Lớp học</a> <a href="#" class="current">Thêm lớp học</a>
 		</div>
 		<h1>Lớp học</h1>
 	</div>

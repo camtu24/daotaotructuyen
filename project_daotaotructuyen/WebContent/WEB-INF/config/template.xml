@@ -31,6 +31,10 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/class/edit.jsp" />
   </definition>
   
+  <definition name="admin.class.student" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/class/student.jsp" />
+  </definition>
+  
   <!-- ADMIN SUBJECT -->
   <definition name="admin.subject.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/chude/index.jsp" />

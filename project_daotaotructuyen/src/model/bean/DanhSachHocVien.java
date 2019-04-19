@@ -11,6 +11,7 @@ public class DanhSachHocVien {
 	private Integer id_HocVien;
 	private Integer id_GiangVien;
 	private Integer id_Qtv;
+	private String nguoithem;
 	private String hoTen;
 	private String email;
 	private int sdt;
@@ -23,10 +24,10 @@ public class DanhSachHocVien {
 	public DanhSachHocVien() {
 		super();
 	}
-
+	
 	public DanhSachHocVien(int id_Dshv, Integer id_LopHoc, Integer id_KhoaHoc, Integer id_HocVien, Integer id_GiangVien,
-			Integer id_Qtv, String hoTen, String email, int sdt, String diaChi, String gioiTinh, Date ngaySinh,
-			String username, Timestamp ngayGhiDanh) {
+			Integer id_Qtv, String nguoithem, String hoTen, String email, int sdt, String diaChi, String gioiTinh,
+			Date ngaySinh, String username, Timestamp ngayGhiDanh) {
 		super();
 		this.id_Dshv = id_Dshv;
 		this.id_LopHoc = id_LopHoc;
@@ -34,6 +35,7 @@ public class DanhSachHocVien {
 		this.id_HocVien = id_HocVien;
 		this.id_GiangVien = id_GiangVien;
 		this.id_Qtv = id_Qtv;
+		this.nguoithem = nguoithem;
 		this.hoTen = hoTen;
 		this.email = email;
 		this.sdt = sdt;
@@ -75,13 +77,13 @@ public class DanhSachHocVien {
 	public void setId_HocVien(Integer id_HocVien) {
 		this.id_HocVien = id_HocVien;
 	}
-
-	public Integer getId_GiangVien() {
-		return id_GiangVien;
+	
+	public String getNguoithem() {
+		return nguoithem;
 	}
 
-	public void setId_GiangVien(Integer id_GiangVien) {
-		this.id_GiangVien = id_GiangVien;
+	public void setNguoithem(String nguoithem) {
+		this.nguoithem = nguoithem;
 	}
 
 	public Integer getId_Qtv() {
@@ -155,4 +157,13 @@ public class DanhSachHocVien {
 	public void setNgayGhiDanh(Timestamp ngayGhiDanh) {
 		this.ngayGhiDanh = ngayGhiDanh;
 	}
+
+	public Integer getId_GiangVien() {
+		return id_GiangVien;
+	}
+
+	public void setId_GiangVien(Integer id_GiangVien) {
+		this.id_GiangVien = id_GiangVien;
+	}
+	
 }

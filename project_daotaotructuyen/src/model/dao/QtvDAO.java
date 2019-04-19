@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.bean.Account;
-import model.bean.QuaTrinhHoc;
 import model.bean.QuanTriVien;
 
 @Repository
