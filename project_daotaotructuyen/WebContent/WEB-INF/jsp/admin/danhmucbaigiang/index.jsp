@@ -3,7 +3,8 @@
 <%@ include file = "/templates/taglib.jsp" %>
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Danh mục khóa học</a> </div>
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> 
+    <a href="${pageContext.request.contextPath }/admin/courses" class="tip-bottom">Khóa học</a> <a href="#" class="current">Danh mục khóa học</a> </div>
     <h1>Quản lý danh mục khóa học</h1>
   </div>
   <div class="container-fluid">
@@ -20,6 +21,7 @@
 	  <button class="tablinks" onclick="openCity(event, 'Hocviennb')">Học viên nội bộ</button>
 	  <button class="tablinks" onclick="openCity(event, 'Giangvien')">Giảng viên</button>
 	  <button class="tablinks" onclick="openCity(event, 'Quantri')">Quản trị viên</button>
+	  <button class="tablinks" onclick="openCity(event, 'Tailieu')">Tài liệu tham khảo</button>
 	</div>
     <br> <br>
     <div id="Khoahoc" class="tabcontent1 row-fluid">
@@ -269,6 +271,68 @@
 	            
 	            <input type="submit" value="Lưu" class="btn btn-danger">
 	          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="Tailieu" class="tabcontent1 row-fluid">
+      <div class="span12">
+      <div class="widget-box">
+			<div class="widget-title"> <span class="icon"> <i class="icon-upload-alt"></i> </span>
+	            <h5> <a href="">Upload tải liệu tham khảo </a></h5>
+	        </div>
+			<div class="container-fluid">
+				<div class="col-lg-12 col-md-12">
+					<form:form action="${pageContext.request.contextPath }/add-document-${kid }" method="POST" modelAttribute="fileBucket" enctype="multipart/form-data" class="form-horizontal">
+						<div class="">
+							<div class="form-group">
+								<label class="col-md-3 control-lable" for="file">Upload a document</label>
+								<div class="">
+									<form:input type="file" path="file" id="file" class="form-control input-sm"/>
+									<div class="has-error">
+										<form:errors path="file" class="help-inline"/>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+                            <input type="submit" value="Upload" class="btn btn-primary">
+                        </div>
+					</form:form>
+				</div>
+			</div>
+		</div>
+		<hr>
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            <h5>Data table</h5>
+          </div>
+          <div class="widget-content nopadding">
+	          <table class="table table-bordered data-table">
+	              <thead>
+	                <tr>
+	                  <th>ID</th>
+	                  <th>Tên tài liệu</th>
+	                  <th>Type</th>
+	                  <th>Chức năng</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	              	<c:forEach items="${listDoc }" var="objD">
+		                <tr class="gradeX">
+		                  <td style="text-align: center;">${objD.id_TaiLieu }</td>
+		                  <td>${objD.tenTaiLieu }</td>
+		                  <td>${objD.loai }</td>
+		                  <td width="22%" style="text-align: center;">
+		                      <a href="${pageContext.request.contextPath }/download-document-${kid}-${objD.id_TaiLieu}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
+		                      <a href="${pageContext.request.contextPath }/delete-document-${kid}-${objD.id_TaiLieu}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
+		                  </td>
+		                </tr>
+	                </c:forEach>
+	              </tbody>
+	            </table>
           </div>
         </div>
       </div>

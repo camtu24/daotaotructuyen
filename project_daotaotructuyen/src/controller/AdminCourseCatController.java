@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import model.bean.FileBucket;
+
 import constant.Defines;
 import model.bean.DanhMucBaiGiang;
 import model.dao.DanhMucBaiGiangDAO;
+import model.dao.DocumentDAO;
 import model.dao.LessonDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
@@ -40,6 +43,8 @@ public class AdminCourseCatController {
 	
 	@Autowired
 	private LessonDAO lessonDao;
+	@Autowired
+	private DocumentDAO docDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -65,6 +70,12 @@ public class AdminCourseCatController {
 		modelMap.addAttribute("stuDao", stuDao);
 		modelMap.addAttribute("teaDao", teaDao);
 		modelMap.addAttribute("qtvDao", qtvDao);
+		
+		FileBucket fileModel = new FileBucket();
+		modelMap.addAttribute("fileBucket", fileModel);
+		
+		//list document
+		modelMap.addAttribute("listDoc", docDao.getItemsByIDKH(kid));
 		return "admin.danhmuc.index";
 	}
 	

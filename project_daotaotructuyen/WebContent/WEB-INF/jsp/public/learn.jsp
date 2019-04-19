@@ -164,9 +164,18 @@
 		</div>
 		
 		<div id="Doccument" class="tabcontent1 tab-pane fade in active" style="padding: 0;">
-				<div class="course-title">
-					JAVA1
-				</div>
+			<div class="course-title">
+				TÀI LIỆU THAM KHẢO
+			</div>
+			<table class="content-list">
+				<c:forEach items="${listDoc }" var="objDoc">
+					<tr class="content-item  " data-id="45023">
+						<td class="item-title1">
+							<a href="${pageContext.request.contextPath }/download-document-${objD.id_KhoaHoc}-${objD.id_TaiLieu}">-- ${objDoc.tenTaiLieu }</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
 				
 		</div>
 	</div>
