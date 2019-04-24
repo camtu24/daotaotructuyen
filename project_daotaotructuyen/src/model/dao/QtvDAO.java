@@ -45,8 +45,8 @@ public class QtvDAO {
 	}
 
 	public int editItem(QuanTriVien qtv) {
-		String sql = "UPDATE quantrivien SET hoten=?,email=?,SDT=?,diachi=?,username=?,password=?,hinhanh=?,id_role=? WHERE id_qtv=?";
-		return jdbcTemplate.update(sql, new Object[] {qtv.getHoTen(),qtv.getEmail(),qtv.getSdt(),qtv.getDiaChi(),qtv.getUsername(),qtv.getPassword(),qtv.getHinhAnh(),qtv.getId_Role(),qtv.getId_Qtv()});
+		String sql = "UPDATE quantrivien SET hoten=?,email=?,SDT=?,diachi=?,password=?,hinhanh=?,id_role=? WHERE id_qtv=?";
+		return jdbcTemplate.update(sql, new Object[] {qtv.getHoTen(),qtv.getEmail(),qtv.getSdt(),qtv.getDiaChi(),qtv.getPassword(),qtv.getHinhAnh(),qtv.getId_Role(),qtv.getId_Qtv()});
 	}
 
 	public int storageItem(int id) {

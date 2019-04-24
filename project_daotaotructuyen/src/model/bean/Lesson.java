@@ -17,11 +17,13 @@ public class Lesson {
 	private String nguoiTao;
 	private int id_Dmb;
 	private int id_KhoaHoc;
+	private String loai;
 	public Lesson() {
 		super();
 	}
+	
 	public Lesson(int id_BaiHoc, String tenBaiHoc, String moTa, String chiTiet, String video, Timestamp ngayTao,
-			String nguoiTao, int id_Dmb, int id_KhoaHoc) {
+			String nguoiTao, int id_Dmb, int id_KhoaHoc, String loai) {
 		super();
 		this.id_BaiHoc = id_BaiHoc;
 		this.tenBaiHoc = tenBaiHoc;
@@ -32,7 +34,22 @@ public class Lesson {
 		this.nguoiTao = nguoiTao;
 		this.id_Dmb = id_Dmb;
 		this.id_KhoaHoc = id_KhoaHoc;
+		this.loai = loai;
 	}
+
+	public Lesson(int id_BaiHoc, String tenBaiHoc, String chiTiet, Timestamp ngayTao, String nguoiTao, int id_Dmb,
+			int id_KhoaHoc, String loai) {
+		super();
+		this.id_BaiHoc = id_BaiHoc;
+		this.tenBaiHoc = tenBaiHoc;
+		this.chiTiet = chiTiet;
+		this.ngayTao = ngayTao;
+		this.nguoiTao = nguoiTao;
+		this.id_Dmb = id_Dmb;
+		this.id_KhoaHoc = id_KhoaHoc;
+		this.loai = loai;
+	}
+
 	public int getId_BaiHoc() {
 		return id_BaiHoc;
 	}
@@ -86,6 +103,12 @@ public class Lesson {
 	}
 	public void setId_KhoaHoc(int id_KhoaHoc) {
 		this.id_KhoaHoc = id_KhoaHoc;
+	}
+	public String getLoai() {
+		return loai;
+	}
+	public void setLoai(String loai) {
+		this.loai = loai;
 	}
 	
 }

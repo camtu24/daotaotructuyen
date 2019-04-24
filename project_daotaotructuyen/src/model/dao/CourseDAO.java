@@ -87,6 +87,15 @@ public class CourseDAO {
 		return jdbcTemplate.update(sql, new Object[] {active,id});
 	}
 
+	public List<Course> getItems3Coure() {
+		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,k.id_chude,tenchude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc AS k INNER JOIN chude AS c ON k.id_chude=c.id_chude "
+				+ "WHERE storage=1 && phathanh=1 ORDER BY id_khoahoc DESC LIMIT 3";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Course>(Course.class));
+	}
 	
+	public int countItemsDSHVByIDKH(int kid) {
+		String sql = "SELECT COUNT(*) FROM khoahoc AS k INNER JOIN danhsachhocvien AS d ON k.id_khoahoc=d.id_khoahoc WHERE k.id_khoahoc = ? && phathanh = 1";
+		return jdbcTemplate.queryForObject(sql,new Object[] {kid}, Integer.class);
+	}
 
 }

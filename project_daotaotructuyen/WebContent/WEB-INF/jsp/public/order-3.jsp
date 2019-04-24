@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/templates/taglib.jsp" %> 
+<div id="container">  
 	<div>
 		<ul class="items-order">
 		  <li class="item-order">Đăng ký tài khoản
@@ -16,3 +17,4 @@
 		<p>Bộ phận CSKH sẽ kiểm tra và thông báo đến bạn trong vòng 24h.</p>
 		<a style="margin: 30px;" href="${pageContext.request.contextPath}/danhmuckhoahoc" class="button medium gradient grey">Xem thêm khóa học khác >>></a>
 	</div>
+</div>

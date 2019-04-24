@@ -44,6 +44,7 @@ public class NewsDAO {
 		return jdbcTemplate.update(sql, new Object[] {nid});
 	}
 
+	//public
 	public int getchangeCV(int count_views, int id) {
 		String sql = "UPDATE tintuc SET luotxem=? WHERE id_tintuc=?";
 		return jdbcTemplate.update(sql, new Object[] {count_views,id});
@@ -52,5 +53,10 @@ public class NewsDAO {
 	public List<News> getItemsTTK(int idTT) {
 		String sql = "SELECT * FROM tintuc WHERE id_tintuc != ? ORDER BY id_tintuc DESC LIMIT 3";
 		return jdbcTemplate.query(sql,new Object[] {idTT}, new BeanPropertyRowMapper<News>(News.class));
+	}
+
+	public List<News> getItems3News() {
+		String sql = "SELECT * FROM tintuc ORDER BY id_tintuc DESC LIMIT 3";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<News>(News.class));
 	}
 }

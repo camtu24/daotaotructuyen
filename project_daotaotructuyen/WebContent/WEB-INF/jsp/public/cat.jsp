@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/templates/taglib.jsp" %>   
+<%@ include file="/templates/taglib.jsp" %> 
+<div id="container">  
     <div id="portfolio">
 		<div class="category" style="width:100%">
 			<p>
@@ -40,3 +41,4 @@
       </ul>
       <!-- ####################################################################################################### -->
     </div>
+</div>

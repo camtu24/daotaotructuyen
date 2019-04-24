@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
+import model.bean.Account;
 import model.bean.News;
 import model.dao.NewsDAO;
 import util.FileUtil;
@@ -50,12 +52,12 @@ public class AdminNewsController {
 	}
 	
 	@RequestMapping(value="/news/add", method=RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("news") News news, BindingResult br, ModelMap modelMap,@RequestParam("hinhAnh") CommonsMultipartFile cmf, RedirectAttributes ra,HttpServletRequest request) {
+	public String add(@Valid @ModelAttribute("news") News news, BindingResult br, ModelMap modelMap,@RequestParam("hinhAnh") CommonsMultipartFile cmf, RedirectAttributes ra,HttpServletRequest request, HttpSession session) {
 		/*if(br.hasErrors()) {
 			modelMap.addAttribute("news", news);
 			return "admin.news.add";
 		}*/
-		
+		Account acc = (Account) session.getAttribute("account");
 		String fileName = cmf.getOriginalFilename();
 		if(!"".equals(fileName)) {
 			//có upload
@@ -77,7 +79,7 @@ public class AdminNewsController {
 				e.printStackTrace();
 			}
 		}
-		news.setNguoiDang("a");
+		news.setNguoiDang(acc.getUsername());
 		if(newsDao.addItem(news) > 0) {
 			ra.addAttribute("msg", Defines.SUCCESS);
 		}else {

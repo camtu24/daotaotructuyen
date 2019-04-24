@@ -46,7 +46,7 @@
                            <img width="150px" src="${pageContext.request.contextPath}/files/${objC.hinhAnh}" />
                        	</c:if>
                        	<c:if test="${empty objC.hinhAnh }">
-                          	<img src="${defines.urlAdmin}/img/images.jpg" alt="hinhanh" style = "width:150px">
+                          	<img src="${defines.urlAdmin}/img/images.jpg" alt="hinhanh" style = "width:150px;height:85px">
 					   	</c:if>
                       </td>
 	                  <td>${objC.hocPhi}</td>

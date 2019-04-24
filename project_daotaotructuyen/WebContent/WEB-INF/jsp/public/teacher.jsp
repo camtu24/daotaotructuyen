@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/templates/taglib.jsp" %> 
+<div id="container">
 <div id="portfolio">
 	<div class="doingugv">
 		<h2 >ĐỘI NGŨ GIẢNG VIÊN</h2>
@@ -31,4 +32,5 @@
         </c:forEach>
       </ul>
       <!-- ####################################################################################################### -->
+</div>
 </div>

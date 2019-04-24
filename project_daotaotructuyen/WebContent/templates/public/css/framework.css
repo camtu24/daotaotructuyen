@@ -10,7 +10,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 .one_third, .two_third, 
 .one_quarter, .two_quarter, .three_quarter, 
 .one_fifth, .two_fifth, .three_fifth, .four_fifth, 
-.one_sixth, .two_sixth, .three_sixth, .four_sixth, .five_sixth{display:inline; float:left; margin:0 0 0 5%; list-style:none;}
+.one_sixth, .two_sixth, .three_sixth, .four_sixth, .five_sixth{display:inline; float:left; margin:0 0 0 4%; list-style:none;}
 
 /* .one_half:first-child,  */
 .one_third:first-child, .two_third:first-child, 
@@ -68,7 +68,7 @@ body.boxed .wrapper{max-width:90%; padding:0 1.6%; margin:0 auto;}
 .three_quarter{width:885px} => 885 ï¿½ 1200 = 0.7375 * 100 = 73.75
 */
 
-.one_quarter{width:21.25%;}
+.one_quarter{width:45%;}
 /* .one_quarter1{width:15.25%; float:right} */
 .two_quarter{width:47.5%;} /* Same as one_half */
 .three_quarter{width:64.75%;}
@@ -458,3 +458,68 @@ a.reply:hover{
 	padding-bottom: 20px;
     border-bottom-style: outset;}
 	
+/*----------------------------------------index-------------------------------------------*/
+.c-slide{position:relative}
+.noidung-slide{
+	position: absolute;
+    top: 230px;
+    left: 225px;
+    z-index: 2;
+    text-align: center;
+}
+.noidung-slide .ct1{
+	font-size: 50px;
+    color: #ff9900;
+    font-weight: 700;
+}
+.noidung-slide .ct2{
+	margin-bottom: 100px;
+	font-size: 30px;
+    color: white;
+}
+.soluong{
+	font-weight:700;
+	font-size: 40px;
+    margin: auto;
+    border: 5px solid #ff9900;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 150px;
+    width: 150px;
+    height: 150px;
+}
+.doituong{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 24px;
+    color: #434343;
+}
+.uudiem{
+	text-align: center;
+    font-family: none;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: darkorange;
+    background-color: aliceblue;
+}
+.ic{	
+	background-color: aliceblue;
+	border: 2px solid #434343;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    line-height: 62px;
+    text-align: center;
+    font-size: 28px;
+    margin: auto;
+	margin-bottom: 30px;
+    color: #ff9900;
+}
+.clear1{
+	background-color: #333333;
+    padding: 65px 220px;
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+}

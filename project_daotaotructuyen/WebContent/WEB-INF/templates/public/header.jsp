@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>RS-1200 Prototype 50</title>
+<title>Đào tạo trực tuyến</title>
 <meta charset="iso-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${defines.urlPublic }/css/main.css" rel="stylesheet" type="text/css" media="all">
@@ -57,8 +57,15 @@
       <li><a href="${pageContext.request.contextPath}/news" title="Link Text">Tin tức</a></li>
       <li class="last-child"><a href="${pageContext.request.contextPath}/contact" title="A Very Long Link Text">Liên hệ </a></li>
       <c:if test="${userInfo.username != null }">
-	      <li class="taikhoan" style="float:right"><a class="drop" href="#" style="padding: 14px 0 14px 15px;" title="Gallery Layouts"> User 
-			<img class="img-taikhoan" src="images/demo/slider/1.jpg" alt=""></a> 
+	      <li class="taikhoan" style="float:right">
+	      <a class="drop" href="#" style="padding: 14px 0 14px 15px;" title="Gallery Layouts"> User 
+	      	<c:if test="${userInfo.hinhAnh != null }">
+	      		<img class="img-taikhoan" src="${pageContext.request.contextPath }/files/${userInfo.hinhAnh }" alt="">
+	      	</c:if>
+			<c:if test="${userInfo.hinhAnh == null }">
+	      		<img class="img-taikhoan" src="${defines.urlPublic }/images/user-cmt.png" alt="">
+	      	</c:if>
+			</a> 
 			<ul>
 	          <li><a href="${pageContext.request.contextPath}/mycourses" title="Full Width Gallery">Khóa học của tôi</a></li>
 	          <li><a href="${pageContext.request.contextPath}/myprofile" title="2 Column Grid">Tài khoản cá nhân</a></li>

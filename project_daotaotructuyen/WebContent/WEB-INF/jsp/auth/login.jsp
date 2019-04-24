@@ -25,7 +25,7 @@
 		<form id="loginform" class="form-vertical" action="${pageContext.request.contextPath}/admin/auth/login" method="post">
 			<div class="control-group normal_text">
 				<h3>
-					<img src="${defines.urlAdmin }/img/logo1.png" alt="Logo" />
+					<img style="height:100px" src="${defines.urlAdmin }/img/logo-gg.png" alt="Logo" />
 				</h3>
 			</div>
 			<div class="control-group">

@@ -91,6 +91,11 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/baigiang/edit.jsp" />
   </definition>
   
+  <!-- ADMIN COURSE TEST -->
+  <definition name="admin.test.add" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/baigiang/add-test.jsp" />
+  </definition>
+  
   <!-- ADMIN NGUOI DUNG -->
   <!-- ADMIN TEACHER -->
   <definition name="admin.teacher.index" extends="admin.template">
@@ -224,7 +229,7 @@
     <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
   </definition>
   
-  <definition name="public.train.index" extends="public.template">
+  <definition name="public.train.index" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/index.jsp" />
   </definition>
   

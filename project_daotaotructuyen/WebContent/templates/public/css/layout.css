@@ -145,7 +145,8 @@ nav ul{margin:0; padding:0; list-style:none;}
 /*----------------------------------------------Footer-------------------------------------*/
 
 #footer{padding:30px 0;}
-#footer .footer_title{font-size:1.2em; margin-bottom:40px; padding-bottom:10px; border-bottom:1px solid #919191;}
+#footer .footer_title{font-size:2.2em; margin-bottom:40px; padding-bottom:10px; border-bottom:1px solid #919191;}
+#footer .foo-c{border-style: dashed;padding: 20px;}
 #footer div{margin-bottom:0;}
 #footer .tweet-container li{margin-top:18px; padding-top:18px; border-top:1px solid #333333;}
 #footer .tweet-container li:first-child{margin-top:0; padding-top:0; border-top:none;}

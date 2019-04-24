@@ -14,6 +14,7 @@ public class Course {
 	private String ngayTao;
 	private String nguoiTao;
 	private int id_ChuDe;
+	private String tenChuDe;
 	private int phatHanh;
 	private String mieuTa;
 	private String doiTuongThamGia;
@@ -23,7 +24,7 @@ public class Course {
 	
 	public Course(int id_KhoaHoc, String tenKhoaHoc, String thongTinChung, String hinhAnh, String video, String mucTieu,
 			String ketQua, float hocPhi, int id_GiangVien, String ngayTao, String nguoiTao, int id_ChuDe,
-			int phatHanh, String mieuTa, String doiTuongThamGia) {
+			String tenChuDe, int phatHanh, String mieuTa, String doiTuongThamGia) {
 		super();
 		this.id_KhoaHoc = id_KhoaHoc;
 		this.tenKhoaHoc = tenKhoaHoc;
@@ -37,6 +38,7 @@ public class Course {
 		this.ngayTao = ngayTao;
 		this.nguoiTao = nguoiTao;
 		this.id_ChuDe = id_ChuDe;
+		this.tenChuDe = tenChuDe;
 		this.phatHanh = phatHanh;
 		this.mieuTa = mieuTa;
 		this.doiTuongThamGia = doiTuongThamGia;
@@ -139,6 +141,14 @@ public class Course {
 
 	public void setNgayTao(String ngayTao) {
 		this.ngayTao = ngayTao;
+	}
+
+	public String getTenChuDe() {
+		return tenChuDe;
+	}
+
+	public void setTenChuDe(String tenChuDe) {
+		this.tenChuDe = tenChuDe;
 	}
 	
 }

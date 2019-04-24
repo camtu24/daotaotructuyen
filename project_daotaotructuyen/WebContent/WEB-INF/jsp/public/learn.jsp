@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>RS-1200 Prototype 50</title>
+<title>Đào tạo trực tuyến</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${defines.urlPublic }/css/course.css" rel="stylesheet" type="text/css" media="all">
@@ -171,7 +171,7 @@
 				<c:forEach items="${listDoc }" var="objDoc">
 					<tr class="content-item  " data-id="45023">
 						<td class="item-title1">
-							<a href="${pageContext.request.contextPath }/download-document-${objD.id_KhoaHoc}-${objD.id_TaiLieu}">-- ${objDoc.tenTaiLieu }</a>
+							<a href="${pageContext.request.contextPath }/download-document-${objDoc.id_KhoaHoc}-${objDoc.id_TaiLieu}">-- ${objDoc.tenTaiLieu }</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -189,17 +189,150 @@
 			<a class="goback" href="${pageContext.request.contextPath}/mycourses" title=""> <span class="icon-remove icon-large"></span> </a>
 		</div>
 		<div id="overflow2" class="margin-wide size-medium" id="readInner">
-		    <div>
-				<c:if test="${not empty lesson.video }">
-	                <video width="100%" height="490"  controls>
-						<source src="${pageContext.request.contextPath }/files/${lesson.video}" type="video/mp4">
-						<!-- Trình duyệt của bạn không hỗ trợ thẻ video trong HTML5. -->
-					</video>
-			   	</c:if>
-			</div>
-			<div>
-				${lesson.chiTiet }
-			</div>
+			<c:if test="${lesson.loai == 'baihoc' }">
+			    <div>
+					<c:if test="${not empty lesson.video }">
+		                <video width="100%" height="490"  controls>
+							<source src="${pageContext.request.contextPath }/files/${lesson.video}" type="video/mp4">
+							<!-- Trình duyệt của bạn không hỗ trợ thẻ video trong HTML5. -->
+						</video>
+				   	</c:if>
+				</div>
+				<div>
+					${lesson.chiTiet }
+				</div>
+			</c:if>
+			<c:if test="${lesson.loai == 'kiemtra' }">
+			    <c:if test="${less.hoanThanh == 3 }">
+			    	<div class="test-info">
+						<img class="icon" src="${defines.urlAdmin }/img/test-icon.png" />
+						<div class="title">kiểm tra</div>
+						<div class="detail">
+							<p>B&#224;i thi gồm <b>52</b> c&#226;u hỏi</p>
+							<p>
+								Thời gian l&#224;m b&#224;i:                 <b>Kh&#244;ng x&#225;c định</b>
+							</p>
+							<button type="submit" id="btn-lam-bai-kiem-tra" class="btn btn-start btn-expanded-width" onclick="startTest(${kid},${lesson.id_BaiHoc })">Bắt đầu l&#224;m b&#224;i</button>
+						</div>
+		
+					</div>
+			    </c:if>
+			    
+			    <c:if test="${less.hoanThanh == 1 }">
+			    	<div class="form-question-wrapper">
+						<div class="form-question-header">
+							<span>Thực hiện kiểm tra</span>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="quiz-infomation">
+									B&#224;i thi gồm <strong>2</strong> c&#226;u hỏi <br />
+									Tổng điểm: <strong>3.2</strong><br />
+									Thời gian l&#224;m b&#224;i:
+										<strong>
+											15 ph&#250;t
+										</strong><br />
+									Ng&#224;y dự thi: <strong>22/04/2019</strong> <br />
+		
+								</div>
+							</div>
+		
+							<div class="col-xs-12 col-md-12">
+								<div class="quiz-navigation">
+									<span class="quiz-navigation-title">Danh s&#225;ch c&#226;u hỏi</span>
+									<a class="visible-xs show-nav-questions" href="#" onclick="return showNav();">
+										<i class="fa fa-arrow-circle-down"></i>
+									</a>
+									
+									<ul class="list-inline list-dieu-huong-cau-hoi">
+										<c:forEach items="${listTest }" var="objLT1">
+											<li data-thu-tu-cau-hoi="${objLT1.stt }">
+												<div class="quiz-navigation-item ">
+													<div class="quiz-content">
+														<a class="cau-hoi-dieu-huong-js"
+														   onclick="return dieuHuong(this);"
+														   href="#Cau-${objLT1.stt }">
+															${objLT1.stt }
+														</a>
+													</div>
+													<div class="sign-top"></div>
+													<div class="sign-bottom" style=""></div>
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
+									
+								</div>
+							</div>
+							<div class="col-xs-12 col-md-12 list-quiz">
+								<div class="quiz-content margin-top-10">
+								<c:forEach items="${listTest }" var="objLT2">
+									<div class="question" id="Cau-${objLT2.stt }">
+										<div class="row">
+											<div class="col-xs-12 col-md-2 reset-padding-right">
+												<div class="question-info">
+													<span class="question-number">C&#226;u hỏi ${objLT2.stt }</span>
+													<span>Điểm: ${objLT2.diem }</span>
+		
+												</div>
+											</div>
+											<div class="col-xs-12 col-md-10">
+												<div class="question-detail  ">
+													<span class="question-name"><p>${objLT2.cauHoi }</p> </span>
+													<div class="answer-content ">
+														<div class="cau-don-trac-nghiem-mot-lua-chon">
+															<ul class="lst-phuong-an lst-pa-dung-sai">
+																<li data-ma-cau-tra-loi="1755109">
+																   
+																	<div class="phuong-an-detail">
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n A" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-A-96344" />
+																		<label for="rdoPhuongAn-A-96344" aria-labelledby="rdoPhuongAn-A-96344">A. </label>
+																		<div class="margin-left">
+																			<p>${objLT2.option1 }</p>
+																		</div>
+																	</div>
+																</li>
+																<li data-ma-cau-tra-loi="1755110">														   
+																	<div class="phuong-an-detail">
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n B" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-B-96344" />
+																		<label for="rdoPhuongAn-B-96344" aria-labelledby="rdoPhuongAn-B-96344">B. </label>
+																		<div class="margin-left">
+																			<p>${objLT2.option2 }</p>
+																		</div>
+																	</div>
+																</li>
+																<li data-ma-cau-tra-loi="1755111">
+																	<div class="phuong-an-detail">
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n C" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-C-96344" />
+																		<label for="rdoPhuongAn-C-96344" aria-labelledby="rdoPhuongAn-C-96344">C. </label>
+																		<div class="margin-left">
+																			<p>${objLT2.option3 }</p>
+																		</div>
+																	</div>
+																</li>
+																<li data-ma-cau-tra-loi="1755108">
+																	<div class="phuong-an-detail">
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n D" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-D-96344" />
+																		<label for="rdoPhuongAn-D-96344" aria-labelledby="rdoPhuongAn-D-96344">D. </label>
+																		<div class="margin-left">
+																			<p>${objLT2.option4 }</p>
+																		</div>
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+			    </c:if>
+			</c:if>
 		</div>
 	</div>
 </div>
@@ -355,6 +488,25 @@ document.getElementById("defaultOpen").click();
     		});
        }
  	}
+ 	
+ 	function startTest(kid, lid){
+ 		  $.ajax({
+ 		    url: "${pageContext.request.contextPath}/mycourse",
+ 		    type: 'POST',
+ 		    cache: false,
+ 		   	data: {
+ 		      akid : kid,
+ 		      alid: lid
+ 		    },
+ 		    success: function(data){
+ 		        $("#overflow2").html(data); /* alert(id); */
+ 		    },
+ 		    error: function (){
+ 		      alert('Có lỗi');
+ 		    }
+ 		  }); 
+ 		  /* alert("Thành công"); */
+ 		}
  </script>
 </body>
 </html>

@@ -128,7 +128,7 @@
 	                  <td>${objQ.username }</td>
 	                  <td>${objQ.sdt }</td>
 	                  <td>${objQ.email }</td>
-	                  <td width="15%" style="text-align: center;">
+	                  <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
 	                      <a href="${pageContext.request.contextPath }/admin/qtv/view/${objQ.id_Qtv}" class="btn btn-success"><i class="icon-eye-open"></i> Edit</a>
 	                      <a href="${pageContext.request.contextPath }/admin/qtv/restore/${objQ.id_Qtv}" class="btn btn-primary"><i class=" icon-refresh"></i> Restore</a>

@@ -17,8 +17,17 @@
       <div class="span12">
 		
         <div class="">
-			<a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/${cid }/lesson/add" class="button">
-			 <span class=addtop>Thêm <i class="icon-plus"></i></span> </a>
+			<%-- <a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/${cid }/lesson/add" class="button">
+			 <span class=addtop>Thêm <i class="icon-plus"></i></span> </a> --%>
+			 <div class="btn-group">
+	            <button class="btn btn-primary" style="height:30px">Thêm nội dung</button>
+	            <button data-toggle="dropdown" style="height:30px" class="btn btn-primary dropdown-toggle"><span class="caret"></span></button>
+	            <ul style="height:62px" class="dropdown-menu">
+	              <li><a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/${cid }/lesson/add"> <i class="icon-plus"></i> Bài giảng</a></li>
+	              <li class="divider"></li>
+	              <li><a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/${cid }/lesson/addTest"> <i class="icon-plus"></i> Bài kiểm tra</a></li>
+	            </ul>
+	          </div>
 		</div>
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>

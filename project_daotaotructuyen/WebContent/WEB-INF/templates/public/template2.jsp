@@ -3,13 +3,13 @@
 <%@include file="/templates/taglib.jsp" %>
 <tiles:insertAttribute name="header"></tiles:insertAttribute>
 	<div class="wrapper row3">
-	  <div id="container">
+	  <!-- <div id="container"> -->
 	    <!-- ################################################################################################ -->
 	      <tiles:insertAttribute name="body"></tiles:insertAttribute>
 	      <!-- #### -->
 	    <!-- ################################################################################################ -->
 	    <div class="clear"></div>
-	  </div>
+	  <!-- </div> -->
 	</div>
 <tiles:insertAttribute name="footer"></tiles:insertAttribute>
 		

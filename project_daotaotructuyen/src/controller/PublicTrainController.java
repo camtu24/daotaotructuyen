@@ -34,6 +34,7 @@ import model.dao.NewsDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
 import model.dao.OrderDAO;
+import model.dao.SliderDAO;
 import util.SlugUtil;
 
 @Controller
@@ -61,6 +62,8 @@ public class PublicTrainController {
 	@Autowired
 	private NewsDAO newsDao;
 	@Autowired
+	private SliderDAO slideDao;
+	@Autowired
 	private BCryptPasswordEncoder passwordE;
 	
 	@ModelAttribute
@@ -68,10 +71,17 @@ public class PublicTrainController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("slugUtil", slugUtil);
 		modelMap.addAttribute("listS", chuDeDao.getItems());
+		//khóa học mới
+		modelMap.addAttribute("list3Course", courDao.getItems3Coure());
+		modelMap.addAttribute("courDao", courDao);
+		//bài viết mới
+		modelMap.addAttribute("list3News", newsDao.getItems3News());
 	}
 	
 	@RequestMapping("")
-	public String index(){
+	public String index(ModelMap modelMap){
+		//slider
+		modelMap.addAttribute("listSlide", slideDao.getItems());
 		return "public.train.index";
 	}
 	
@@ -79,7 +89,7 @@ public class PublicTrainController {
 	public String catTotal(ModelMap modelMap){
 		/*//System.out.println("Username: "+ principal.getName());
 		session.setAttribute("userInfo", qtvDao.getItemU(principal.getName()));*/
-		modelMap.addAttribute("courDao", courDao);
+		/*modelMap.addAttribute("courDao", courDao);*/
 		return "public.train.cats";
 	}
 	

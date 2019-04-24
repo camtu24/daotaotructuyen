@@ -25,7 +25,7 @@
               <thead>
                 <tr>
                   <th></th>
-                  <!-- <th>ID</th> -->
+                  <th>ID</th>
                   <th>Họ Tên</th>
                   <th>Nội dung</th>
                   <th>Email</th>
@@ -40,7 +40,7 @@
 	                  <td width="3.3%" >
                           <input type="checkbox" name="delete[]" value="${objCX.id_LienHe }" />
                       </td>
-	                  <%-- <td style="text-align: center;"><strong>${objCX.id_LienHe }</strong></td> --%>
+	                  <td style="text-align: center;"><strong>${objCX.id_LienHe }</strong></td>
 	                  <td><strong>${objCX.hoTen }</strong></td>
 	                  <td><strong>${slugUtil.substringWord(objCX.noiDung,30)}</strong></td>
 	                  <td><strong>${objCX.email }</strong></td>
@@ -60,7 +60,7 @@
 	                  <td width="3.3%" >
                           <input type="checkbox" name="delete[]" value="${objDX.id_LienHe }" />
                       </td>
-	                  <%-- <td style="text-align: center;">${objDX.id_LienHe }</td> --%>
+	                  <td style="text-align: center;">${objDX.id_LienHe }</td>
 	                  <td>${objDX.hoTen }</td>
 	                  <td>${slugUtil.substringWord(objDX.noiDung,30)}</td>
 	                  <td>${objDX.email }</td>

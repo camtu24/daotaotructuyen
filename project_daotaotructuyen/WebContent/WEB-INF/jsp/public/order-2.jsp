@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/templates/taglib.jsp" %> 
+<div id="container">  
 	<div>
 		<ul class="items-order">
 		  <li class="item-order">Đăng ký tài khoản
@@ -114,3 +115,4 @@
 	    }
 	  }).render('#paypal-button-container');
 	</script>
+</div>

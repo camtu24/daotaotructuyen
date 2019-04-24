@@ -223,3 +223,232 @@ a{	text-decoration: none;}
 	width: 72%;
 	box-shadow: 10px 10px 13px rgba(213,222,229,0.50) inset;
 }
+
+/* test */
+.test-info{
+	width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 15px 15px 15px;
+    text-align: center;
+}
+.test-info .icon{
+	width: 150px;
+    height: 150px;
+    margin: 15px 0;
+}
+.test-info .title {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 15px 0 10px 0;
+}
+.test-info .detail p{margin: 0 0 10px;}
+.test-info .detail .btn-start{
+    background-color: #ff9900;
+    padding: 8px 25px;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* testing */
+.form-question-wrapper {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+}
+.form-question-header {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.col-xs-12 {
+    width: 100%;
+}
+.quiz-infomation {
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    line-height: 30px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+@media (min-width: 992px) 
+.col-md-12 {
+    width: 100%;
+}
+.margin-top-10 {
+    margin-top: 10px;
+}
+.question {
+    background: #fcf8e3;
+    display: table;
+    width: 97.5%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+
+
+.col-md-2 {
+    width: 16.66666667%;
+	float: left;
+	padding-right: 15px;
+}
+.question-info {
+    background: #ececec;
+    border-radius: 3px;
+    position: relative;
+	
+	border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.question-info > span {
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 0px;
+}
+.question span {
+    text-decoration: none !important;
+}
+
+.col-md-10 {
+    width: 79%;
+	float: left;
+}
+.question-detail {
+    margin-bottom: 10px;
+	background: #d9edf7;
+    border-radius: 3px;
+	border: 1px solid #ddd;
+    padding: 10px;
+    display: table;
+    width: 100%;
+    text-align: justify;
+}
+.question span.question-name-index, .question-detail > span.question-name {
+font-weight: bold;
+}
+.question-detail > span.question-name {
+    margin-left: 40px;
+    margin-bottom: 10px;
+    display: block;
+}
+.question-name {
+    /*display: inline;*/
+    background-color: transparent !important;
+}
+ul > li {
+    list-style: none;
+}
+ul.lst-pa-dung-sai {
+    padding-left: 7px;
+}
+ul.lst-phuong-an {
+    margin-left: 0px;
+    padding-left: 17px;
+}
+.cau-don-trac-nghiem-nhieu-lua-chon, .lst-phuong-an {
+    margin-top: 10px;
+}
+.lst-phuong-an {
+    position: relative;
+}
+.lst-phuong-an li {
+    position: relative;
+}
+.lst-phuong-an .phuong-an-detail {
+    float: left;
+    margin-bottom: 10px;
+/* width: calc(100% - 45px); */
+}
+.phuong-an-detail {
+    text-align: justify;
+}
+.question-detail ul.lst-phuong-an > li {
+    display: table;
+    /* width: 100%; */
+    /* line-height: 14px; */
+    /* vertical-align: text-top; */
+}
+.lst-phuong-an li input {
+    float: left;
+    width: 13px;
+    margin-top: 3px;
+}
+.lst-phuong-an li label {
+    padding: 0 10px;
+    float: left;
+    width: 35px;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+margin-bottom: 5px;
+}
+.margin-left {
+    margin-left: 70px;
+}
+.right-position span > p, .lst-pa-dung-sai p, .lst-phuong-an p, label > p, .left-position p {
+    display: inline;
+}
+
+.quiz-navigation {
+    width: 97.5%;
+    position: relative;
+    border: 1px solid #ddd;
+    display: table;
+    padding: 10px;
+    border-radius: 5px;
+}
+.quiz-navigation > .quiz-navigation-title {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.list-inline {
+    padding-left: 0;
+    margin-left: -5px;
+    list-style: none;
+}
+.quiz-navigation > ul > li {
+    width: 50px;
+    padding: 2px;
+    position: relative;
+}
+.list-inline > li {
+    display: inline-block;
+    /*padding-right: 5px;
+    padding-left: 5px;*/
+}
+.quiz-navigation-item {
+    position: relative;
+}
+.quiz-navigation > ul > li > .quiz-navigation-item > .quiz-content {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 30px;
+    text-align: center;
+}
+.quiz-navigation > ul > li > .quiz-navigation-item > .quiz-content a{
+    color: #337ab7;
+}
+.quiz-navigation > ul > li > .quiz-navigation-item > .sign-bottom {
+    position: absolute;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 15px;
+    background: #e1e1e1;
+}

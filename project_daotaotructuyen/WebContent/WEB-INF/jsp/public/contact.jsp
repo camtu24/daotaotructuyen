@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "/templates/taglib.jsp" %>
+<div id="container">
     <div id="contact" class="clear">
     <c:if test="${not empty msg }">
 	      <div class="alert alert-success">
@@ -62,3 +63,4 @@
         </section>
       </div>
     </div>
+</div>

@@ -16,7 +16,7 @@ public class LessonDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Lesson> getItemsByIDKH(int kid){
-		String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_khoahoc=? && storage=1 ORDER BY id_dmb";
+		String sql = "SELECT id_baihoc,tenbaihoc,IFNULL(mota,'') AS mota,chitiet,IFNULL(video,'') AS video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage,loai FROM baihoc WHERE id_khoahoc=? && storage=1 ORDER BY id_dmb";
 		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
 	}
 	
@@ -26,7 +26,7 @@ public class LessonDAO {
 	}
 	
 	public List<Lesson> getItemsByIDDMCH(int cid, int kid, String username){
-		String sql = "SELECT b.id_baihoc,b.tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,b.id_dmb,b.id_khoahoc,b.storage FROM baihoc AS b LEFT JOIN (SELECT * FROM quatrinhhoc WHERE username=? && hoanthanh != 0) AS q ON b.id_baihoc = q.id_baihoc WHERE q.id_baihoc IS NULL && b.id_dmb=? && b.id_khoahoc=? && b.storage=1";
+		String sql = "SELECT b.id_baihoc,b.tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,b.id_dmb,b.id_khoahoc,b.storage,loai FROM baihoc AS b LEFT JOIN (SELECT * FROM quatrinhhoc WHERE username=? && hoanthanh != 0) AS q ON b.id_baihoc = q.id_baihoc WHERE q.id_baihoc IS NULL && b.id_dmb=? && b.id_khoahoc=? && b.storage=1";
 		return jdbcTemplate.query(sql,new Object[] {username,cid,kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
 	}
 
@@ -41,7 +41,7 @@ public class LessonDAO {
 	}
 	
 	public int addItemByDM(Lesson lesson) {
-		String sql = "INSERT INTO baihoc(tenbaihoc,mota,chitiet,video,nguoitao,id_dmb,id_khoahoc,storage) VALUES(?,?,?,?,?,?,?,1)";
+		String sql = "INSERT INTO baihoc(tenbaihoc,mota,chitiet,video,nguoitao,id_dmb,id_khoahoc,storage,loai) VALUES(?,?,?,?,?,?,?,1,'baihoc')";
 		return jdbcTemplate.update(sql, new Object[] {lesson.getTenBaiHoc(),lesson.getMoTa(),lesson.getChiTiet(),lesson.getVideo(),lesson.getNguoiTao(),lesson.getId_Dmb(),lesson.getId_KhoaHoc()});
 	}
 
@@ -57,7 +57,7 @@ public class LessonDAO {
 
 	public Lesson getItem(int lid) {
 		try {
-			String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE id_baihoc=?";
+			String sql = "SELECT id_baihoc,tenbaihoc,mota,chitiet,video,ngaytao,nguoitao,id_dmb,id_khoahoc,storage,loai FROM baihoc WHERE id_baihoc=?";
 			return jdbcTemplate.queryForObject(sql, new Object[] {lid},new BeanPropertyRowMapper<Lesson>(Lesson.class));
 		} catch (Exception e) {
 			return null;
@@ -102,6 +102,19 @@ public class LessonDAO {
 		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<Lesson>(Lesson.class));
 	}
 
-	
+	//test
+	public int addItemTest(Lesson lesson) {
+		String sql = "INSERT INTO baihoc(tenbaihoc,chitiet,nguoitao,id_dmb,id_khoahoc,loai,storage) VALUES(?,?,?,?,?,'kiemtra',1)";
+		return jdbcTemplate.update(sql, new Object[] {lesson.getTenBaiHoc(),lesson.getChiTiet(),lesson.getNguoiTao(),lesson.getId_Dmb(),lesson.getId_KhoaHoc()});
+	}
+
+	public Lesson getItemTest(String fileName) {
+		try {
+			String sql = "SELECT id_baihoc,tenbaihoc,chitiet,ngaytao,nguoitao,id_dmb,id_khoahoc,storage FROM baihoc WHERE chitiet=?";
+			return jdbcTemplate.queryForObject(sql, new Object[] {fileName},new BeanPropertyRowMapper<Lesson>(Lesson.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 }

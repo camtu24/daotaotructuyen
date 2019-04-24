@@ -96,26 +96,34 @@
 		                    </div>
 		                </div>
 		                
-		                <div class="form-group">
+		                <div class="col-md4">
+		                   <div class="form-group">
                             <label>Chức vụ</label>
                             <textarea name="chucVu" style="height: 60px;width:75%" required>${teacher.chucVu }</textarea>
-                        </div>
-                        
-                        <div class="form-group">
+                           </div>
+		                </div>
+		                
+		                <div class="col-md4">
+		                   <div class="form-group">
                             <label>Mô tả</label>
                             <textarea name="moTaThem" style="height: 90px;width:75%">${teacher.moTaThem }</textarea>
-                        </div>
-                        
-                        <div class="form-group">
+                           </div>
+		                </div>
+		                
+		                <div class="col-md4">
+		                   <div class="form-group">
                             <label>Bằng cấp</label>
                             <textarea name="bangCap" style="height: 90px;width:75%">${teacher.bangCap }</textarea>
-                        </div>
-                        
-                        <div class="form-group">
+                           </div>
+		                </div>
+		                
+		                <div class="col-md4">
+		                   <div class="form-group">
                             <label>Chuyên môn chính</label>
                             <textarea name="chuyenMonChinh" style="height: 90px;width:75%" required>${teacher.chuyenMonChinh }</textarea>
-                        </div>
-                        
+                           </div>
+		                </div>
+		                
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>

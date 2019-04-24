@@ -40,7 +40,7 @@ public class QuaTrinhHocDAO {
 	}
 	
 	public List<QuaTrinhHoc> getItemsByIDDM(int cid, int kid, String username){
-		String sql = "SELECT * FROM quatrinhhoc WHERE id_dmb=? && id_khoahoc=? && username=? && storage=1 && (hoanthanh=2 || hoanthanh=1)";
+		String sql = "SELECT * FROM quatrinhhoc WHERE id_dmb=? && id_khoahoc=? && username=? && storage=1 && (hoanthanh=2 || hoanthanh=1 || hoanthanh=3)";
 		return jdbcTemplate.query(sql,new Object[] {cid,kid,username}, new BeanPropertyRowMapper<QuaTrinhHoc>(QuaTrinhHoc.class));
 	}
 

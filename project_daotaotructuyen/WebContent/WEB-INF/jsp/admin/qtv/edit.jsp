@@ -57,7 +57,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Địa chỉ (*)</label>
-		                        <input type="text" name="sdt" value="${qtv.diaChi }" class="form-control border-input" placeholder="Tên đăng nhập" required>
+		                        <input type="text" name="diaChi" value="${qtv.diaChi }" class="form-control border-input" placeholder="Tên đăng nhập" required>
                             	<form:errors path="qtv.diaChi" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
