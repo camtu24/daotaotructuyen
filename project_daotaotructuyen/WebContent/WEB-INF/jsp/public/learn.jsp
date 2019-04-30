@@ -245,20 +245,22 @@
 									</a>
 									
 									<ul class="list-inline list-dieu-huong-cau-hoi">
-										<c:forEach items="${listTest }" var="objLT1">
-											<li data-thu-tu-cau-hoi="${objLT1.stt }">
+										<%-- <c:forEach items="${listTest }" var="objLT1"> --%>
+										<c:forEach begin="1" end="${listTest.size() }" var="i">
+											<li data-thu-tu-cau-hoi="${i}">
 												<div class="quiz-navigation-item ">
 													<div class="quiz-content">
 														<a class="cau-hoi-dieu-huong-js"
 														   onclick="return dieuHuong(this);"
-														   href="#Cau-${objLT1.stt }">
-															${objLT1.stt }
+														   href="#Cau-${i}">
+															${i }
 														</a>
 													</div>
 													<div class="sign-top"></div>
 													<div class="sign-bottom" style=""></div>
 												</div>
 											</li>
+											<%-- <p>${i+1}-${listTest.get(i).stt }</p> --%>
 										</c:forEach>
 									</ul>
 									
@@ -266,56 +268,55 @@
 							</div>
 							<div class="col-xs-12 col-md-12 list-quiz">
 								<div class="quiz-content margin-top-10">
-								<c:forEach items="${listTest }" var="objLT2">
-									<div class="question" id="Cau-${objLT2.stt }">
+								<c:forEach begin="0" end="${listTest.size()-1 }" var="j">
+									<div class="question" id="Cau-${j+1}">
 										<div class="row">
 											<div class="col-xs-12 col-md-2 reset-padding-right">
 												<div class="question-info">
-													<span class="question-number">C&#226;u hỏi ${objLT2.stt }</span>
-													<span>Điểm: ${objLT2.diem }</span>
-		
+													<span class="question-number">C&#226;u hỏi ${j+1 }</span>
+													<span>Điểm: ${listTest.get(j).diem }</span>
 												</div>
 											</div>
 											<div class="col-xs-12 col-md-10">
 												<div class="question-detail  ">
-													<span class="question-name"><p>${objLT2.cauHoi }</p> </span>
+													<span class="question-name"><p>${listTest.get(j).cauHoi }</p> </span>
 													<div class="answer-content ">
-														<div class="cau-don-trac-nghiem-mot-lua-chon">
+														<div class="cau-don-trac-nghiem-mot-lua-chon" data-ma-cau-hoi="${listTest.get(j).id_CauHoi }">
 															<ul class="lst-phuong-an lst-pa-dung-sai">
 																<li data-ma-cau-tra-loi="1755109">
 																   
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n A" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-A-96344" />
-																		<label for="rdoPhuongAn-A-96344" aria-labelledby="rdoPhuongAn-A-96344">A. </label>
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n A" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="A" id="rdoPhuongAn-A-${listTest.get(j).id_CauHoi }" onclick="submitAnswer(${j}, this)"/>
+																		<label for="rdoPhuongAn-A-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-A-${listTest.get(j).id_CauHoi }">A. </label>
 																		<div class="margin-left">
-																			<p>${objLT2.option1 }</p>
+																			<p>${listTest.get(j).option1 }</p>
 																		</div>
 																	</div>
 																</li>
 																<li data-ma-cau-tra-loi="1755110">														   
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n B" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-B-96344" />
-																		<label for="rdoPhuongAn-B-96344" aria-labelledby="rdoPhuongAn-B-96344">B. </label>
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n B" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="B" id="rdoPhuongAn-B-${listTest.get(j).id_CauHoi }" onclick="submitAnswer(${j}, this)"/>
+																		<label for="rdoPhuongAn-B-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-B-${listTest.get(j).id_CauHoi }">B. </label>
 																		<div class="margin-left">
-																			<p>${objLT2.option2 }</p>
+																			<p>${listTest.get(j).option2 }</p>
 																		</div>
 																	</div>
 																</li>
 																<li data-ma-cau-tra-loi="1755111">
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n C" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-C-96344" />
-																		<label for="rdoPhuongAn-C-96344" aria-labelledby="rdoPhuongAn-C-96344">C. </label>
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n C" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="C" id="rdoPhuongAn-C-${listTest.get(j).id_CauHoi }" onclick="submitAnswer(${j}, this)"/>
+																		<label for="rdoPhuongAn-C-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-C-${listTest.get(j).id_CauHoi }">C. </label>
 																		<div class="margin-left">
-																			<p>${objLT2.option3 }</p>
+																			<p>${listTest.get(j).option3 }</p>
 																		</div>
 																	</div>
 																</li>
 																<li data-ma-cau-tra-loi="1755108">
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n D" type="radio" name="rad-phuong-an-96344" id="rdoPhuongAn-D-96344" />
-																		<label for="rdoPhuongAn-D-96344" aria-labelledby="rdoPhuongAn-D-96344">D. </label>
+																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n D" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="D" id="rdoPhuongAn-D-${listTest.get(j).id_CauHoi }" onclick="submitAnswer(${j}, this)"/>
+																		<label for="rdoPhuongAn-D-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-D-${listTest.get(j).id_CauHoi }">D. </label>
 																		<div class="margin-left">
-																			<p>${objLT2.option4 }</p>
+																			<p>${listTest.get(j).option4 }</p>
 																		</div>
 																	</div>
 																</li>
@@ -327,6 +328,7 @@
 										</div>
 									</div>
 								</c:forEach>
+								<input type="submit" value="Nộp bài" onclick="nopBai()">
 								</div>
 							</div>
 						</div>
@@ -391,38 +393,7 @@
 
 <!-- Scripts -->
 <script src="${defines.urlPublic }/js/jquery-latest.min.js"></script>
-<script type="text/javascript">
-function openNav() {
-  document.getElementById("full").style.width = "100%";
-  document.getElementById("overflow1").style.width = "0";
-}
-function closeNav() {
-  document.getElementById("full").style.width = "70%";
-  document.getElementById("overflow1").style.width = "30%";
-}
-
-function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent1");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-//Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-</script>
-
-<script type="text/javascript">
-	function showReply(idCmt){  
-	   $(".reply-action-"+idCmt).slideToggle();
-	}
-</script>
+<script src="${defines.urlPublic }/js/learn.js"></script>
 
 <script>
  	function doComment(){
@@ -454,16 +425,14 @@ document.getElementById("defaultOpen").click();
     		});
        }
  	}
- </script>
- 
- <script>
+ 	
  	function doRepComment(idCmt){
  		var id_cmt = idCmt;
        var content_tmp = $('#content-rep-'+idCmt).val();
        var id_less = ${lesson.id_BaiHoc};
        var hoTen = "${userInfo.hoTen}";
        var hinhAnh = "${userInfo.hinhAnh}"
-    	console.log(content_tmp)
+       console.log(content_tmp)
        $('#content-rep').val('');
        if(content_tmp==""){
     	   alert('Vui lòng nhập nội dung bình luận!');
@@ -489,24 +458,200 @@ document.getElementById("defaultOpen").click();
        }
  	}
  	
+ </script>
+ 
+ <script type="text/javascript">
+	//list đáp án
+	var answers = ${listDA};
+	console.log({ 'data': answers });
+	
+</script>
+ 
+ <script>
+ 	var useranswers = new Array();
  	function startTest(kid, lid){
- 		  $.ajax({
- 		    url: "${pageContext.request.contextPath}/mycourse",
- 		    type: 'POST',
- 		    cache: false,
- 		   	data: {
- 		      akid : kid,
- 		      alid: lid
- 		    },
- 		    success: function(data){
- 		        $("#overflow2").html(data); /* alert(id); */
- 		    },
- 		    error: function (){
- 		      alert('Có lỗi');
- 		    }
- 		  }); 
- 		  /* alert("Thành công"); */
- 		}
+		  $.ajax({
+		    url: "${pageContext.request.contextPath}/mycourse/startTest",
+		    type: 'POST',
+		    cache: false,
+		   	data: {
+		      akid : kid,
+		      alid: lid
+		    },
+		    success: function(response){
+		        if(response == 1){
+		        	window.location.href = '${pageContext.request.contextPath}/mycourse/${nameKHSl}-'+kid+'-'+lid;
+		        }
+		    },
+		    error: function (){
+		      alert('Có lỗi');
+		    }
+		  }); 
+	}
+ 	
+ 	/* function collectDataPhuongAnTraLoi() {
+ 		let data = {};
+ 	    data.ListPhuongAnTraLoi = [];
+ 	   alert("1: ");
+ 	  $('.question').each(function (index, element) {
+ 		 if ($(this).find('.cau-don-trac-nghiem-mot-lua-chon').length != 0) {
+ 	 		 $(this).find('.cau-don-trac-nghiem-mot-lua-chon').each(function (index, ele) {
+ 	 	 		 var maCauHoi = $(this).data('maCauHoi');
+ 	 	 	 	 // console.log({ 'maCauHoi': maCauHoi });
+ 	 	 		$(this).find('.lst-pa-dung-sai > li').each(function () {
+ 	 	            var phuongAnNguoiDung;
+ 	 	            
+ 	 	            if ($(this).find('.radUserAnswer').is(':checked') == true) {
+ 	 	                phuongAnNguoiDung = $(this).find('input.radUserAnswer:checked').val();
+ 	 	                //alert("2: ");
+ 	 	            } else{
+ 	 	            	phuongAnNguoiDung = -1;
+ 	 	            }   
+ 	 	          //console.log({ 'phuongAnNguoiDung': phuongAnNguoiDung });
+ 	 	          /* if(phuongAnNguoiDung != -1){ 
+ 	 	            data.ListPhuongAnTraLoi.push({
+ 	 	                MaCauHoi: maCauHoi,
+ 	 	                DapAnNguoiDung: phuongAnNguoiDung,
+ 	 	            });
+ 	 	           } 
+ 	 	        });
+ 	 	 	  });
+ 	 	  }
+ 	  });
+ 	 return data;
+ 	} */
+ 	
+ 	function submitAnswer(questionId, obj) {
+	  useranswers[questionId] = obj.value;
+	  //answered++;
+	} 
+ 	
+ 	function nopBai() {
+        nopBaiVaKetThuc(0);
+        return false;
+    }
+
+ 	function nopBaiVaKetThuc(isTimeOut) {
+		//let data = collectDataPhuongAnTraLoi();
+		//console.log({ 'data1': data });
+		var answered = 0;
+		useranswersCount = useranswers.length;
+		for(i=0; i < useranswersCount; i++){
+			if(useranswers[i] != null){
+				answered++;
+			}
+			//alert("data:" + useranswers[i])
+		}
+		console.log({ 'data': useranswers });
+		if (answered != useranswersCount && isTimeOut == 0) {
+            var thongBao = "Bạn đã trả lời "+answered+ "/"+useranswersCount+". Bạn có muốn nộp bài không?";
+            var resultConfirm = confirm(thongBao);
+            var maDe = ${lesson.id_BaiHoc};
+            var kid = ${kid};
+            if (resultConfirm == true) {
+                 $.ajax({
+                    url: '${pageContext.request.contextPath}/mycourse/saveTest',
+                    type: 'POST',
+                    cache: false,
+                    data: { 
+                    	listanswers: useranswers
+                    },
+                    success: function (response) {
+                    	if (response == 1) {
+                            $.ajax({
+                               url: '${pageContext.request.contextPath}/mycourse/finishTest',
+                               type: 'POST',
+                               cache: false,
+                               data: { 
+                               	amaDe: maDe,
+                               	akid: kid
+                               },
+                               success: function (response) {
+                            	   if(response < 50){
+                            		   alertMsg = "Bạn chưa đạt bài kiểm tra!!! \n";
+                            		   alertMsg +="Bạn trả lời đúng " + response + "%. \nBạn có muốn làm lại không? ";
+                            		   var resultConfirm1 = confirm(alertMsg);
+                            		   if(resultConfirm1 == true){
+                            			   startTest(kid,maDe);
+                            		   }
+                            	   }else{
+                            		   alert("Chúc mừng bạn đã đạt bài kiểm tra!!!");
+                            	   }
+                               },
+                               error: function () {
+                                     console.log("Lỗi gởi dữ liệu lên server")
+                                   //$('.time-counter').show();
+                               }
+                           });
+                       }else {
+                           //console.log({ 'response': response });
+                           alert('Lỗi khi nộp bài vui lòng thử lại');
+                           //$('#btnSubmitTest').attr('disabled', false);
+                          // $('body').removeClass('loading');
+                       }
+                    },
+                    error: function () {
+                          console.log("Lỗi gởi dữ liệu lên server")
+                        //$('.time-counter').show();
+                    }
+                });
+
+            }
+        }else{
+        	// Nếu thực hiện tất cả rồi thì nộp luôn
+        	$.ajax({
+                url: '${pageContext.request.contextPath}/mycourse/saveTest',
+                type: 'POST',
+                cache: false,
+                data: { 
+                	listanswers: useranswers
+                },
+                success: function (response) {
+                	if (response == 1) {
+                        $.ajax({
+                           url: '${pageContext.request.contextPath}/mycourse/finishTest',
+                           type: 'POST',
+                           cache: false,
+                           data: { 
+                           	amaDe: maDe,
+                           	akid: kid
+                           },
+                           success: function (response) {
+                        	   if(response < 50){
+                        		   alertMsg = "Bạn chưa đạt bài kiểm tra!!! \n";
+                        		   alertMsg +="Bạn trả lời đúng " + response + "%. \nBạn có muốn làm lại không? ";
+                        		   var resultConfirm1 = confirm(alertMsg);
+                        		   if(resultConfirm1 == true){
+                        			   startTest(kid,maDe);
+                        		   }
+                        	   }else{
+                        		   alert("Chúc mừng bạn đã đạt bài kiểm tra!!!");
+                        		   window.location.href = '${pageContext.request.contextPath}/mycourse/${nameKHSl}-'+kid+'-'+maDe;
+                        	   }
+                           },
+                           error: function () {
+                                 console.log("Lỗi gởi dữ liệu lên server")
+                               //$('.time-counter').show();
+                           }
+                       });
+                   }else {
+                       //console.log({ 'response': response });
+                       alert('Lỗi khi nộp bài vui lòng thử lại');
+                       //$('#btnSubmitTest').attr('disabled', false);
+                      // $('body').removeClass('loading');
+                   }
+                },
+                error: function () {
+                      console.log("Lỗi gởi dữ liệu lên server")
+                    //$('.time-counter').show();
+                }
+            });
+        }
+		
+		
+    }
+
+ 	
  </script>
 </body>
 </html>

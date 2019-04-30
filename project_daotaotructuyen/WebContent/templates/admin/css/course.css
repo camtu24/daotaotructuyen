@@ -60,7 +60,7 @@ a{	text-decoration: none;}
 }
 #overflow1{
 	height: 470px; 
-	transition: 0.3s;
+	transition: 0.4s;
 }
 #wrapper-left{height: 470px;overflow: auto;}
 #full{transition: 0.4s;}

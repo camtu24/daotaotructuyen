@@ -23,8 +23,11 @@ import constant.Defines;
 import model.bean.Account;
 import model.bean.Course;
 import model.bean.Lesson;
+import model.bean.ListAnswers;
+import model.bean.ListQuestion;
 import model.bean.MyCourse;
 import model.bean.QuaTrinhHoc;
+import model.bean.Result;
 import model.dao.AccountDAO;
 import model.dao.ChuDeDAO;
 import model.dao.CommentDAO;
@@ -36,6 +39,7 @@ import model.dao.LessonDAO;
 import model.dao.ListQuestionDAO;
 import model.dao.NewsDAO;
 import model.dao.QuaTrinhHocDAO;
+import model.dao.ResultDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
@@ -74,8 +78,8 @@ public class PublicMyCourseController {
 	private ListQuestionDAO listqDao;
 	@Autowired
 	private NewsDAO newsDao;
-	@Autowired
-	private ChuDeDAO chuDeDao;
+	@Autowired private ChuDeDAO chuDeDao;
+	@Autowired private ResultDAO rsDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -163,7 +167,6 @@ public class PublicMyCourseController {
 			QuaTrinhHoc less = qthDao.getItem(kid, lid, account.getUsername());
 			
 			// cập nhật đã hoan thành
-			System.out.println("id_qth: "+less.getId_Qth());
 			QuaTrinhHoc prevLess = qthDao.getItemPrev(less.getId_Qth(),kid, account.getUsername());
 			
 			if(prevLess != null) {
@@ -190,7 +193,15 @@ public class PublicMyCourseController {
 			modelMap.addAttribute("less", less);
 			if(lesson.getLoai().equals("kiemtra")) {
 				//test
-				modelMap.addAttribute("listTest", listqDao.getItemsByIDBG(lesson.getId_BaiHoc()));
+				List<ListQuestion> listTest = listqDao.getItemsByIDBG(lesson.getId_BaiHoc());
+				
+				ArrayList<String> listDA = new ArrayList<>();
+				for (int j = 0; j < listTest.size(); j++) {
+					String dapAnDung = listTest.get(j).getDapAnDung();
+					listDA.add(dapAnDung);
+				}
+				modelMap.addAttribute("listTest", listTest);
+				modelMap.addAttribute("listDA", listDA);
 			}
 			
 			//lưu bai hoc tiếp theo
@@ -242,14 +253,102 @@ public class PublicMyCourseController {
 		return "public.mycourse.learn";
 	}
 	
-	@RequestMapping(value="/mycourse", method=RequestMethod.POST)
-	public String inMyCourse(@RequestParam("akid") int kid,@RequestParam("alid") int lid,ModelMap modelMap, HttpSession session,HttpServletResponse response, HttpServletRequest request){
-		//Course course = courDao.getItemDPH(kid);
-		//Lesson lesson = lessDao.getItem(lid);
-		//Account account = (Account) session.getAttribute("account");
+	@RequestMapping(value="/mycourse/startTest", method=RequestMethod.POST)
+	public String inMyCourse(@RequestParam("akid") int kid,@RequestParam("alid") int lid,HttpServletResponse response, HttpSession session){
+		System.out.println("1");
+		Account account = (Account) session.getAttribute("account");
+		QuaTrinhHoc less = qthDao.getItem(kid, lid, account.getUsername());
+		if(less.getHoanThanh() == 3) {
+			qthDao.changeHT(less,1);
+		}
 		try {
 			PrintWriter out = response.getWriter();
-			out.println("<div class=\"title\">kiểm tra</div>");
+			out.println("1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@RequestMapping(value="/mycourse/saveTest", method=RequestMethod.POST)
+	public String inMyCourse(@RequestParam("listanswers[]") String[] listanswers,ModelMap modelMap, HttpSession session,HttpServletResponse response, HttpServletRequest request){
+		//System.out.println("truyền thành công");
+		System.out.println("---------------");
+		session.setAttribute("listanswers", listanswers);
+		try {
+			PrintWriter out = response.getWriter();
+			out.println("1");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@RequestMapping(value="/mycourse/finishTest", method=RequestMethod.POST)
+	public String inMyCourse(@RequestParam("amaDe") int lid,@RequestParam("akid") int kid,ModelMap modelMap, HttpSession session,HttpServletResponse response, HttpServletRequest request){
+		System.out.println("truyền thành công");
+		Account account = (Account) session.getAttribute("account");
+		System.out.println("md: "+lid);
+		System.out.println("---------------");
+		
+		String[] listanswers = (String[]) session.getAttribute("listanswers");
+		System.out.println(listanswers);
+		
+		//list mã câu hỏi, list dap an, list điểm
+		
+		List<ListQuestion> listTest = listqDao.getItemsByIDBG(lid);
+		int questionCount = listTest.size();
+		Integer[] maCauHoi = new Integer[questionCount];
+		//maCauHoi[0] = 1;
+		String[] dapAnDung = new String[listTest.size()];
+		Double[] diem = new Double[questionCount];
+		for (int i = 0; i < questionCount; i++) {
+			maCauHoi[i] = listTest.get(i).getId_CauHoi();
+			dapAnDung[i] = listTest.get(i).getDapAnDung();
+			diem[i] = (Double) listTest.get(i).getDiem();
+		}
+		
+		int correct = 0;
+		float sumScore = 0;
+		for (int i = 0; i < listanswers.length; i++) {
+			if(listanswers[i].equalsIgnoreCase(dapAnDung[i])) {
+				correct++;
+				sumScore += diem[i];
+			}
+		}
+		System.out.println(correct);
+		//Float pc = (float) Math.round((correct / questionCount) * 100);
+		float pc = (float) correct/questionCount;
+		QuaTrinhHoc less = qthDao.getItem(kid, lid, account.getUsername());
+		if(pc < 0.5) {
+			if(less.getHoanThanh() == 1) {
+				qthDao.changeHT(less,3);
+			}
+		}else {
+			for (int i = 0; i < listanswers.length; i++) {
+				if(listanswers[i].equalsIgnoreCase(dapAnDung[i])) {
+					Result result = new Result(listanswers[i], 1, diem[i], account.getUsername(), maCauHoi[i]);
+					//thêm database
+					if(rsDao.addItem(result) > 0) {
+						System.out.println("thành công");
+					}
+				}else {
+					Result result = new Result(listanswers[i], 0, 0, account.getUsername(), maCauHoi[i]);
+					//thêm database
+					if(rsDao.addItem(result) > 0) {
+						System.out.println("thành công");
+					}
+				}
+			}
+			if(less.getHoanThanh() == 1) {
+				qthDao.changeHT(less,2);
+			}
+		}
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(pc*100);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
