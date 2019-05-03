@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,10 +32,10 @@ import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.LessonDAO;
 import model.dao.NewsDAO;
-import model.dao.StudentDAO;
-import model.dao.TeacherDAO;
 import model.dao.OrderDAO;
 import model.dao.SliderDAO;
+import model.dao.StudentDAO;
+import model.dao.TeacherDAO;
 import util.SlugUtil;
 
 @Controller
@@ -134,6 +135,22 @@ public class PublicTrainController {
 		return "public.order.step1";
 	}
 	
+	@RequestMapping(value="{nameKH}-{kid}/dangky/step2", method=RequestMethod.GET)
+	public String order2(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session,RedirectAttributes ra){
+		//Account acc = (Account) session.getAttribute("account");
+			
+		Course course = courDao.getItemDPH(kid);
+		int count = lessDao.getItemsCount(kid);
+		modelMap.addAttribute(kid);
+		modelMap.addAttribute("nameKH", nameKH);
+		modelMap.addAttribute("course", course);
+		float priceVND = course.getHocPhi();
+		float priceUSD = priceVND/23000;
+		modelMap.addAttribute("count", count);
+		modelMap.addAttribute("priceUSD", (double) Math.round(priceUSD * 10) / 10);
+		return "public.order.step2";
+	}
+	
 	@RequestMapping(value="{nameKH}-{kid}/dangky/step2", method=RequestMethod.POST)
 	public String order2(@ModelAttribute("TTDK") Order TTDK,@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session,RedirectAttributes ra){
 		if(stuDao.checkItem1(TTDK) != null) {
@@ -159,30 +176,29 @@ public class PublicTrainController {
 	public String order3(@PathVariable("kid") int kid,@PathVariable("nameKH") String nameKH,ModelMap modelMap,HttpSession session, @RequestParam("id_ThanhToan") int id_ThanhToan, HttpServletRequest request) throws UnsupportedEncodingException{
 		request.setCharacterEncoding("UTF-8");
 		Order TTDK = (Order) session.getAttribute("TTDK");
-		if(ttdkDao.addItem(TTDK,kid,id_ThanhToan) > 0) {
-			Account acc = (Account) session.getAttribute("account");
-			if(acc == null) {
+		Account acc = (Account) session.getAttribute("account");
+		if(acc !=null) {
+			if(ttdkDao.addItemAcc(acc,kid,id_ThanhToan) > 0) {
+				System.out.println("thanhcong");
+			}else {
+				return "public.train.error";
+			}
+		}else {
+			if(ttdkDao.addItem(TTDK,kid,id_ThanhToan) > 0) {
 				if(stuDao.addItemHVT(TTDK) > 0) {
-					session.removeAttribute(TTDK.getHoTen());
-					session.removeAttribute(TTDK.getEmail());
-					session.removeAttribute(TTDK.getPassword());
-					session.removeAttribute(TTDK.getUsername());
-					//session.removeAttribute(TTDK.getSdt());
+					session.removeAttribute("TTDK");
 					System.out.println("thanhcong");
+					if(TTDK.getDiaChi() != null) {
+						System.out.println("1");
+					}
 				}else {
 					return "public.train.error";
 				}
 			}else {
-				session.removeAttribute(TTDK.getHoTen());
-				session.removeAttribute(TTDK.getEmail());
-				session.removeAttribute(TTDK.getPassword());
-				session.removeAttribute(TTDK.getUsername());
-				//session.removeAttribute(TTDK.getSdt());
+				return "public.train.error";
 			}
-			
-		}else {
-			return "public.train.error";
 		}
+		
 		return "public.order.step3";
 	}
 	
@@ -242,5 +258,15 @@ public class PublicTrainController {
 		
 		//modelMap.addAttribute("listNews", newsDao.getItems());
 		return "public.news.detail";
+	}
+	
+	//search
+	@RequestMapping(value="search", method=RequestMethod.POST)
+	public String search(ModelMap modelMap, @RequestParam("search") String search){
+		List<Course> listKH = courDao.getItemsSearch(search);
+		modelMap.addAttribute("listKH", listKH);
+		modelMap.addAttribute("size", listKH.size());
+		modelMap.addAttribute("search", search);
+		return "public.train.search";
 	}
 }

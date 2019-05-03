@@ -224,10 +224,11 @@ public class AdminClassController {
 				for (DanhSachHocVien oldGV : oldList) {
 					int dem = 0;
 					for (Integer idGV : them) {
-						if(oldGV.getId_GiangVien()!= idGV) {
+						if(oldGV.getId_GiangVien()== idGV) {
 							dem = 1; break;
 						}
 					}
+					
 					if(dem == 0) {
 						if(dsDao.delItemsGVByClass(idClass, oldGV.getId_GiangVien()) > 0) {
 							System.out.println("thành công");
@@ -274,7 +275,7 @@ public class AdminClassController {
 				for (DanhSachHocVien oldQTV : oldList) {
 					int dem = 0;
 					for (Integer idQTV : them) {
-						if(oldQTV.getId_Qtv() != idQTV) {
+						if(oldQTV.getId_Qtv() == idQTV) {
 							dem = 1; break;
 						}
 					}

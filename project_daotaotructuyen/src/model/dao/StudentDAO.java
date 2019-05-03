@@ -110,4 +110,9 @@ public class StudentDAO {
 			return null;
 		}
 	}
+
+	public int changeEnable(int id, int active) {
+		String sql = "UPDATE hocvien SET enable=? WHERE id_hocvien=?";
+		return jdbcTemplate.update(sql, new Object[] {active,id});
+	}
 }

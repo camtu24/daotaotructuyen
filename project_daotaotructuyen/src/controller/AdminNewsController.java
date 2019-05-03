@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import constant.Defines;
 import model.bean.Account;
 import model.bean.News;
+import model.dao.ContactDAO;
 import model.dao.NewsDAO;
+import model.dao.OrderDAO;
 import util.FileUtil;
 
 @Controller
@@ -31,13 +33,18 @@ public class AdminNewsController {
 
 	@Autowired
 	private Defines defines;
-	
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired 
+	private OrderDAO ttdkDao;
 	@Autowired
 	private NewsDAO newsDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/news", method=RequestMethod.GET)

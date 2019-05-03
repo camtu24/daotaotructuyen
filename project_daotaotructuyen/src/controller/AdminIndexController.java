@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import constant.Defines;
 import model.dao.AccountDAO;
+import model.dao.ContactDAO;
+import model.dao.OrderDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
@@ -30,10 +32,16 @@ public class AdminIndexController {
 	private StudentDAO stuDao;
 	@Autowired
 	private TeacherDAO teaDao;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping("")

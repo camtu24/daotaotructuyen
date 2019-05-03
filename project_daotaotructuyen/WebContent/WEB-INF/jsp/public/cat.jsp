@@ -12,7 +12,7 @@
       <ul class="clear">
       	<c:forEach items="${listKH }" var="objK">
       		<c:set value = "${pageContext.request.contextPath}/${slugUtil.makeSlug(tenChuDe)}/${slugUtil.makeSlug(objK.tenKhoaHoc)}-${objK.id_KhoaHoc }.html" var="detailUrl"></c:set>
-      		<li class="one_third"  style="margin: 0 14px 35px;">
+      		<li class="one_third"  style="margin: 0 14px 35px;  border-style: double; height: 530px;">
 	          <article class="clear">
 	            <figure class="post-image">
 					<a href="${detailUrl}">
@@ -24,17 +24,20 @@
 					   	</c:if>
 					</a>
 				</figure>
-	            <header>
+				<header>
 	              <div class="tieude">
 						<p>${objK.tenKhoaHoc }</p>
 					</div>
-	              <div class="blog-post-meta">
-	                <p>Giảng viên: </p>
-	              </div>
 	            </header>
-	            <p>* ${objK.mieuTa }</p>
-	            <p>* Đối tượng tham gia:${objK.doiTuongThamGia }</p>
-	            <footer class="read-more"><a href="${detailUrl}">Chi tiết &raquo;</a></footer>
+				<div style="padding: 0 15px">
+					<div class="blog-post-meta">
+		                <p>Giảng viên: </p>
+		              </div>
+		            <p>* ${objK.mieuTa }</p>
+		            <p>* Đối tượng tham gia:${objK.doiTuongThamGia }</p>
+		            <footer class="read-more"><a href="${detailUrl}">Chi tiết &raquo;</a></footer>
+				</div>
+	            
 	          </article>
 	        </li>
       	</c:forEach>

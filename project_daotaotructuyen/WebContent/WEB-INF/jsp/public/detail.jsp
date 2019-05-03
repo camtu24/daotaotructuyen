@@ -112,6 +112,12 @@
 		 
 			  </ul>
 		</div>
-		<a style="margin: 45px 0 10px;" href="${pageContext.request.contextPath}/${slugUtil.makeSlug(course.tenKhoaHoc)}-${course.id_KhoaHoc }/dangky/step1" class="button large gradient orange">ĐĂNG KÝ KHÓA HỌC NÀY >>></a>
+		<c:if test="${account.username != null }">
+			<c:set value = "${pageContext.request.contextPath}/${slugUtil.makeSlug(course.tenKhoaHoc)}-${course.id_KhoaHoc }/dangky/step2" var="orderUrl"></c:set>
+		</c:if>
+		<c:if test="${account.username == null }">
+			<c:set value = "${pageContext.request.contextPath}/${slugUtil.makeSlug(course.tenKhoaHoc)}-${course.id_KhoaHoc }/dangky/step1" var="orderUrl"></c:set>
+		</c:if>
+		<a style="margin: 45px 0 10px;" href="${orderUrl}" class="button large gradient orange">ĐĂNG KÝ KHÓA HỌC NÀY >>></a>
 	</div>
     </div>

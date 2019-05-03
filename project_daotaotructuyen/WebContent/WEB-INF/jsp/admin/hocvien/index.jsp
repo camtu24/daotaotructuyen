@@ -4,7 +4,7 @@
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Học Viên</a> </div>
-    <h1>Học viên</h1>
+    <h1>Quản lý học viên</h1>
   </div>
   <div class="container-fluid">
   	<c:if test="${not empty msg }">
@@ -27,8 +27,8 @@
             <table class="table table-bordered data-table">
               <thead>
                 <tr>
-                  <th>ID ${listStu != null}</th>
-                  <th>Học Tên</th>
+                  <th>ID</th>
+                  <th>Họ Tên</th>
                   <th>Username</th>
                   <th>Số điện thoại</th>
                   <th>Email</th>
@@ -76,3 +76,22 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"> 
+	function changeEnable(id, active){
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/admin/students",
+	    type: 'POST',
+	    cache: false,
+	    data: {
+	      aactive : active,
+	      aid: id
+	    },
+	    success: function(data){
+	        $(".change"+'-'+id).html(data);
+	    },
+	    error: function (){
+	      alert('Có lỗi');
+	    }
+	  }); 
+	}
+</script>

@@ -37,11 +37,14 @@ import model.bean.Course;
 import model.bean.DanhSachHocVien;
 import model.bean.TeacherAdd;
 import model.dao.ChuDeDAO;
+import model.dao.ContactDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.DshvDAO;
 import model.dao.LessonDAO;
+import model.dao.OrderDAO;
 import model.dao.QtvDAO;
+import model.dao.StudentAssessmentDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherAddDAO;
 import model.dao.TeacherDAO;
@@ -70,12 +73,17 @@ public class AdminCourseController {
 	private QtvDAO qtvDao;
 	@Autowired
 	private TeacherAddDAO taDao;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired private OrderDAO ttdkDao;
+	@Autowired private StudentAssessmentDAO saDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
-	
 	
 	@RequestMapping(value="/courses", method=RequestMethod.GET)
 	public String index(ModelMap modelMap) throws AddressException, MessagingException {
@@ -357,6 +365,12 @@ public class AdminCourseController {
 				for (DanhSachHocVien oldHV : oldList) {
 					if(dsDao.delItemsHV(kid, oldHV.getId_HocVien()) > 0) {
 						System.out.println("thành công");
+						// xóa đánh giá học viên
+					    if(saDao.delItemHV(oldHV.getId_HocVien(),kid) > 0) {
+					    	System.out.println("thành công");
+					    }else {
+					    	System.out.println("thất bại");
+					    }
 					}
 				}
 			}else {
@@ -371,6 +385,12 @@ public class AdminCourseController {
 					if(dem == 0) {
 						if(dsDao.delItemsHV(kid, oldHV.getId_HocVien()) > 0) {
 							System.out.println("thành công");
+							// xóa đánh giá học viên
+						    if(saDao.delItemHV(oldHV.getId_HocVien(),kid) > 0) {
+						    	System.out.println("thành công");
+						    }else {
+						    	System.out.println("thất bại");
+						    }
 						}
 					}
 				}
@@ -379,6 +399,12 @@ public class AdminCourseController {
 					if(stuDao.getItemDGD(idHV,kid) == null) {
 						if(dsDao.addItemHV(idHV,kid,acc.getUsername()) > 0) {
 							System.out.println("thành công");
+							// thêm đanh giá học viên
+						    if(saDao.addItemHV(idHV,kid) > 0) {
+						    	System.out.println("thành công");
+						    }else {
+						    	System.out.println("thất bại");
+						    }
 							
 							String email = stuDao.getItem(idHV).getEmail();
 							System.out.println("email: "+ email);
@@ -404,6 +430,7 @@ public class AdminCourseController {
 						    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 						    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 						    transport.close();
+						    
 						}else {
 							ra.addFlashAttribute("msg", Defines.ERROR);
 							return "redirect:/admin/course/{kid}/cats";
@@ -420,6 +447,12 @@ public class AdminCourseController {
 				for (Integer idHV : ghi) {
 					if(dsDao.addItemHV(idHV,kid,acc.getUsername()) > 0) {
 						System.out.println("thành công");
+						 // thêm đanh giá học viên
+					    if(saDao.addItemHV(idHV,kid) > 0) {
+					    	System.out.println("thành công");
+					    }else {
+					    	System.out.println("thất bại");
+					    }
 						
 						String email = stuDao.getItem(idHV).getEmail();
 						System.out.println("email: "+ email);
@@ -445,6 +478,7 @@ public class AdminCourseController {
 					    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 					    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 					    transport.close();
+						
 					}else {
 						ra.addFlashAttribute("msg", Defines.ERROR);
 						return "redirect:/admin/course/{kid}/cats";
@@ -471,6 +505,12 @@ public class AdminCourseController {
 				for (DanhSachHocVien oldGV : oldList) {
 					if(dsDao.delItemsGV(kid, oldGV.getId_GiangVien()) > 0) {
 						System.out.println("thành công");
+						// xóa đánh giá giảng viên
+					    if(saDao.delItemGV(oldGV.getId_GiangVien(),kid) > 0) {
+					    	System.out.println("thành công");
+					    }else {
+					    	System.out.println("thất bại");
+					    }
 					}
 				}
 			}else {
@@ -485,6 +525,12 @@ public class AdminCourseController {
 					if(dem == 0) {
 						if(dsDao.delItemsGV(kid, oldGV.getId_GiangVien()) > 0) {
 							System.out.println("thành công");
+							// xóa đánh giá giảng viên
+						    if(saDao.delItemGV(oldGV.getId_GiangVien(),kid) > 0) {
+						    	System.out.println("thành công");
+						    }else {
+						    	System.out.println("thất bại");
+						    }
 						}
 					}
 				}
@@ -493,6 +539,12 @@ public class AdminCourseController {
 					if(teaDao.getItemDGD(idGV,kid) == null) {
 						if(dsDao.addItemGV(idGV,kid,acc.getUsername()) > 0) {
 							System.out.println("thành công");
+							// them đánh giá giảng viên
+						    if(saDao.addItemGV(idGV,kid) > 0) {
+						    	System.out.println("thành công");
+						    }else {
+						    	System.out.println("thất bại");
+						    }
 							
 							String email = teaDao.getItem(idGV).getEmail();
 							System.out.println("email: "+ email);
@@ -518,6 +570,7 @@ public class AdminCourseController {
 						    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 						    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 						    transport.close();
+						    
 						}else {
 							ra.addFlashAttribute("msg", Defines.ERROR);
 							return "redirect:/admin/course/{kid}/cats";
@@ -534,6 +587,13 @@ public class AdminCourseController {
 				for (Integer idGV : ghi) {
 					if(dsDao.addItemGV(idGV,kid,acc.getUsername()) > 0) {
 						System.out.println("thành công");
+						
+						 // them đánh giá giảng viên
+					    if(saDao.addItemGV(idGV,kid) > 0) {
+					    	System.out.println("thành công");
+					    }else {
+					    	System.out.println("thất bại");
+					    }
 						
 						String email = teaDao.getItem(idGV).getEmail();
 						System.out.println("email: "+ email);
@@ -559,6 +619,7 @@ public class AdminCourseController {
 					    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 					    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 					    transport.close();
+						
 					}else {
 						ra.addFlashAttribute("msg", Defines.ERROR);
 						return "redirect:/admin/course/{kid}/cats";
@@ -586,6 +647,12 @@ public class AdminCourseController {
 				for (DanhSachHocVien oldQTV : oldList) {
 					if(dsDao.delItemsQTV(kid, oldQTV.getId_Qtv()) > 0) {
 						System.out.println("thành công");
+						 // them đánh giá giảng viên
+					    if(saDao.delItemQTV(oldQTV.getId_Qtv(),kid) > 0) {
+					    	System.out.println("thành công");
+					    }else {
+					    	System.out.println("thất bại");
+					    }
 					}
 				}
 			}else {
@@ -600,6 +667,12 @@ public class AdminCourseController {
 					if(dem == 0) {
 						if(dsDao.delItemsQTV(kid, oldQTV.getId_Qtv()) > 0) {
 							System.out.println("thành công");
+							 // them đánh giá giảng viên
+						    if(saDao.delItemQTV(oldQTV.getId_Qtv(),kid) > 0) {
+						    	System.out.println("thành công");
+						    }else {
+						    	System.out.println("thất bại");
+						    }
 						}
 					}
 				}
@@ -608,6 +681,13 @@ public class AdminCourseController {
 					if(qtvDao.getItemDGD(idQTV,kid) == null) {
 						if(dsDao.addItemsQTV(idQTV,kid,acc.getUsername()) > 0) {
 							System.out.println("thành công");
+							
+							 // them đánh giá quản trị viên
+						    if(saDao.addItemQTV(idQTV,kid) > 0) {
+						    	System.out.println("thành công");
+						    }else {
+						    	System.out.println("thất bại");
+						    }
 							
 							String email = qtvDao.getItem(idQTV).getEmail();
 							System.out.println("email: "+ email);
@@ -633,6 +713,7 @@ public class AdminCourseController {
 						    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 						    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 						    transport.close();
+						    
 						}else {
 							ra.addFlashAttribute("msg", Defines.ERROR);
 							return "redirect:/admin/course/{kid}/cats";
@@ -649,6 +730,13 @@ public class AdminCourseController {
 				for (Integer idQTV : ghi) {
 					if(dsDao.addItemsQTV(idQTV,kid,acc.getUsername()) > 0) {
 						System.out.println("thành công");
+						
+						 // them đánh giá quản trị viên
+					    if(saDao.addItemQTV(idQTV,kid) > 0) {
+					    	System.out.println("thành công");
+					    }else {
+					    	System.out.println("thất bại");
+					    }
 						
 						String email = qtvDao.getItem(idQTV).getEmail();
 						System.out.println("email: "+ email);
@@ -674,6 +762,7 @@ public class AdminCourseController {
 					    transport.connect("smtp.gmail.com", "traingreenglobal@gmail.com", "10092014"); 
 					    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
 					    transport.close();
+					    
 					}else {
 						ra.addFlashAttribute("msg", Defines.ERROR);
 						return "redirect:/admin/course/{kid}/cats";

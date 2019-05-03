@@ -29,38 +29,68 @@
                   <th>Họ Tên</th>
                   <th>Email</th>
                   <th>Số điện thoại</th>
-                  <th>Ngày đăng ký</th>
+                  <th>Ngày đăng ký mua</th>
                   <th>Tình trạng</th>
                   <th>Chức năng</th>
                 </tr>
               </thead>
               <tbody>
-              	<c:forEach items="${listO }" var="objO">
+              	<c:forEach items="${listOCX }" var="objOCX">
 	                <tr class="gradeX">
 	                  <td width="3.3%" >
-                          <input type="checkbox" name="storage[]" value="${objO.id_Ttdk }" />
+                          <input type="checkbox" name="storage[]" value="${objOCX.id_Ttdk }" />
                       </td>
-	                  <td style="text-align: center;">${objO.id_Ttdk }</td>
-	                  <td>${objO.hoTen }</td>
-	                  <td>${objO.email }</td>
-	                  <td>${objO.sdt }</td>
+	                  <td style="text-align: center;"><strong>${objOCX.id_Ttdk }</strong></td>
+	                  <td><strong>${objOCX.hoTen }</strong></td>
+	                  <td><strong>${objOCX.email }</strong></td>
+	                  <td><strong>${objOCX.sdt }</strong></td>
 	                  <td>
-	                  	<fmt:formatDate value="${objO.ngayDangKy}" pattern="dd/MM/yyyy hh:mm:ss"/>
+	                  	<strong><fmt:formatDate value="${objOCX.ngayDangKy}" pattern="dd/MM/yyyy hh:mm:ss"/></strong>
 	                  </td>
-	                  <td style="text-align: center" class="change-${objO.id_Ttdk }">
-	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objO.id_Ttdk },${objO.tinhTrang })">
-		                    <c:if test="${objO.tinhTrang == 1 }">
-	                       		<span class="label label-inactive" style="background-color : #fe892b;">Đã thanh toán</span>
+	                  <td style="text-align: center" class="change-${objOCX.id_Ttdk }">
+	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objOCX.id_Ttdk },${objOCX.tinhTrang })">
+		                    <c:if test="${objOCX.tinhTrang == 1 }">
+	                       		<img src="${defines.urlAdmin}/img/order-1.PNG"/>
 	                       	</c:if>
-	                       	<c:if test="${objO.tinhTrang != 1 }">
-	                       		<span class="label label-inactive" style="background-color : #fe892b;">Chưa thanh toán</span>
+	                       	<c:if test="${objOCX.tinhTrang != 1 }">
+	                       		<img src="${defines.urlAdmin}/img/order-2.PNG" height="30px"/>
 	                       	</c:if>
                        	</a>
 	                  </td>
 	                  <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
-	                      <a href="${pageContext.request.contextPath }/admin/order/view/${objO.id_Ttdk}" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
-	                      <a href="${pageContext.request.contextPath }/admin/order/storage/${objO.id_Ttdk}" onclick="return confirm('Are you sure you want to storage this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Storage</a>
+	                      <a href="${pageContext.request.contextPath }/admin/order/view/${objOCX.id_Ttdk}" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
+	                      <a href="${pageContext.request.contextPath }/admin/order/storage/${objOCX.id_Ttdk}" onclick="return confirm('Are you sure you want to storage this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Storage</a>
+	                  </td>
+	                </tr>
+                </c:forEach>
+                
+                <c:forEach items="${listODX }" var="objODX">
+	                <tr class="gradeX">
+	                  <td width="3.3%" >
+                          <input type="checkbox" name="storage[]" value="${objODX.id_Ttdk }" />
+                      </td>
+	                  <td style="text-align: center;">${objODX.id_Ttdk }</td>
+	                  <td>${objODX.hoTen }</td>
+	                  <td>${objODX.email }</td>
+	                  <td>${objODX.sdt }</td>
+	                  <td>
+	                  	<fmt:formatDate value="${objODX.ngayDangKy}" pattern="dd/MM/yyyy hh:mm:ss"/>
+	                  </td>
+	                  <td style="text-align: center" class="change-${objODX.id_Ttdk }">
+	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objODX.id_Ttdk },${objODX.tinhTrang })">
+		                    <c:if test="${objODX.tinhTrang == 1 }">
+	                       		<img src="${defines.urlAdmin}/img/order-1.PNG"/>
+	                       	</c:if>
+	                       	<c:if test="${objODX.tinhTrang != 1 }">
+	                       		<img src="${defines.urlAdmin}/img/order-2.PNG" height="30px"/>
+	                       	</c:if>
+                       	</a>
+	                  </td>
+	                  <td width="22%" style="text-align: center;">
+	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
+	                      <a href="${pageContext.request.contextPath }/admin/order/view/${objODX.id_Ttdk}" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
+	                      <a href="${pageContext.request.contextPath }/admin/order/storage/${objODX.id_Ttdk}" onclick="return confirm('Are you sure you want to storage this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Storage</a>
 	                  </td>
 	                </tr>
                 </c:forEach>
@@ -74,3 +104,23 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"> 
+	function changeEnable(id, active){
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/admin/orders",
+	    type: 'POST',
+	    cache: false,
+	    data: {
+	      aactive : active,
+	      aid: id
+	    },
+	    success: function(data){
+	        $(".change"+'-'+id).html(data); /* alert(id); */
+	    },
+	    error: function (){
+	      alert('Có lỗi');
+	    }
+	  }); 
+	  /* alert("Thành công") */
+	}
+</script>

@@ -96,6 +96,10 @@
 			  <td> Mô tả</td>
 			  <td>${course.mieuTa }</td>
 			</tr>
+			<tr class="">
+			  <td> Học phí</td>
+			  <td>${course.hocPhi }</td>
+			</tr>
 		</table>
 	</div>
 	
@@ -105,10 +109,13 @@
 	  paypal.Buttons({
 	    createOrder: function(data, actions) {
 	      // Set up the transaction
+	     // var priceVND = ${course.hocPhi};
+	      var priceUSD = ${priceUSD}
+	      console.log({ 'data': priceUSD });
 	      return actions.order.create({
 	        purchase_units: [{
 	          amount: {
-	            value: '999'
+	            value: priceUSD
 	          }
 	        }]
 	      });

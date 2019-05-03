@@ -9,7 +9,6 @@ public class Lesson {
 	private int id_BaiHoc;
 	@NotBlank
 	private String tenBaiHoc;
-	private String moTa;
 	@NotBlank
 	private String chiTiet;
 	private String video;
@@ -22,12 +21,11 @@ public class Lesson {
 		super();
 	}
 	
-	public Lesson(int id_BaiHoc, String tenBaiHoc, String moTa, String chiTiet, String video, Timestamp ngayTao,
-			String nguoiTao, int id_Dmb, int id_KhoaHoc, String loai) {
+	public Lesson(int id_BaiHoc, String tenBaiHoc, String chiTiet, String video, Timestamp ngayTao, String nguoiTao,
+			int id_Dmb, int id_KhoaHoc, String loai) {
 		super();
 		this.id_BaiHoc = id_BaiHoc;
 		this.tenBaiHoc = tenBaiHoc;
-		this.moTa = moTa;
 		this.chiTiet = chiTiet;
 		this.video = video;
 		this.ngayTao = ngayTao;
@@ -62,12 +60,7 @@ public class Lesson {
 	public void setTenBaiHoc(String tenBaiHoc) {
 		this.tenBaiHoc = tenBaiHoc;
 	}
-	public String getMoTa() {
-		return moTa;
-	}
-	public void setMoTa(String moTa) {
-		this.moTa = moTa;
-	}
+	
 	public String getChiTiet() {
 		return chiTiet;
 	}

@@ -94,4 +94,9 @@ public class TeacherDAO {
 			return null;
 		}
 	}
+
+	public int changeEnable(int id, int active) {
+		String sql = "UPDATE giangvien SET enable=? WHERE id_giangvien=?";
+		return jdbcTemplate.update(sql, new Object[] {active,id});
+	}
 }

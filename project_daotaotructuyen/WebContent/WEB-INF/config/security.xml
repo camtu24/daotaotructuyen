@@ -37,7 +37,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     
     <http>
 		<csrf disabled="true"/>
-		<intercept-url pattern="/mycourse" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/mycourses" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
 		
 		<intercept-url pattern="/**" access="permitAll"/>  <!-- permitAll: all đều truy cập được -->
 		

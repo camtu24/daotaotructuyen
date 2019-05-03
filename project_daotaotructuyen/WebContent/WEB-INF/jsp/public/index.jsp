@@ -16,8 +16,8 @@
 		<div class="noidung-slide">
 			<p class="ct1">>>* KHỞI ĐẦU SỰ NGHIỆP CỦA BẠN *<<</p>
 			<p class="ct2">Trở thành lập trình viên chuyên nghiệp tại Green Global</p>
-			<a href="#" class="button medium black" style="margin-right:50px;font-size:20px">Xem khóa học</a>
-			<a href="#" class="button medium white" style="font-size:20px">Tư vấn học</a>
+			<a href="${pageContext.request.contextPath }/danhmuckhoahoc" class="button medium black" style="margin-right:50px;font-size:20px">Xem khóa học</a>
+			<a href="${pageContext.request.contextPath }/contact" class="button medium white" style="font-size:20px">Tư vấn học</a>
 		</div>
 	  </div>
 	</div>

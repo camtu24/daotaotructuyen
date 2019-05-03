@@ -53,6 +53,7 @@ public class CourseDAO {
 		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && id_chude=? ORDER BY id_khoahoc DESC LIMIT 2";
 		return jdbcTemplate.query(sql,new Object[] {sid}, new BeanPropertyRowMapper<Course>(Course.class));
 	}
+	
 	/*public*/
 	public List<Course> getItemsByC(int cid){
 		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && phathanh=1 && id_chude=? ORDER BY id_khoahoc DESC LIMIT 2";
@@ -96,6 +97,12 @@ public class CourseDAO {
 	public int countItemsDSHVByIDKH(int kid) {
 		String sql = "SELECT COUNT(*) FROM khoahoc AS k INNER JOIN danhsachhocvien AS d ON k.id_khoahoc=d.id_khoahoc WHERE k.id_khoahoc = ? && phathanh = 1";
 		return jdbcTemplate.queryForObject(sql,new Object[] {kid}, Integer.class);
+	}
+
+	public List<Course> getItemsSearch(String search) {
+		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,k.id_chude,tenchude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc AS k INNER JOIN chude AS c ON k.id_chude=c.id_chude "
+				+ "WHERE tenkhoahoc LIKE '%"+search+"%' && storage=1 && phathanh=1 ORDER BY id_khoahoc DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Course>(Course.class));
 	}
 
 }

@@ -44,6 +44,10 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/chude/add.jsp" />
   </definition>
   
+  <definition name="admin.subject.edit" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/chude/edit.jsp" />
+  </definition>
+  
   <!-- ADMIN COURSE -->
   <definition name="admin.course.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/khoahoc/index.jsp" />
@@ -267,6 +271,11 @@
   <!-- lien he -->
   <definition name="public.contact.index" extends="public.template1">
     <put-attribute name="body" value="/WEB-INF/jsp/public/contact.jsp" />
+  </definition>
+  
+  <!-- tim kiem -->
+  <definition name="public.train.search" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/public/search.jsp" />
   </definition>
   
   <!-- giang vien -->

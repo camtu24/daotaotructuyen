@@ -16,9 +16,11 @@ import model.bean.FileBucket;
 
 import constant.Defines;
 import model.bean.DanhMucBaiGiang;
+import model.dao.ContactDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.DocumentDAO;
 import model.dao.LessonDAO;
+import model.dao.OrderDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
@@ -33,24 +35,27 @@ public class AdminCourseCatController {
 	private SlugUtil slugUtil;
 	@Autowired
 	private DanhMucBaiGiangDAO dmucDao;
-	
 	@Autowired
 	private StudentDAO stuDao;
 	@Autowired
 	private TeacherDAO teaDao;
 	@Autowired
 	private QtvDAO qtvDao;
-	
 	@Autowired
 	private LessonDAO lessonDao;
 	@Autowired
 	private DocumentDAO docDao;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("slugUtil", slugUtil);
-	}	
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+	}
 	
 	@RequestMapping(value="/course/{kid}/cats", method=RequestMethod.GET)
 	public String index(@PathVariable(value="kid", required=false) Integer kid,ModelMap modelMap) {

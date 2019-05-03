@@ -23,11 +23,14 @@ import constant.Defines;
 import model.bean.Account;
 import model.bean.Course;
 import model.bean.Lesson;
-import model.bean.ListAnswers;
 import model.bean.ListQuestion;
 import model.bean.MyCourse;
 import model.bean.QuaTrinhHoc;
+import model.bean.QuanTriVien;
 import model.bean.Result;
+import model.bean.Student;
+import model.bean.StudentAssessment;
+import model.bean.Teacher;
 import model.dao.AccountDAO;
 import model.dao.ChuDeDAO;
 import model.dao.CommentDAO;
@@ -38,9 +41,10 @@ import model.dao.DshvDAO;
 import model.dao.LessonDAO;
 import model.dao.ListQuestionDAO;
 import model.dao.NewsDAO;
+import model.dao.QtvDAO;
 import model.dao.QuaTrinhHocDAO;
 import model.dao.ResultDAO;
-import model.dao.QtvDAO;
+import model.dao.StudentAssessmentDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
 import util.SlugUtil;
@@ -80,6 +84,7 @@ public class PublicMyCourseController {
 	private NewsDAO newsDao;
 	@Autowired private ChuDeDAO chuDeDao;
 	@Autowired private ResultDAO rsDao;
+	@Autowired private StudentAssessmentDAO saDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
@@ -129,8 +134,7 @@ public class PublicMyCourseController {
 		modelMap.addAttribute("lesson", lessDao.getItemFirst(kid));
 		
 		//luu vao bang mucdohoanthanh
-		System.out.println(lessDao.getItemFirst(kid).getId_BaiHoc());
-		System.out.println(account.getUsername());
+		//System.out.println(lessDao.getItemFirst(kid).getId_BaiHoc());
 		QuaTrinhHoc qth = qthDao.getItemNextN(kid, account.getUsername());
 		if(qth == null || qth.getHoanThanh() != 0) {
 			int[] j = {1,0};
@@ -171,8 +175,57 @@ public class PublicMyCourseController {
 			
 			if(prevLess != null) {
 				if(prevLess.getHoanThanh() != 2) {
-					qthDao.changeHT(prevLess,2);
-					// cap nhat muc do hoan thanh
+					if(qthDao.changeHT(prevLess,2) > 0) {
+						// cap nhat muc do hoan thanh va tong bai da hoc
+						//kiểm tra hvien
+						if(qtvDao.getItemLG(account.getUsername()) != null) {
+							QuanTriVien qtv = qtvDao.getItemLG(account.getUsername());
+							StudentAssessment sa = saDao.getItemQTV(qtv.getId_Qtv(),kid);
+							if(sa != null) {
+								int tongBaiHoc = sa.getTongBaiHoc() + 1;
+								int countLess = lessDao.getItemsCount(kid);
+								float mucDoHoanThanh = (float)(tongBaiHoc*100)/countLess;
+								
+								// set StudentAssessment
+								sa.setMucDoHoanThanh((double) Math.round(mucDoHoanThanh * 10) / 10);
+								sa.setTongBaiHoc(tongBaiHoc);
+								
+								saDao.updateHV(sa);
+							}
+							
+						} else if(teaDao.getItemLG(account.getUsername()) != null){
+							Teacher gv = teaDao.getItemLG(account.getUsername());
+							StudentAssessment sa = saDao.getItemGV(gv.getId_GiangVien(),kid);
+							if(sa != null) {
+								int tongBaiHoc = sa.getTongBaiHoc() + 1;
+								int countLess = lessDao.getItemsCount(kid);
+								float mucDoHoanThanh = (float)(tongBaiHoc*100)/countLess;
+								
+								// set StudentAssessment
+								sa.setMucDoHoanThanh((double) Math.round(mucDoHoanThanh * 10) / 10);
+								sa.setTongBaiHoc(tongBaiHoc);
+								
+								saDao.updateHV(sa);
+							}
+						} else if(stuDao.getItemLG(account.getUsername()) != null){
+							Student hv = stuDao.getItemLG(account.getUsername());
+							StudentAssessment sa = saDao.getItemHV(hv.getId_HocVien(),kid);
+							if(sa != null) {
+								int tongBaiHoc = sa.getTongBaiHoc() + 1;
+								int countLess = lessDao.getItemsCount(kid);
+								float mucDoHoanThanh = (float)(tongBaiHoc*100)/countLess;
+								
+								// set StudentAssessment
+								sa.setMucDoHoanThanh((double) Math.round(mucDoHoanThanh * 10) / 10);
+								sa.setTongBaiHoc(tongBaiHoc);
+								
+								saDao.updateHV(sa);
+							}
+						}
+					}else {
+						System.out.println("cập nhật hoàn thành lỗi");
+					}
+					
 				}
 			}else {
 				System.out.println("chua");
@@ -191,6 +244,8 @@ public class PublicMyCourseController {
 				
 			}
 			modelMap.addAttribute("less", less);
+			
+			//là bài kiểm tra
 			if(lesson.getLoai().equals("kiemtra")) {
 				//test
 				List<ListQuestion> listTest = listqDao.getItemsByIDBG(lesson.getId_BaiHoc());
@@ -201,6 +256,7 @@ public class PublicMyCourseController {
 					listDA.add(dapAnDung);
 				}
 				modelMap.addAttribute("listTest", listTest);
+				modelMap.addAttribute("sizeTest", listTest.size());
 				modelMap.addAttribute("listDA", listDA);
 			}
 			
@@ -273,9 +329,10 @@ public class PublicMyCourseController {
 	
 	@RequestMapping(value="/mycourse/saveTest", method=RequestMethod.POST)
 	public String inMyCourse(@RequestParam("listanswers[]") String[] listanswers,ModelMap modelMap, HttpSession session,HttpServletResponse response, HttpServletRequest request){
-		//System.out.println("truyền thành công");
-		System.out.println("---------------");
 		session.setAttribute("listanswers", listanswers);
+		for (int i = 0; i < listanswers.length; i++) {
+			System.out.println(listanswers[i]);
+		}
 		try {
 			PrintWriter out = response.getWriter();
 			out.println("1");
@@ -310,14 +367,15 @@ public class PublicMyCourseController {
 		}
 		
 		int correct = 0;
-		float sumScore = 0;
+		double sumScore = 0;
 		for (int i = 0; i < listanswers.length; i++) {
 			if(listanswers[i].equalsIgnoreCase(dapAnDung[i])) {
 				correct++;
 				sumScore += diem[i];
 			}
 		}
-		System.out.println(correct);
+		System.out.println("correct: "+correct);
+		System.out.println("sumScore: "+sumScore);
 		//Float pc = (float) Math.round((correct / questionCount) * 100);
 		float pc = (float) correct/questionCount;
 		QuaTrinhHoc less = qthDao.getItem(kid, lid, account.getUsername());
@@ -326,23 +384,105 @@ public class PublicMyCourseController {
 				qthDao.changeHT(less,3);
 			}
 		}else {
-			for (int i = 0; i < listanswers.length; i++) {
+			for (int i = 0; i < listanswers.length-1; i++) {
 				if(listanswers[i].equalsIgnoreCase(dapAnDung[i])) {
 					Result result = new Result(listanswers[i], 1, diem[i], account.getUsername(), maCauHoi[i]);
-					//thêm database
+					//thêm database kêt quả
 					if(rsDao.addItem(result) > 0) {
 						System.out.println("thành công");
 					}
 				}else {
 					Result result = new Result(listanswers[i], 0, 0, account.getUsername(), maCauHoi[i]);
-					//thêm database
+					//thêm database kêt quả
 					if(rsDao.addItem(result) > 0) {
 						System.out.println("thành công");
 					}
 				}
 			}
+			
+			//cập nhật đã hoàn thành bài kiểm tra
 			if(less.getHoanThanh() == 1) {
-				qthDao.changeHT(less,2);
+				if(qthDao.changeHT(less,2) > 0) {
+					// cap nhat muc do hoan thanh va tong bai da hoc và cập nhật điểm trung bình
+					
+					if(qtvDao.getItemLG(account.getUsername()) != null) {
+						QuanTriVien qtv = qtvDao.getItemLG(account.getUsername());
+						StudentAssessment sa = saDao.getItemQTV(qtv.getId_Qtv(),kid);
+						if(sa != null) {
+							int tongBaiHoc = sa.getTongBaiHoc() + 1;
+							int countLess = lessDao.getItemsCount(kid);
+							float mucDoHoanThanh = (float)(tongBaiHoc*100)/countLess;
+							
+							// set StudentAssessment
+							sa.setMucDoHoanThanh((double) Math.round(mucDoHoanThanh * 10) / 10);
+							sa.setTongBaiHoc(tongBaiHoc);
+							
+							//cập nhật điểm trung bình
+							double oldDTB = sa.getDiemTrungBinh();
+							if(oldDTB == 0) {
+								sa.setDiemTrungBinh(sumScore);
+							}else {
+								double newDTB = (oldDTB+sumScore)/2;
+								sa.setDiemTrungBinh((double) Math.round(newDTB * 100) / 100);
+							}
+							saDao.updateDtb(sa);
+						}
+						
+					} else if(teaDao.getItemLG(account.getUsername()) != null){
+						Teacher gv = teaDao.getItemLG(account.getUsername());
+						StudentAssessment sa = saDao.getItemGV(gv.getId_GiangVien(),kid);
+						if(sa != null) {
+							int tongBaiHoc = sa.getTongBaiHoc() + 1;
+							int countLess = lessDao.getItemsCount(kid);
+							float mucDoHoanThanh = (float)(tongBaiHoc*100)/countLess;
+							
+							// set StudentAssessment
+							sa.setMucDoHoanThanh((double) Math.round(mucDoHoanThanh * 10) / 10);
+							sa.setTongBaiHoc(tongBaiHoc);
+							
+							//cập nhật điểm trung bình
+							double oldDTB = sa.getDiemTrungBinh();
+							if(oldDTB == 0) {
+								sa.setDiemTrungBinh(sumScore);
+							}else {
+								double newDTB = (oldDTB+sumScore)/2;
+								sa.setDiemTrungBinh((double) Math.round(newDTB * 100) / 100);
+							}
+							saDao.updateDtb(sa);
+						}
+					} else if(stuDao.getItemLG(account.getUsername()) != null){
+						Student hv = stuDao.getItemLG(account.getUsername());
+						StudentAssessment sa = saDao.getItemHV(hv.getId_HocVien(),kid);
+						if(sa != null) {
+							int tongBaiHoc = sa.getTongBaiHoc() + 1;
+							int countLess = lessDao.getItemsCount(kid);
+							float mucDoHoanThanh = (float)(tongBaiHoc*100)/countLess;
+							
+							// set StudentAssessment
+							sa.setMucDoHoanThanh((double) Math.round(mucDoHoanThanh * 10) / 10);
+							sa.setTongBaiHoc(tongBaiHoc);
+							
+							//cập nhật điểm trung bình
+							double oldDTB = sa.getDiemTrungBinh();
+							if(oldDTB == 0) {
+								sa.setDiemTrungBinh(sumScore);
+							}else {
+								double newDTB = (oldDTB+sumScore)/2;
+								sa.setDiemTrungBinh((double) Math.round(newDTB * 100) / 100);
+							}
+							saDao.updateDtb(sa);
+						}
+					}
+					
+				}else {
+					System.out.println("cập nhật hoàn thành lỗi");
+				}
+			}
+			
+			//cập nhật bài chưa hoàn thành
+			QuaTrinhHoc baiLuuCuoi = qthDao.getItemNextN(kid, account.getUsername());
+			if(baiLuuCuoi.getHoanThanh() == 0) {
+				qthDao.changeHT(baiLuuCuoi,1);
 			}
 		}
 		

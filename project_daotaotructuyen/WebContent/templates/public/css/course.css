@@ -453,3 +453,19 @@ margin-bottom: 5px;
     height: 15px;
     background: #e1e1e1;
 }
+/* time count */
+#clockdiv{
+	color: #ff9900;
+    font-size: 23px;
+    font-weight: 700;
+}
+#clockdiv div {
+	display: inline-block;
+}
+#clockdiv img{
+	width: 4%;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 3px;
+    margin: 0px 5px -5px 0;
+}

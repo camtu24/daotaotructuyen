@@ -33,9 +33,6 @@ public class AdminPLHVController {
 	@RequestMapping(value="/plhv", method=RequestMethod.GET)
 	public String index(ModelMap modelMap) {
 		modelMap.addAttribute("listP", plhvDao.getItems());
-		/*if(plhvDao.getItems() != null) {
-			System.out.println("sds");
-		}*/
 		return "admin.plhv.index";
 	}
 	

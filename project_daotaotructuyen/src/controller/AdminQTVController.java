@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.QuanTriVien;
 import model.dao.CommentDAO;
+import model.dao.ContactDAO;
+import model.dao.OrderDAO;
 import model.dao.QtvDAO;
 import model.dao.RoleDAO;
 import util.FileUtil;
@@ -32,21 +36,24 @@ public class AdminQTVController {
 
 	@Autowired
 	private Defines defines;
-	
 	@Autowired
 	private QtvDAO qtvDao;
-	
 	@Autowired
 	private RoleDAO roleDao;
 	@Autowired
 	private CommentDAO cmtDao;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/qtv", method=RequestMethod.GET)
@@ -192,5 +199,20 @@ public class AdminQTVController {
 			return "error404";
 		}
 		return "redirect:/admin/qtv";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/quantrivien",method=RequestMethod.POST)
+	public String index(ModelMap modelMap, @RequestParam("aid") int id, @RequestParam("aactive") int active, HttpServletResponse response, HttpServletRequest request) {
+		// phathanh
+		String out = "";
+		if(active == 1) {
+			qtvDao.changeEnable(id,0);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'><img src='"+ defines.getUrlAdmin() +"/img/disactive.png' width='20px'/></a>";
+		} else{
+			qtvDao.changeEnable(id,1);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><img src='"+ defines.getUrlAdmin() +"/img/active.png' width='20px'/></a>";
+		}
+		return out;
 	}
 }

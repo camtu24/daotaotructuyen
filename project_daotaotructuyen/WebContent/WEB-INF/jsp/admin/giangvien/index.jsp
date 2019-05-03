@@ -4,7 +4,7 @@
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Giảng Viên</a> </div>
-    <h1>Giảng viên</h1>
+    <h1>Quản lý giảng viên</h1>
   </div>
   <div class="container-fluid">
   	<c:if test="${not empty msg }">
@@ -76,3 +76,22 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"> 
+	function changeEnable(id, active){
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/admin/teachers",
+	    type: 'POST',
+	    cache: false,
+	    data: {
+	      aactive : active,
+	      aid: id
+	    },
+	    success: function(data){
+	        $(".change"+'-'+id).html(data);
+	    },
+	    error: function (){
+	      alert('Có lỗi');
+	    }
+	  }); 
+	}
+</script>

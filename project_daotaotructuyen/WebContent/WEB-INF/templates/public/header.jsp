@@ -33,8 +33,8 @@
 		</div>
 		
       <ul class="list none">
-        <li><span class="icon-envelope"></span> <a href="#">info@domain.com</a></li>
-        <li><span class="icon-phone"></span> +xx xxx xxxxxxxxxx</li>
+        <li><span class="icon-envelope"></span> <a href="${pageContext.request.contextPath }/contact">contact@greenglobal.vn</a></li>
+        <li><span class="icon-phone"></span> (+84) 2363 833 666</li>
       </ul>
     </div>
   </header>
@@ -45,7 +45,7 @@
     <ul class="clear">
       <li class="active"><a href="${pageContext.request.contextPath }/" title="Homepage">Homepage</a></li>
       <li><a href="#" title="Pages">Giới thiệu</a> </li>
-      <li><a class="drop" href="${pageContext.request.contextPath }/danhmuckhoahoc" title="Elements">Danh mục khóa học</a>
+      <li><a class="drop" href="${pageContext.request.contextPath }/danhmuckhoahoc" title="Categories Course">Danh mục khóa học</a>
         <ul>
         	<c:forEach items="${listS }" var="objS">
         		<c:set value="${pageContext.request.contextPath}/danhmuckhoahoc/${slugUtil.makeSlug(objS.tenChuDe)}-${objS.id_ChuDe }" var="catUrl"></c:set>
@@ -53,12 +53,17 @@
         	</c:forEach>
         </ul>
       </li>
-      <li><a href="${pageContext.request.contextPath}/teacher" title="Link Text">Giảng viên</a></li>
-      <li><a href="${pageContext.request.contextPath}/news" title="Link Text">Tin tức</a></li>
-      <li class="last-child"><a href="${pageContext.request.contextPath}/contact" title="A Very Long Link Text">Liên hệ </a></li>
+      <li><a href="${pageContext.request.contextPath}/teacher" title="Teacher">Giảng viên</a></li>
+      <li><a href="${pageContext.request.contextPath}/news" title="News">Tin tức</a></li>
+      <li><a href="${pageContext.request.contextPath}/contact" title="Contact">Liên hệ </a></li>
+      <li class="last-child">
+	      <a href="javascript:void(0)" title="Search" class="openBtn" onclick="openSearch()">
+	      	<span class="icon-search icon-large"></span>
+	      </a>
+	  </li>
       <c:if test="${userInfo.username != null }">
 	      <li class="taikhoan" style="float:right">
-	      <a class="drop" href="#" style="padding: 14px 0 14px 15px;" title="Gallery Layouts"> User 
+	      <a class="drop" href="#" style="padding: 14px 0 14px 15px;" title="User"> ${userInfo.username } 
 	      	<c:if test="${userInfo.hinhAnh != null }">
 	      		<img class="img-taikhoan" src="${pageContext.request.contextPath }/files/${userInfo.hinhAnh }" alt="">
 	      	</c:if>
@@ -68,13 +73,24 @@
 			</a> 
 			<ul>
 	          <li><a href="${pageContext.request.contextPath}/mycourses" title="Full Width Gallery">Khóa học của tôi</a></li>
+	          <c:if test="${userInfo.id_Role == 3 }">
 	          <li><a href="${pageContext.request.contextPath}/myprofile" title="2 Column Grid">Tài khoản cá nhân</a></li>
+	          </c:if>
 	          <li><a href="${pageContext.request.contextPath }/logout" title="2 Column Grid + Left Sidebar">Đăng xuất</a></li>
 	        </ul>
 		  </li>
 	  </c:if>
     </ul>
   </nav>
+  <div id="myOverlay" class="overlay">
+	  <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+	  <div class="overlay-content">
+	    <form action="${pageContext.request.contextPath}/search" method="POST">
+	      <input type="text" value="${search }" placeholder="Search.." name="search">
+	      <button type="submit"><span class="icon-search icon-large"></span></button>
+	    </form>
+	  </div>
+	</div>
 </div>
 <script>
 window.onscroll = function() {myFunction()};
@@ -88,6 +104,15 @@ function myFunction() {
   } else {
     navbar.classList.remove("sticky");
   }
+}
+</script>
+<script>
+function openSearch() {
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function closeSearch() {
+  document.getElementById("myOverlay").style.display = "none";
 }
 </script>
 <!-- content -->

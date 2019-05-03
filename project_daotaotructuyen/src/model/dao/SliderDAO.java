@@ -38,4 +38,9 @@ public class SliderDAO {
 		String sql = "UPDATE slider SET hinhanh=?,mota=? WHERE id_slide=?";
 		return jdbcTemplate.update(sql, new Object[] {slider.getHinhAnh(),slider.getMoTa(),slider.getId_Slide()});
 	}
+
+	public int delItem(int sid) {
+		String sql = "DELETE FROM slider WHERE id_slide = ?";
+		return jdbcTemplate.update(sql, new Object[] {sid});
+	}
 }

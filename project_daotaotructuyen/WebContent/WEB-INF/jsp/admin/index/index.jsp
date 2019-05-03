@@ -4,7 +4,7 @@
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+    <div id="breadcrumb"> <a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
   </div>
 <!--End-breadcrumbs-->
 
@@ -12,17 +12,13 @@
   <div class="container-fluid">
     <div class="quick-actions_homepage">
       <ul class="quick-actions">
-        <li style="min-width: 15.474%;" class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i>  Đơn hàng </a> </li>
+        <li style="min-width: 15.474%;" class="bg_lb"> <a href="${pageContext.request.contextPath }/admin/orders"> <i class="icon-list-alt"></i>  Đơn hàng </a> </li>
         <!-- <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> <span class="label label-success">101</span> Charts</a> </li> -->
-        <li style="min-width: 15.474%;" class="bg_ly"> <a href="widgets.html"> <i class="icon-inbox"></i> Học viên </a> </li>
-        <li style="min-width: 15.474%;" class="bg_lo"> <a href="tables.html"> <i class="icon-th"></i> Giảng viên</a> </li>
-        <li style="min-width: 15.474%;" class="bg_ls"> <a href="grid.html"> <i class="icon-fullscreen"></i> Khóa học</a> </li>
-        <li style="min-width: 15.474%;" class="bg_ls"> <a href="form-common.html"> <i class="icon-th-list"></i> Liên hệ</a> </li>
-        <li style="min-width: 15.474%;" class="bg_ls"> <a href="buttons.html"> <i class="icon-tint"></i> Tin tức</a> </li>
-        <!-- <li class="bg_lb"> <a href="interface.html"> <i class="icon-pencil"></i>Elements</a> </li>
-        <li class="bg_lg"> <a href="calendar.html"> <i class="icon-calendar"></i> Calendar</a> </li>
-        <li class="bg_lr"> <a href="error404.html"> <i class="icon-info-sign"></i> Error</a> </li> -->
-
+        <li style="min-width: 15.474%;" class="bg_ly"> <a href="${pageContext.request.contextPath }/admin/students"> <i class="icon-user"></i> Học viên </a> </li>
+        <li style="min-width: 15.474%;" class="bg_lo"> <a href="${pageContext.request.contextPath }/admin/teachers"> <i class="icon-user"></i> Giảng viên</a> </li>
+        <li style="min-width: 15.474%;" class="bg_ls"> <a href="${pageContext.request.contextPath }/admin/courses"> <i class="icon-th-list"></i> Khóa học</a> </li>
+        <li style="min-width: 15.474%;" class="bg_ls"> <a href="${pageContext.request.contextPath }/admin/contact"> <i class="icon-envelope-alt"></i> Liên hệ</a> </li>
+        <li style="min-width: 15.474%;" class="bg_ls"> <a href="${pageContext.request.contextPath }/admin/news"> <i class="icon-globe"></i> Tin tức</a> </li>
       </ul>
     </div>
 <!--End-Action boxes-->    
@@ -33,7 +29,7 @@
         <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
           <h5>Site Analytics</h5>
         </div>
-        <div class="widget-content" >
+        <div class="widget-content" style="height: 390px;">
           <div class="row-fluid">
             <div class="span9">
               <div class="chart"></div>

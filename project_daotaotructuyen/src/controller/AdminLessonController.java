@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Lesson;
+import model.dao.ContactDAO;
 import model.dao.LessonDAO;
+import model.dao.OrderDAO;
 import util.FileUtil;
 import util.SlugUtil;
 
@@ -36,11 +38,17 @@ public class AdminLessonController {
 	private SlugUtil slugUtil;
 	@Autowired
 	private LessonDAO lessonDao;
+	@Autowired 
+	private OrderDAO ttdkDao;
+	@Autowired
+	private ContactDAO contDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("slugUtil", slugUtil);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/course/{kid}/cat/{cid}/lessons", method=RequestMethod.GET)

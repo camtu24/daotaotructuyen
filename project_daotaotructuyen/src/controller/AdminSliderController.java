@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Slider;
+import model.dao.ContactDAO;
+import model.dao.OrderDAO;
 import model.dao.SliderDAO;
 import util.FileUtil;
 
@@ -27,13 +29,18 @@ public class AdminSliderController {
 
 	@Autowired
 	private Defines defines;
-	
 	@Autowired
 	private SliderDAO slideDao;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/sliders", method=RequestMethod.GET)
@@ -126,5 +133,21 @@ public class AdminSliderController {
 			ra.addAttribute("msg", Defines.ERROR);
 		}
 		return "redirect:/admin/sliders";
+	}
+	
+	@RequestMapping(value="/slider/del/{sid}", method=RequestMethod.POST)
+	public String delItem(@PathVariable("sid") int sid,ModelMap modelMap, RedirectAttributes ra) {
+		Slider slider = slideDao.getItem(sid);
+		if(slider != null) {
+			if(slideDao.delItem(sid) > 0) {
+				ra.addFlashAttribute("msg", Defines.SUCCESS);
+			}else {
+				ra.addFlashAttribute("msg", Defines.ERROR);
+			}
+		}else {
+			return "error404";
+		}
+			
+		return "redirect:/contacts";
 	}
 }

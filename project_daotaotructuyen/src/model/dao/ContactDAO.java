@@ -48,4 +48,9 @@ public class ContactDAO {
 		String sql = "DELETE FROM lienhe WHERE id_lienhe = ?";
 		return jdbcTemplate.update(sql, new Object[] {cid});
 	}
+
+	public int countItem() {
+		String sql = "SELECT COUNT(*) FROM lienhe WHERE view=0";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 }

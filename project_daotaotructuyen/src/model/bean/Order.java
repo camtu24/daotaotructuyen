@@ -15,12 +15,13 @@ public class Order {
 	private Timestamp ngayDangKy;
 	private int id_ThanhToan;
 	private int tinhTrang;
+	private int view;
 	public Order() {
 		super();
 	}
 	
-	public Order(int id_Ttdk, String hoTen, String username, String password, String email, int sdt,
-			String diaChi, int id_KhoaHoc, Timestamp ngayDangKy, int id_ThanhToan, int tinhTrang) {
+	public Order(int id_Ttdk, String hoTen, String username, String password, String email, int sdt, String diaChi,
+			int id_KhoaHoc, Timestamp ngayDangKy, int id_ThanhToan, int tinhTrang, int view) {
 		super();
 		this.id_Ttdk = id_Ttdk;
 		this.hoTen = hoTen;
@@ -33,6 +34,7 @@ public class Order {
 		this.ngayDangKy = ngayDangKy;
 		this.id_ThanhToan = id_ThanhToan;
 		this.tinhTrang = tinhTrang;
+		this.view = view;
 	}
 
 	public int getId_Ttdk() {
@@ -108,6 +110,14 @@ public class Order {
 
 	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
+	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
 	}
 	
 }

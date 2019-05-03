@@ -71,6 +71,10 @@ pageEncoding="UTF-8"%>
 			  <td> Mô tả</td>
 			  <td>${course.mieuTa }</td>
 			</tr>
+			<tr class="">
+			  <td> Mô tả</td>
+			  <td>${course.hocPhi }</td>
+			</tr>
 		</table>
 	</div>
 </div>

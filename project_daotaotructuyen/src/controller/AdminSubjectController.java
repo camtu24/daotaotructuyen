@@ -18,9 +18,11 @@ import constant.Defines;
 import model.bean.ChuDe;
 import model.bean.Course;
 import model.dao.ChuDeDAO;
+import model.dao.ContactDAO;
 import model.dao.CourseDAO;
 import model.dao.DanhMucBaiGiangDAO;
 import model.dao.LessonDAO;
+import model.dao.OrderDAO;
 
 @Controller
 @RequestMapping("admin")
@@ -28,7 +30,6 @@ public class AdminSubjectController {
 
 	@Autowired
 	private Defines defines;
-	
 	@Autowired
 	private ChuDeDAO chuDeDao;
 	@Autowired
@@ -37,10 +38,16 @@ public class AdminSubjectController {
 	private DanhMucBaiGiangDAO dmucDao;
 	@Autowired
 	private LessonDAO lessDao;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/subjects", method=RequestMethod.GET)

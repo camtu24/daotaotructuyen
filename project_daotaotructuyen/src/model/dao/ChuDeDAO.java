@@ -22,7 +22,6 @@ public class ChuDeDAO {
 
 	public int checkItem(ChuDe subject) {
 		String sql = "SELECT COUNT(*) AS countItem FROM chude WHERE tenchude=? && id_chude != ?";
-		System.out.println(sql);
 		return jdbcTemplate.queryForObject(sql, new Object[] {subject.getTenChuDe(),subject.getId_ChuDe()},Integer.class);
 	}
 

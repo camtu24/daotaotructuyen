@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import constant.Defines;
+import model.dao.ContactDAO;
+import model.dao.OrderDAO;
 import model.dao.QtvDAO;
 import model.dao.StudentDAO;
 import model.dao.TeacherDAO;
@@ -25,10 +27,16 @@ public class AdminAccountController {
 	private TeacherDAO teaDao;
 	@Autowired
 	private StudentDAO stuDao;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	//mục lưu trữ

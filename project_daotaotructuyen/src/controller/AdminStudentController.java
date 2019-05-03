@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Student;
 import model.dao.CommentDAO;
+import model.dao.ContactDAO;
+import model.dao.OrderDAO;
 import model.dao.PlhvDAO;
 import model.dao.RoleDAO;
 import model.dao.StudentDAO;
@@ -33,7 +37,6 @@ public class AdminStudentController {
 
 	@Autowired
 	private Defines defines;
-	
 	@Autowired
 	private StudentDAO stuDao;
 	@Autowired
@@ -42,13 +45,18 @@ public class AdminStudentController {
 	private PlhvDAO plhvDao;
 	@Autowired
 	private CommentDAO cmtDao;
-	
 	@Autowired
 	private BCryptPasswordEncoder passwordE;
+	@Autowired
+	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/students", method=RequestMethod.GET)
@@ -185,19 +193,34 @@ public class AdminStudentController {
 	}
 	
 	//xóa --> lưu trữ
-		@RequestMapping(value="/student/storage/{id}", method=RequestMethod.GET)
-		public String storage(@PathVariable("id") int id,ModelMap modelMap, RedirectAttributes ra) {
-			Student student = stuDao.getItem(id);
-			//lưu trư qtv
-			if(student != null) {
-				if(stuDao.storageItem(id) > 0) {
-					ra.addFlashAttribute("msg", Defines.SUCCESS);
-				}else {
-					ra.addFlashAttribute("msg", Defines.ERROR);
-				}
+	@RequestMapping(value="/student/storage/{id}", method=RequestMethod.GET)
+	public String storage(@PathVariable("id") int id,ModelMap modelMap, RedirectAttributes ra) {
+		Student student = stuDao.getItem(id);
+		//lưu trư qtv
+		if(student != null) {
+			if(stuDao.storageItem(id) > 0) {
+				ra.addFlashAttribute("msg", Defines.SUCCESS);
 			}else {
-				return "error404";
+				ra.addFlashAttribute("msg", Defines.ERROR);
 			}
-			return "redirect:/admin/students";
+		}else {
+			return "error404";
 		}
+		return "redirect:/admin/students";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/students",method=RequestMethod.POST)
+	public String index(ModelMap modelMap, @RequestParam("aid") int id, @RequestParam("aactive") int active, HttpServletResponse response, HttpServletRequest request) {
+		// phathanh
+		String out = "";
+		if(active == 1) {
+			stuDao.changeEnable(id,0);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'><img src='"+ defines.getUrlAdmin() +"/img/disactive.png' width='20px'/></a>";
+		} else{
+			stuDao.changeEnable(id,1);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><img src='"+ defines.getUrlAdmin() +"/img/active.png' width='20px'/></a>";
+		}
+		return out;
+	}
 }

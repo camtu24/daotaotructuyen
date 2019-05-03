@@ -88,4 +88,9 @@ public class QtvDAO {
 		}
 	}
 
+	public int changeEnable(int id, int active) {
+		String sql = "UPDATE quantrivien SET enable=? WHERE id_qtv=?";
+		return jdbcTemplate.update(sql, new Object[] {active,id});
+	}
+
 }

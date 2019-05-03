@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import constant.Defines;
 import model.bean.Contact;
 import model.dao.ContactDAO;
+import model.dao.OrderDAO;
 import util.SlugUtil;
 
 @Controller
@@ -26,11 +27,15 @@ public class AdminContactController {
 	
 	@Autowired
 	private ContactDAO contDao;
+	@Autowired
+	private OrderDAO ttdkDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("slugUtil", slugUtil);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/contacts", method=RequestMethod.GET)
@@ -45,7 +50,6 @@ public class AdminContactController {
 		Contact contact = contDao.getItem(cid);
 		if(contact != null) {
 			contact.setView(1);
-			System.out.println(contact.getView());
 			if(contDao.changeView(cid) > 0) {
 				modelMap.addAttribute("contact", contact);
 			}

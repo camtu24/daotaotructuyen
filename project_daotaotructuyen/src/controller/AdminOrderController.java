@@ -1,5 +1,8 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -8,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
 import model.bean.Order;
+import model.dao.ContactDAO;
 import model.dao.CourseDAO;
 import model.dao.OrderDAO;
 
@@ -26,15 +31,20 @@ public class AdminOrderController {
 	private OrderDAO ttdkDao;
 	@Autowired
 	private CourseDAO courDao;
+	@Autowired
+	private ContactDAO contDao;
 	
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/orders", method=RequestMethod.GET)
 	public String index(ModelMap modelMap) {
-		modelMap.addAttribute("listO", ttdkDao.getItems(1));
+		modelMap.addAttribute("listOCX", ttdkDao.getItems(0));
+		modelMap.addAttribute("listODX", ttdkDao.getItems(1));
 		return "admin.order.index";
 	}
 	
@@ -44,8 +54,11 @@ public class AdminOrderController {
 		//System.out.println("oid" +order.getUsername());
 		//System.out.println("ds: " + order.getId_KhoaHoc());
 		if(order != null) {
-			modelMap.addAttribute("order", order);
-			modelMap.addAttribute("course", courDao.getItemDPH(order.getId_KhoaHoc()));
+			order.setView(1);
+			if(ttdkDao.changeView(oid) > 0) {
+				modelMap.addAttribute("order", order);
+				modelMap.addAttribute("course", courDao.getItemDPH(order.getId_KhoaHoc()));
+			}
 		}else {
 			return "error404";
 		}
@@ -85,10 +98,26 @@ public class AdminOrderController {
 	}
 	
 	//mục lưu trữ
-		@RequestMapping(value="orders/storage", method=RequestMethod.GET)
-		public String storages(ModelMap modelMap) {
-			modelMap.addAttribute("listO", ttdkDao.getItems(0));
-			return "admin.order.storage";
+	@RequestMapping(value="orders/storage", method=RequestMethod.GET)
+	public String storages(ModelMap modelMap) {
+		modelMap.addAttribute("listO", ttdkDao.getItemsStor(0));
+		return "admin.order.storage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/orders",method=RequestMethod.POST)
+	public String index(ModelMap modelMap, @RequestParam("aid") int id, @RequestParam("aactive") int active, HttpServletResponse response, HttpServletRequest request) {
+		modelMap.addAttribute("listC", courDao.getItems());
+		// phathanh
+		String out = "";
+		if(active == 1) {
+			ttdkDao.changeEnable(id,0);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'><img src='"+ defines.getUrlAdmin() +"/img/order-2.PNG'/></a>";
+		} else{
+			ttdkDao.changeEnable(id,1);
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><img src='"+ defines.getUrlAdmin() +"/img/order-1.PNG' height='30px'/></a>";
 		}
+		return out;
+	}
 
 }

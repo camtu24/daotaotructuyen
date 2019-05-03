@@ -4,7 +4,7 @@
 <div id="content">
 	<div id="content-header">
 		<div id="breadcrumb">
-			<a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+			<a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
 			<a href="${pageContext.request.contextPath }/admin/subjects" class="tip-bottom">Chủ đề</a> <a href="#" class="current">Sửa chủ đề</a>
 		</div>
 		<h1>Chủ đề</h1>

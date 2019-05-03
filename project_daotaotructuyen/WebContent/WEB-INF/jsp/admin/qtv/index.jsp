@@ -4,7 +4,7 @@
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Quản Trị Viên</a> </div>
-    <h1>Quản trị viên</h1>
+    <h1>Quản lý quản trị viên</h1>
   </div>
   <div class="container-fluid">
   	<c:if test="${not empty msg }">
@@ -54,7 +54,7 @@
 	                       	</c:if>
                        	</a>
 	                  </td>
-	                  <td width="15%" style="text-align: center;">
+	                  <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
 	                      <a href="${pageContext.request.contextPath }/admin/qtv/edit/${objQ.id_Qtv}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
 	                      <a href="${pageContext.request.contextPath }/admin/qtv/storage/${objQ.id_Qtv}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Storage</a>
@@ -69,3 +69,22 @@
     </div>
   </div>
 </div>
+<script type="text/javascript"> 
+	function changeEnable(id, active){
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/admin/quantrivien",
+	    type: 'POST',
+	    cache: false,
+	    data: {
+	      aactive : active,
+	      aid: id
+	    },
+	    success: function(data){
+	        $(".change"+'-'+id).html(data);
+	    },
+	    error: function (){
+	      alert('Có lỗi');
+	    }
+	  }); 
+	}
+</script>

@@ -226,7 +226,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="quiz-infomation">
-									B&#224;i thi gồm <strong>2</strong> c&#226;u hỏi <br />
+									B&#224;i thi gồm <strong>${sizeTest }</strong> c&#226;u hỏi <br />
 									Tổng điểm: <strong>3.2</strong><br />
 									Thời gian l&#224;m b&#224;i:
 										<strong>
@@ -328,7 +328,7 @@
 										</div>
 									</div>
 								</c:forEach>
-								<input type="submit" value="Nộp bài" onclick="nopBai()">
+								<input type="submit" id="subm" value="Nộp bài" onclick="nopBai()">
 								</div>
 							</div>
 						</div>
@@ -377,7 +377,7 @@
         </div>
 		
 		<div class="course-complete">
-			<c:if test="${less.hoanThanh != 2 }">
+			<c:if test="${lesson.loai == 'baihoc' && less.hoanThanh != 2 }">
 				<a href="${pageContext.request.contextPath}/mycourse/${nameKHSl}-${nextLessN.id_KhoaHoc}-${nextLessN.id_BaiHoc}" title="Qua bài">
 					<span class="qua">»</span> Qua b&#224;i 
 				</a>
@@ -387,6 +387,18 @@
 					<span class="qua">»</span> Đã hoàn thành 
 				</a>
 			</c:if>
+			<c:if test="${lesson.loai == 'kiemtra' && less.hoanThanh == 1 }">
+				<div id="clockdiv">
+					<img alt="" src="${defines.urlPublic }/images/time-gif2.png" />
+					<div>
+						<span class="minutes"></span>
+					</div>
+					<span>:</span>
+					<div>
+						<span class="seconds"></span>
+					</div>
+				</div>
+			</c:if>
 		</div>
 
     </div>
@@ -394,6 +406,9 @@
 <!-- Scripts -->
 <script src="${defines.urlPublic }/js/jquery-latest.min.js"></script>
 <script src="${defines.urlPublic }/js/learn.js"></script>
+<c:if test="${lesson.loai == 'kiemtra' && less.hoanThanh == 1 }">
+	<script src="${defines.urlPublic }/js/counttime.js"></script>
+</c:if>
 
 <script>
  	function doComment(){
@@ -489,41 +504,10 @@
 		  }); 
 	}
  	
- 	/* function collectDataPhuongAnTraLoi() {
- 		let data = {};
- 	    data.ListPhuongAnTraLoi = [];
- 	   alert("1: ");
- 	  $('.question').each(function (index, element) {
- 		 if ($(this).find('.cau-don-trac-nghiem-mot-lua-chon').length != 0) {
- 	 		 $(this).find('.cau-don-trac-nghiem-mot-lua-chon').each(function (index, ele) {
- 	 	 		 var maCauHoi = $(this).data('maCauHoi');
- 	 	 	 	 // console.log({ 'maCauHoi': maCauHoi });
- 	 	 		$(this).find('.lst-pa-dung-sai > li').each(function () {
- 	 	            var phuongAnNguoiDung;
- 	 	            
- 	 	            if ($(this).find('.radUserAnswer').is(':checked') == true) {
- 	 	                phuongAnNguoiDung = $(this).find('input.radUserAnswer:checked').val();
- 	 	                //alert("2: ");
- 	 	            } else{
- 	 	            	phuongAnNguoiDung = -1;
- 	 	            }   
- 	 	          //console.log({ 'phuongAnNguoiDung': phuongAnNguoiDung });
- 	 	          /* if(phuongAnNguoiDung != -1){ 
- 	 	            data.ListPhuongAnTraLoi.push({
- 	 	                MaCauHoi: maCauHoi,
- 	 	                DapAnNguoiDung: phuongAnNguoiDung,
- 	 	            });
- 	 	           } 
- 	 	        });
- 	 	 	  });
- 	 	  }
- 	  });
- 	 return data;
- 	} */
- 	
  	function submitAnswer(questionId, obj) {
-	  useranswers[questionId] = obj.value;
-	  //answered++;
+ 		var c = ${sizeTest };
+	    useranswers[questionId] = obj.value;
+	    useranswers[c] = null;
 	} 
  	
  	function nopBai() {
@@ -532,9 +516,11 @@
     }
 
  	function nopBaiVaKetThuc(isTimeOut) {
-		//let data = collectDataPhuongAnTraLoi();
-		//console.log({ 'data1': data });
+ 		alert("data:"+isTimeOut)
 		var answered = 0;
+ 		var maDe = ${lesson.id_BaiHoc};
+        var kid = ${kid};
+        var nextLessN = ${nextLessN.id_KhoaHoc};
 		useranswersCount = useranswers.length;
 		for(i=0; i < useranswersCount; i++){
 			if(useranswers[i] != null){
@@ -546,8 +532,7 @@
 		if (answered != useranswersCount && isTimeOut == 0) {
             var thongBao = "Bạn đã trả lời "+answered+ "/"+useranswersCount+". Bạn có muốn nộp bài không?";
             var resultConfirm = confirm(thongBao);
-            var maDe = ${lesson.id_BaiHoc};
-            var kid = ${kid};
+            
             if (resultConfirm == true) {
                  $.ajax({
                     url: '${pageContext.request.contextPath}/mycourse/saveTest',
@@ -573,6 +558,8 @@
                             		   var resultConfirm1 = confirm(alertMsg);
                             		   if(resultConfirm1 == true){
                             			   startTest(kid,maDe);
+                            		   }else{
+                            			   window.location.href = '${pageContext.request.contextPath}/mycourse/${nameKHSl}-'+kid+'-'+maDe;
                             		   }
                             	   }else{
                             		   alert("Chúc mừng bạn đã đạt bài kiểm tra!!!");
@@ -580,25 +567,21 @@
                                },
                                error: function () {
                                      console.log("Lỗi gởi dữ liệu lên server")
-                                   //$('.time-counter').show();
                                }
                            });
                        }else {
-                           //console.log({ 'response': response });
                            alert('Lỗi khi nộp bài vui lòng thử lại');
-                           //$('#btnSubmitTest').attr('disabled', false);
-                          // $('body').removeClass('loading');
                        }
                     },
                     error: function () {
                           console.log("Lỗi gởi dữ liệu lên server")
-                        //$('.time-counter').show();
                     }
                 });
 
             }
         }else{
         	// Nếu thực hiện tất cả rồi thì nộp luôn
+        	console.log("hello")
         	$.ajax({
                 url: '${pageContext.request.contextPath}/mycourse/saveTest',
                 type: 'POST',
@@ -623,35 +606,28 @@
                         		   var resultConfirm1 = confirm(alertMsg);
                         		   if(resultConfirm1 == true){
                         			   startTest(kid,maDe);
+                        		   }else{
+                        			   window.location.href = '${pageContext.request.contextPath}/mycourse/${nameKHSl}-'+kid+'-'+maDe;
                         		   }
                         	   }else{
-                        		   alert("Chúc mừng bạn đã đạt bài kiểm tra!!!");
-                        		   window.location.href = '${pageContext.request.contextPath}/mycourse/${nameKHSl}-'+kid+'-'+maDe;
+                        		   //alert("Chúc mừng bạn đã đạt bài kiểm tra!!!");
+                        		   window.location.href = '${pageContext.request.contextPath}/mycourse/${nameKHSl}-'+kid+'-'+nextLessN;
                         	   }
                            },
                            error: function () {
                                  console.log("Lỗi gởi dữ liệu lên server")
-                               //$('.time-counter').show();
                            }
                        });
                    }else {
-                       //console.log({ 'response': response });
                        alert('Lỗi khi nộp bài vui lòng thử lại');
-                       //$('#btnSubmitTest').attr('disabled', false);
-                      // $('body').removeClass('loading');
                    }
                 },
                 error: function () {
                       console.log("Lỗi gởi dữ liệu lên server")
-                    //$('.time-counter').show();
                 }
             });
         }
-		
-		
     }
-
- 	
  </script>
 </body>
 </html>

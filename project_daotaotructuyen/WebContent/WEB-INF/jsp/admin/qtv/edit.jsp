@@ -41,7 +41,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Mật khẩu (*)</label>
-		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Tên đăng nhập" required>
+		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Tên đăng nhập">
                             	<form:errors path="qtv.password" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
