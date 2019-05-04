@@ -3,7 +3,7 @@
 <%@ include file = "/templates/taglib.jsp" %>
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Bài giảng</a> </div>
+    <div id="breadcrumb"> <a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Bài giảng</a> </div>
     <h1>Quản lý bài giảng</h1>
   </div>
   <div class="container-fluid">
@@ -39,7 +39,6 @@
                 <tr>
                   <th>ID</th>
                   <th>Tên bài giảng</th>
-                  <th>Mô tả</th>
                   <th>Ngày tạo</th>
                   <th>Người tạo</th>
                   <th>Chức năng</th>
@@ -50,7 +49,6 @@
 	                <tr class="gradeX">
 	                  <td style="text-align: center;">${objBG.id_BaiHoc}</td>
 	                  <td width="15%">${objBG.tenBaiHoc}</td>
-	                  <td>${slugUtil.substringWord(objBG.moTa,150)}</td>
 	                  <td style="text-align: center;">
 	                  	<fmt:formatDate value="${objBG.ngayTao}" pattern="dd/MM/yyyy"/>
                       </td>

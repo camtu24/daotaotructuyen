@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import constant.Defines;
+import model.bean.Account;
 import model.bean.Lesson;
 import model.dao.ContactDAO;
 import model.dao.LessonDAO;
@@ -65,7 +67,7 @@ public class AdminLessonController {
 	}
 	
 	@RequestMapping(value= {"/course/{kid}/cat/{cid}/lesson/add","/course/{kid}/lesson/add"}, method=RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("lesson") Lesson lesson, BindingResult br, RedirectAttributes ra,@RequestParam("video") CommonsMultipartFile cmf,HttpServletRequest request, ModelMap modelMap,@PathVariable("kid") int kid,@PathVariable(value="cid", required=false) Integer cid) {
+	public String add(@Valid @ModelAttribute("lesson") Lesson lesson, BindingResult br, RedirectAttributes ra,@RequestParam("video") CommonsMultipartFile cmf,HttpServletRequest request,HttpSession session, ModelMap modelMap,@PathVariable("kid") int kid,@PathVariable(value="cid", required=false) Integer cid) {
 		/*if(cid == null) {
 			cid = 0;
 		}*/
@@ -108,7 +110,8 @@ public class AdminLessonController {
 			}
 		}
 		
-		lesson.setNguoiTao("b");
+		Account acc = (Account) session.getAttribute("account");
+		lesson.setNguoiTao(acc.getUsername());
 		
 		if(cid == null) {
 			if(lessonDao.addItem(lesson) > 0) {

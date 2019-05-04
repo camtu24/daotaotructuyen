@@ -58,6 +58,11 @@ public class QtvDAO {
 		String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=1 ORDER BY id_qtv DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
 	}
+	
+	public List<QuanTriVien> getItemsGD(){
+		String sql = "SELECT id_qtv,hoten,email,SDT,diachi,username,password,hinhanh,enable,id_role,storage FROM quantrivien WHERE storage=1 && ghidanh=1 ORDER BY id_qtv DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<QuanTriVien>(QuanTriVien.class));
+	}
 
 	public int ghiItem(Integer id) {
 		String sql = "UPDATE quantrivien SET ghidanh=1 WHERE id_qtv=?";

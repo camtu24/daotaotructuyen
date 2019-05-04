@@ -302,6 +302,18 @@ public class PublicMyCourseController {
 			modelMap.addAttribute("cmtDao", cmtDao);
 			//list document
 			modelMap.addAttribute("listDoc", docDao.getItemsByIDKH(kid));
+			
+			//nếu là bài kiểm tra đã hoan thành
+			if(less != null) {
+				if(lesson.getLoai().equals("kiemtra")) {
+					if(less.getHoanThanh() == 2) {
+						//kết quả làm bài
+						
+						return "public.mycourse.learnHT";
+					}
+				}
+			}
+			
 		}else {
 			return "public.train.error";
 		}

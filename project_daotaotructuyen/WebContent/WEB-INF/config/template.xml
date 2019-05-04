@@ -206,6 +206,23 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/slider/edit.jsp" />
   </definition>
   
+  <!-- ADMIN managementstudent -->
+  <definition name="admin.managementstudent.index" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/quanlyhocvien/index.jsp" />
+  </definition>
+  
+  <definition name="admin.managementstudent.detailHV" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/quanlyhocvien/detailHV.jsp" />
+  </definition>
+  
+  <definition name="admin.managementstudent.update" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/quanlyhocvien/edit.jsp" />
+  </definition>
+  
+  <definition name="admin.managementstudent.detailKH" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/quanlyhocvien/detailKH.jsp" />
+  </definition>
+  
   <!-- error404 -->
    <definition name="error404" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/error/error404.jsp" />

@@ -66,6 +66,11 @@ public class TeacherDAO {
 		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 ORDER BY id_giangvien DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 	}
+	
+	public List<Teacher> getItemsGD() {
+		String sql = "SELECT id_giangvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,chucvu,motathem,bangcap,chuyenmonchinh,username,password,enable,id_role,storage FROM giangvien WHERE storage=1 && ghidanh=1 ORDER BY id_giangvien DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Teacher>(Teacher.class));
+	}
 
 	public int ghiItem(Integer id) {
 		String sql = "UPDATE giangvien SET ghidanh=1 WHERE id_giangvien=?";

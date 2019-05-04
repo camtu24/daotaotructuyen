@@ -25,6 +25,11 @@ public class StudentDAO {
 		String sql = "SELECT id_hocvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdohocvan,motathem,id_plhv,username,password,enable,id_role,storage FROM hocvien WHERE storage=1 && id_plhv=? ORDER BY id_hocvien DESC";
 		return jdbcTemplate.query(sql,new Object[] {idPlhv}, new BeanPropertyRowMapper<Student>(Student.class));
 	}
+	
+	public List<Student> getItemsGD(){
+		String sql = "SELECT id_hocvien,hoten,email,SDT,diachi,hinhanh,gioitinh,ngaysinh,trinhdohocvan,motathem,id_plhv,username,password,enable,id_role,storage FROM hocvien WHERE storage=1 && ghidanh=1 ORDER BY id_hocvien DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Student>(Student.class));
+	}
 
 	public Student checkItem(Student student) {
 		try {

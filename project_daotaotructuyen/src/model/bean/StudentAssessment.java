@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.sql.Timestamp;
+
 public class StudentAssessment {
 
 	private Integer id_Dghv;
@@ -7,26 +9,31 @@ public class StudentAssessment {
 	private Integer id_GiangVien;
 	private Integer id_Qtv;
 	private Integer id_KhoaHoc;
+	private String tenKhoaHoc;
 	private Double diemTrungBinh;
 	private Double mucDoHoanThanh;
 	private int tongBaiHoc;
 	private String danhGia;
+	private Timestamp ngayGhiDanh;
 	public StudentAssessment() {
 		super();
 	}
-	
+
 	public StudentAssessment(Integer id_Dghv, Integer id_HocVien, Integer id_GiangVien, Integer id_Qtv,
-			Integer id_KhoaHoc, Double diemTrungBinh, Double mucDoHoanThanh, int tongBaiHoc, String danhGia) {
+			Integer id_KhoaHoc, String tenKhoaHoc, Double diemTrungBinh, Double mucDoHoanThanh, int tongBaiHoc,
+			String danhGia, Timestamp ngayGhiDanh) {
 		super();
 		this.id_Dghv = id_Dghv;
 		this.id_HocVien = id_HocVien;
 		this.id_GiangVien = id_GiangVien;
 		this.id_Qtv = id_Qtv;
 		this.id_KhoaHoc = id_KhoaHoc;
+		this.tenKhoaHoc = tenKhoaHoc;
 		this.diemTrungBinh = diemTrungBinh;
 		this.mucDoHoanThanh = mucDoHoanThanh;
 		this.tongBaiHoc = tongBaiHoc;
 		this.danhGia = danhGia;
+		this.ngayGhiDanh = ngayGhiDanh;
 	}
 
 	public Integer getId_Dghv() {
@@ -84,6 +91,22 @@ public class StudentAssessment {
 
 	public void setTongBaiHoc(int tongBaiHoc) {
 		this.tongBaiHoc = tongBaiHoc;
+	}
+
+	public String getTenKhoaHoc() {
+		return tenKhoaHoc;
+	}
+
+	public void setTenKhoaHoc(String tenKhoaHoc) {
+		this.tenKhoaHoc = tenKhoaHoc;
+	}
+
+	public Timestamp getNgayGhiDanh() {
+		return ngayGhiDanh;
+	}
+
+	public void setNgayGhiDanh(Timestamp ngayGhiDanh) {
+		this.ngayGhiDanh = ngayGhiDanh;
 	}
 	
 }

@@ -29,13 +29,6 @@
                         </div>
                         
                         <div class="col-md4">
-	                        <div class="form-group">
-	                            <label>Mô tả</label>
-	                            <textarea name="moTa" style="height: 140px;width:72%" rows="3" required>${lesson.moTa }</textarea>
-	                        </div>
-                        </div>
-                        
-                        <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Video</label>
 		                        <c:if test="${not empty lesson.video }">

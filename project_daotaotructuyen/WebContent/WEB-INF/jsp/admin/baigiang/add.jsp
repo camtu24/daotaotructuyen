@@ -29,12 +29,6 @@
                         </div>
                         
                         <div class="col-md4">
-	                        <div class="form-group">
-	                            <label>Mô tả</label>
-	                            <textarea name="moTa" style="height: 140px;width:72%" rows="3" required>${lesson.moTa }</textarea>
-	                        </div>
-                        </div>
-                        <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Video</label>
 		                        <img src="${defines.urlAdmin}/img/images-video.png" alt="hinhanh" style = "width: 200px;height:150px">
