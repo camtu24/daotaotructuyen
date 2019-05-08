@@ -45,6 +45,7 @@ public class AdminNewsController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 6);
 	}
 	
 	@RequestMapping(value="/news", method=RequestMethod.GET)

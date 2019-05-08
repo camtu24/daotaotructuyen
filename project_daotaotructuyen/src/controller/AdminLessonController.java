@@ -1,5 +1,3 @@
-
-
 package controller;
 
 import java.io.File;
@@ -51,11 +49,12 @@ public class AdminLessonController {
 		modelMap.addAttribute("slugUtil", slugUtil);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 3);
 	}
 	
 	@RequestMapping(value="/course/{kid}/cat/{cid}/lessons", method=RequestMethod.GET)
 	public String index(@PathVariable("kid") int kid,@PathVariable("cid") int cid,ModelMap modelMap) {
-		modelMap.addAttribute("listBG", lessonDao.getItemsByIDDM(cid,kid));
+		modelMap.addAttribute("listBG", lessonDao.getItemsByIDDM(cid,kid,1));
 		modelMap.addAttribute("kid", kid);
 		modelMap.addAttribute("cid", cid);
 		return "admin.baigiang.index";

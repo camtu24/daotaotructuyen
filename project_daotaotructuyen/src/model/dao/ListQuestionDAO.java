@@ -24,4 +24,9 @@ public class ListQuestionDAO {
 		String sql = "SELECT * FROM danhsachcauhoi WHERE id_baihoc=?";
 		return jdbcTemplate.query(sql, new Object[] {id_BaiHoc}, new BeanPropertyRowMapper<ListQuestion>(ListQuestion.class));
 	}
+
+	public List<ListQuestion> getItemsKQ(int id_BaiHoc) {
+		String sql = "SELECT * FROM danhsachcauhoi AS d INNER JOIN ketqua AS k ON d.id_cauhoi=k.id_cauhoi WHERE id_baihoc=?";
+		return jdbcTemplate.query(sql, new Object[] {id_BaiHoc}, new BeanPropertyRowMapper<ListQuestion>(ListQuestion.class));
+	}
 }

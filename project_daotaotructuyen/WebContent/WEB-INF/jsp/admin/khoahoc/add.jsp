@@ -34,7 +34,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Chủ đề</label>
-		                        <select name="id_ChuDe" class="form-control" style="width: 72%">
+		                        <select name="id_ChuDe" class="form-control" style="width: 74%">
 	                           		<c:forEach items="${listS }" var="Subj">
 	                                   <option value="${Subj.id_ChuDe}">${Subj.tenChuDe }</option>
 	                                </c:forEach>
@@ -113,7 +113,7 @@
 				            <div class="collapse accordion-body" id="collapseGTwo">
 				              <div class="widget-content">
 				              	<c:forEach items="${listGV }" var="objGV">
-				              		<input class="input-tt" type="checkbox" name="id_GiangVienT[]" value="${objGV.id_GiangVien }"/> <span class="thanhtoan"> ${objGV.hoTen}</span>
+				              		<input class="input-tt" type="checkbox" name="id_GiangVienT[]" value="${objGV.id_GiangVien }"/> <span class="thanhtoan"> ${objGV.hoTen}</span> <br> <br>
 							    </c:forEach>
 							  </div>
 				            </div>

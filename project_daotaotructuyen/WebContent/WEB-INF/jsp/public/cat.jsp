@@ -30,8 +30,8 @@
 					</div>
 	            </header>
 				<div style="padding: 0 15px">
-					<div class="blog-post-meta">
-		                <p>Giảng viên: </p>
+					<div class="blog-post-meta" style="color:#ff9900;font-size: 1.2em;">
+		                <p>Học phí: ${objK.hocPhi }VND</p>
 		              </div>
 		            <p>* ${objK.mieuTa }</p>
 		            <p>* Đối tượng tham gia:${objK.doiTuongThamGia }</p>

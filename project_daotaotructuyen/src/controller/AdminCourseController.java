@@ -83,6 +83,7 @@ public class AdminCourseController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 3);
 	}
 	
 	@RequestMapping(value="/courses", method=RequestMethod.GET)
@@ -311,9 +312,9 @@ public class AdminCourseController {
 		Course course = courDao.getItem(id);
 		//lưu trư khoa hoc
 		if(course != null) {
-			if(courDao.storageItem(id) > 0) {
-				if(dmucDao.storageItemByIDKH(id) > 0) {
-					if(lessDao.storageItemByIDKH(id) > 0) {
+			if(courDao.storageItem(id,0) > 0) {
+				if(dmucDao.storageItemByIDKH(id,0) > 0) {
+					if(lessDao.storageItemByIDKH(id,0) > 0) {
 						ra.addFlashAttribute("msg", Defines.SUCCESS);
 					}
 				}
@@ -324,13 +325,6 @@ public class AdminCourseController {
 			return "error404";
 		}
 		return "redirect:/admin/courses";
-	}
-	
-	//mục lưu trữ
-	@RequestMapping(value="/courses/storage", method=RequestMethod.GET)
-	public String storage(ModelMap modelMap, RedirectAttributes ra) {
-		modelMap.addAttribute("listC", courDao.getItemsStor());
-		return "admin.course.storage";
 	}
 	
 	@RequestMapping(value="/courses/storage/view/{kid}", method=RequestMethod.GET)
@@ -796,11 +790,12 @@ public class AdminCourseController {
 		String out = "";
 		if(active == 1) {
 			courDao.changeEnable(id,0);
-			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'> <span class='label label-inactive' style='background-color : #fe892b;'>Chưa phát hành</span> </a>";
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",0)'><img src='"+ defines.getUrlAdmin() +"/img/course-2.PNG'/></a>";
 		} else{
 			courDao.changeEnable(id,1);
-			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><span class='label label-inactive' style='background-color : #00d627;'>Đã phát hành</span></a>";
+			out="<a href='javascript:void(0)' onclick='return changeEnable("+id+",1)'><img src='"+ defines.getUrlAdmin() +"/img/course-1.PNG'/></a>";
 		}
+		
 		return out;
 	}
 		

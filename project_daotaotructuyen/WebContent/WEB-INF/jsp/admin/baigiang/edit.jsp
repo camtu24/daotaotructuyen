@@ -27,12 +27,10 @@
                             <p style="color:red">${msg1 }</p>
                             <form:errors path="lesson.tenBaiHoc" cssStyle="color:red"></form:errors>       
                         </div>
-                        
-                        <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Video</label>
 		                        <c:if test="${not empty lesson.video }">
-			                        <video width="200" height="150"  controls>
+			                        <video width="200" height="150" controls="controls">
 									<source src="${pageContext.request.contextPath }/files/${lesson.video}" type="video/mp4">
 									<!-- Trình duyệt của bạn không hỗ trợ thẻ video trong HTML5. -->
 									</video>
@@ -40,18 +38,16 @@
 		                        <c:if test="${empty lesson.video }">
 	                           	<img src="${defines.urlAdmin}/img/images-video.png" alt="video" style = "width: 200px;height:150px">
 							   	</c:if>
-							   	
+							   	 <br>
 							   	<input type="file" name="video" class="form-control border-input" >
 		                    </div>
-		                </div>
                         
-                        <div class="form-group" style="width:100%">
-                            <label>Nội dung</label>
-                            <textarea name="chiTiet" class="ckeditor" style="height: 23px" rows="3">${lesson.chiTiet }</textarea>
-                            <p style="color:red">${msg1 }</p>
-                            <form:errors path="lesson.chiTiet" cssStyle="color:red"></form:errors>       
-                        </div>
-                        
+	                        <div class="form-group" style="width:100%">
+	                            <label>Nội dung</label>
+	                            <textarea name="chiTiet" class="ckeditor" style="height: 23px" rows="3">${lesson.chiTiet }</textarea>
+	                            <p style="color:red">${msg1 }</p>
+	                            <form:errors path="lesson.chiTiet" cssStyle="color:red"></form:errors>       
+	                        </div>
                         <div class="form-group">
                             <input type="submit" value="Thực hiện" class="btn btn-primary">
                         </div> 

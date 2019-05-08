@@ -22,18 +22,17 @@
 <div class="wrapper row1">
   <header id="header" class="full_width clear">
     <div id="hgroup">
-      <h1><a href="index.html">RS-1200 Prototype 50</a></h1>
-      <h2>Free Responsive Template</h2>
+      <h2><a href="index.html"><img alt="Đào trực trực tuyến Green Global" src="${defines.urlPublic }/images/logo-tcx.png"></a></h2>
     </div>
     <div id="header-contact">
     	<div class="login">
 			<a href="${pageContext.request.contextPath }/login" target="_blank"><span class="text_login"> <i class="icon icon-off"></i> Login</span></a>
 			
-			| <a href="${pageContext.request.contextPath }/auth/login" target="_blank"><span class="text_login"> <i class="icon icon-off"></i> Register</span></a>
+			<%-- | <a href="${pageContext.request.contextPath }/auth/login" target="_blank"><span class="text_login"> <i class="icon icon-off"></i> Register</span></a> --%>
 		</div>
 		
-      <ul class="list none">
-        <li><span class="icon-envelope"></span> <a href="${pageContext.request.contextPath }/contact">contact@greenglobal.vn</a></li>
+      <ul class="list none" style="color:#ff9900">
+        <li><span class="icon-envelope"></span> <a style="color:#ff9900" href="${pageContext.request.contextPath }/contact">contact@greenglobal.vn</a></li>
         <li><span class="icon-phone"></span> (+84) 2363 833 666</li>
       </ul>
     </div>
@@ -44,7 +43,7 @@
   <nav id="topnav">
     <ul class="clear">
       <li class="active"><a href="${pageContext.request.contextPath }/" title="Homepage">Homepage</a></li>
-      <li><a href="#" title="Pages">Giới thiệu</a> </li>
+      <!-- <li><a href="#" title="Pages">Giới thiệu</a> </li> -->
       <li><a class="drop" href="${pageContext.request.contextPath }/danhmuckhoahoc" title="Categories Course">Danh mục khóa học</a>
         <ul>
         	<c:forEach items="${listS }" var="objS">

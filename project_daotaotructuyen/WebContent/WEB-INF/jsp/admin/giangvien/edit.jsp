@@ -74,10 +74,10 @@
 		                    <div class="form-group">
 		                        <label>Hình ảnh</label>
 		                        <c:if test="${not empty teacher.hinhAnh }">
-	                           	<img src="${pageContext.request.contextPath }/files/${teacher.hinhAnh}" alt="${teacher.hinhAnh}" style = "width: 150px;height:150px">
+	                           	<img src="${pageContext.request.contextPath }/files/${teacher.hinhAnh}" alt="${teacher.hinhAnh}" style = "width: 150px;height:110px">
 							   	</c:if>
 							   	<c:if test="${empty teacher.hinhAnh }">
-	                           	<img src="${defines.urlAdmin}/img/user.jpg" alt="hinhanh" style = "width: 150px;height:150px">
+	                           	<img src="${defines.urlAdmin}/img/user.jpg" alt="hinhanh" style = "width: 150px;height:110px">
 							   	</c:if>
 		                        <input type="file" name="hinhAnh" class="form-control border-input" >
 		                    </div>
@@ -86,7 +86,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Giới tính</label>
-		                        <select name="gioiTinh" class="form-control" style="width: 72%">
+		                        <select name="gioiTinh" class="form-control" style="width: 74%">
                                    <c:set var="gioitinh" value="nam"></c:set>
 		                       			<c:choose>
 		                           			<c:when test="${student.gioiTinh == gioitinh}">
@@ -110,30 +110,38 @@
 		                    </div>
 		                </div>
 		                
-		                <div class="form-group">
-                            <label>Chức vụ</label>
-                            <textarea name="chucVu" style="height: 90px;width:75%" required>${teacher.chucVu }</textarea>
+		                <div class="col-md4">
+			                <div class="form-group">
+	                            <label>Chức vụ</label>
+	                            <textarea name="chucVu" style="height: 90px;width:72%" required>${teacher.chucVu }</textarea>
+	                        </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label>Mô tả</label>
-                            <textarea name="moTaThem" style="height: 90px;width:75%">${teacher.moTaThem }</textarea>
+                        <div class="col-md4">
+	                        <div class="form-group">
+	                            <label>Mô tả</label>
+	                            <textarea name="moTaThem" style="height: 90px;width:72%">${teacher.moTaThem }</textarea>
+	                        </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label>Bằng cấp</label>
-                            <textarea name="bangCap" style="height: 90px;width:75%" >${teacher.bangCap }</textarea>
+                        <div class="col-md4">
+	                        <div class="form-group">
+	                            <label>Bằng cấp</label>
+	                            <textarea name="bangCap" style="height: 90px;width:72%" >${teacher.bangCap }</textarea>
+	                        </div>
                         </div>
                         
+                        <div class="col-md4">
                         <div class="form-group">
                             <label>Chuyên môn chính</label>
-                            <textarea name="chuyenMonChinh" style="height: 90px;width:75%" required>${teacher.chuyenMonChinh }</textarea>
+                            <textarea name="chuyenMonChinh" style="height: 90px;width:72%" required>${teacher.chuyenMonChinh }</textarea>
+                        </div>
                         </div>
                         
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>
-		                        <select name="id_Role" class="form-control" style="width: 72%">
+		                        <select name="id_Role" class="form-control" style="width: 74%">
 	                           		<c:set var="id_role" value="${teacher.id_Role }"></c:set>
 	                           		<c:forEach items="${listRoles }" var="role">
 	                           			<c:choose>
@@ -151,7 +159,7 @@
 		                </div>
                     
                         <div class="form-group">
-                            <input type="submit" value="Thực hiện" class="btn btn-primary">
+                            <input style="margin-top:90px" type="submit" value="Thực hiện" class="btn btn-primary">
                         </div> 
                     </form>
 				</div>

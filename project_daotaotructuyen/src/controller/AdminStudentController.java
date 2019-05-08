@@ -57,6 +57,7 @@ public class AdminStudentController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 9);
 	}
 	
 	@RequestMapping(value="/students", method=RequestMethod.GET)

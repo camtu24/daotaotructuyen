@@ -41,7 +41,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Mật khẩu (*)</label>
-		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Tên đăng nhập" required>
+		                        <input type="password" name="password" value="" class="form-control border-input" placeholder="Mật khẩu" required>
                             	<form:errors path="qtv.password" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -49,7 +49,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Số điện thoại (*)</label>
-		                        <input type="text" name="sdt" value="${qtv.sdt }" class="form-control border-input" placeholder="Tên đăng nhập" required>
+		                        <input type="text" name="sdt" value="${qtv.sdt }" class="form-control border-input" placeholder="Số điện thoại" required>
                             	<form:errors path="qtv.sdt" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -57,7 +57,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Địa chỉ (*)</label>
-		                        <input type="text" name="sdt" value="${qtv.diaChi }" class="form-control border-input" placeholder="Tên đăng nhập" required>
+		                        <input type="text" name="sdt" value="${qtv.diaChi }" class="form-control border-input" placeholder="Địa chỉ" required>
                             	<form:errors path="qtv.diaChi" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -65,7 +65,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Email (*)</label>
-		                        <input type="email" name="email" value="${qtv.email }" class="form-control border-input" placeholder="Tên đăng nhập" required>
+		                        <input type="email" name="email" value="${qtv.email }" class="form-control border-input" placeholder="Email" required>
                             	<form:errors path="qtv.email" cssStyle="color:red"></form:errors>
 		                    </div>
 		                </div>
@@ -81,7 +81,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>
-		                        <select name="id_Role" class="form-control" style="width: 100%">
+		                        <select name="id_Role" class="form-control" style="width: 74%">
 	                           		<c:forEach items="${listRoles }" var="role">
 	                                   <option value="${role.id_Role}">${role.name }</option>
 	                                </c:forEach>
@@ -90,7 +90,7 @@
 		                </div>
                     
                         <div class="form-group">
-                            <input type="submit" value="Thực hiện" class="btn btn-primary">
+                            <input style="margin-top: 135px;" type="submit" value="Thực hiện" class="btn btn-primary">
                         </div> 
                     </form>
 				</div>

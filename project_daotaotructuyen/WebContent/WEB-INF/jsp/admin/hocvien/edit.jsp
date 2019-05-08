@@ -4,7 +4,7 @@
 <div id="content">
 	<div id="content-header">
 		<div id="breadcrumb">
-			<a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+			<a href="${pageContext.request.contextPath }/admin/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
 			<a href="${pageContext.request.contextPath }/admin/students" class="tip-bottom">Học viên</a> <a href="#" class="current">Sửa học viên</a>
 		</div>
 		<h1>Học Viên</h1>
@@ -73,10 +73,10 @@
 		                    <div class="form-group">
 		                        <label>Hình ảnh</label>
 		                        <c:if test="${not empty student.hinhAnh }">
-	                           	<img src="${pageContext.request.contextPath }/files/${student.hinhAnh}" alt="hinhanh" style = "width: 150px;height:150px">
+	                           	<img src="${pageContext.request.contextPath }/files/${student.hinhAnh}" alt="hinhanh" style = "width: 150px;height:110px">
 							   	</c:if>
 							   	<c:if test="${empty student.hinhAnh }">
-	                           	<img src="${defines.urlAdmin}/img/user.jpg" alt="hinhanh" style = "width: 150px;height:150px">
+	                           	<img src="${defines.urlAdmin}/img/user.jpg" alt="hinhanh" style = "width: 150px;height:110px">
 							   	</c:if>
 		                        <input type="file" name="hinhAnh" class="form-control border-input" >
 		                    </div>
@@ -85,7 +85,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Giới tính</label>
-		                        <select name="gioiTinh" class="form-control" style="width: 100%">
+		                        <select name="gioiTinh" class="form-control" style="width: 74%">
 		                        <c:set var="gioitinh" value="nam"></c:set>
 		                       			<c:choose>
 		                           			<c:when test="${student.gioiTinh == gioitinh}">
@@ -110,20 +110,24 @@
 		                    </div>
 		                </div>
 		                
-		                <div class="form-group">
-                            <label>Trình độ học vấn</label>
-                            <textarea name="trinhDoHocVan" style="height: 23px" rows="5">${student.trinhDoHocVan }</textarea>
+		                 <div class="col-md4">
+			                <div class="form-group">
+	                            <label>Trình độ học vấn</label>
+	                            <textarea name="trinhDoHocVan" style="height: 60px; width: 72%">${student.trinhDoHocVan }</textarea>
+	                        </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label>Mô tả</label>
-                            <textarea name="moTaThem" style="height: 23px" rows="5">${student.moTaThem }</textarea>
+                         <div class="col-md4">
+	                        <div class="form-group">
+	                            <label>Mô tả</label>
+	                            <textarea name="moTaThem" style="height: 60px; width: 72%">${student.moTaThem }</textarea>
+	                        </div>
                         </div>
                         
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Nhóm học viên</label>
-		                        <select name="id_Plhv" class="form-control" style="width: 100%">
+		                        <select name="id_Plhv" class="form-control" style="width: 74%">
 		                        <c:set var="id_plhv" value="${student.id_Plhv }"></c:set>
 	                           		<c:forEach items="${listH }" var="objH">
 	                           			<c:choose>
@@ -143,7 +147,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>
-		                        <select name="id_Role" class="form-control" style="width: 100%">
+		                        <select name="id_Role" class="form-control" style="width: 74%">
 		                        <c:set var="id_role" value="${student.id_Role }"></c:set>
 	                           		<c:forEach items="${listRoles }" var="role">
 	                           			<c:choose>
@@ -161,7 +165,7 @@
 		                </div>
                     
                         <div class="form-group">
-                            <input type="submit" value="Thực hiện" class="btn btn-primary">
+                            <input style="margin-top:15px" type="submit" value="Thực hiện" class="btn btn-primary">
                         </div> 
                     </form>
 				</div>

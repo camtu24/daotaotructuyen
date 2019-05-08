@@ -48,6 +48,7 @@ public class AdminSubjectController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 3);
 	}
 	
 	@RequestMapping(value="/subjects", method=RequestMethod.GET)
@@ -124,9 +125,9 @@ public class AdminSubjectController {
 				//lưu tru khoa hoc
 				List<Course> list = courDao.getItemsBySubjectDel(sid);
 				for (Course course : list) {
-					if(courDao.storageItem(course.getId_KhoaHoc()) > 0) {
-						if(dmucDao.storageItemByIDKH(course.getId_KhoaHoc()) > 0) {
-							if(lessDao.storageItemByIDKH(course.getId_KhoaHoc()) > 0) {
+					if(courDao.storageItem(course.getId_KhoaHoc(),0) > 0) {
+						if(dmucDao.storageItemByIDKH(course.getId_KhoaHoc(),0) > 0) {
+							if(lessDao.storageItemByIDKH(course.getId_KhoaHoc(),0) > 0) {
 								ra.addFlashAttribute("msg", Defines.SUCCESS);
 							}
 						}

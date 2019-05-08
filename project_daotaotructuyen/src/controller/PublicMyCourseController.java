@@ -125,19 +125,27 @@ public class PublicMyCourseController {
 		System.out.println(kid);
 		Account account = (Account) session.getAttribute("account");
 		Course course = courDao.getItemDPH(kid);
-		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
+		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid,1));
 		modelMap.addAttribute("nameKH", course.getTenKhoaHoc());
 		modelMap.addAttribute("nameKHSl", nameKH);
 		modelMap.addAttribute("lessDao", lessDao);
 		modelMap.addAttribute("qthDao", qthDao);
 		//baihoc1
+		Lesson lesson = lessDao.getItemFirst(kid);
+		if(lesson != null) {
+			System.out.println("c");
+		}else {
+			System.out.println("k");
+		}
 		modelMap.addAttribute("lesson", lessDao.getItemFirst(kid));
 		
+		
+		
 		//luu vao bang mucdohoanthanh
-		//System.out.println(lessDao.getItemFirst(kid).getId_BaiHoc());
+		System.out.println(lessDao.getItemFirst(kid).getId_BaiHoc());
 		QuaTrinhHoc qth = qthDao.getItemNextN(kid, account.getUsername());
 		if(qth == null || qth.getHoanThanh() != 0) {
-			int[] j = {1,0};
+			int[] j = {1,0}; 
 			List<Lesson> listL = (List<Lesson>) lessDao.getItemsTwo(kid);
 			for (int i = 0; i < listL.size(); i++) {
 				qthDao.addItem(listL.get(i),account.getUsername(),j[i]);
@@ -258,6 +266,7 @@ public class PublicMyCourseController {
 				modelMap.addAttribute("listTest", listTest);
 				modelMap.addAttribute("sizeTest", listTest.size());
 				modelMap.addAttribute("listDA", listDA);
+				//modelMap.addAttribute("TG", 15);
 			}
 			
 			//lưu bai hoc tiếp theo
@@ -290,7 +299,7 @@ public class PublicMyCourseController {
 			//bài học sau
 			modelMap.addAttribute("nextLess", qthDao.getItemNext(less.getId_Qth(),kid, account.getUsername()));
 			
-			modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
+			modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid,1));
 			modelMap.addAttribute("nameKH", course.getTenKhoaHoc());
 			modelMap.addAttribute("nameKHSl", nameKH);
 			modelMap.addAttribute("lessDao", lessDao);
@@ -308,7 +317,19 @@ public class PublicMyCourseController {
 				if(lesson.getLoai().equals("kiemtra")) {
 					if(less.getHoanThanh() == 2) {
 						//kết quả làm bài
+						List<ListQuestion> listKQ = listqDao.getItemsKQ(lid);
+						//list điểm
+						int questionCount = listKQ.size();
+						double sumScore = 0;
+						for (int i = 0; i < questionCount; i++) {
+							sumScore += listKQ.get(i).getDiemDung();
+						}
 						
+						double kqua = (sumScore*100)/questionCount;
+						
+						modelMap.addAttribute("kqua", (double) Math.round(kqua * 100) / 100);
+						modelMap.addAttribute("ngaythi", listKQ.get(0).getThoiGian());
+						modelMap.addAttribute("listKQ", listKQ);
 						return "public.mycourse.learnHT";
 					}
 				}
@@ -396,7 +417,7 @@ public class PublicMyCourseController {
 				qthDao.changeHT(less,3);
 			}
 		}else {
-			for (int i = 0; i < listanswers.length-1; i++) {
+			for (int i = 0; i < questionCount; i++) {
 				if(listanswers[i].equalsIgnoreCase(dapAnDung[i])) {
 					Result result = new Result(listanswers[i], 1, diem[i], account.getUsername(), maCauHoi[i]);
 					//thêm database kêt quả

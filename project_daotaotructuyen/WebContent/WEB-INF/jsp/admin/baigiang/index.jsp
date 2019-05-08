@@ -48,14 +48,16 @@
               	<c:forEach items="${listBG }" var="objBG">
 	                <tr class="gradeX">
 	                  <td style="text-align: center;">${objBG.id_BaiHoc}</td>
-	                  <td width="15%">${objBG.tenBaiHoc}</td>
+	                  <td>${objBG.tenBaiHoc}</td>
 	                  <td style="text-align: center;">
 	                  	<fmt:formatDate value="${objBG.ngayTao}" pattern="dd/MM/yyyy"/>
                       </td>
-	                  <td width="10%" style="text-align: center;">${objBG.nguoiTao}</td>
-	                  <td width="15%" style="text-align: center;">
+	                  <td width="15%" style="text-align: center;">${objBG.nguoiTao}</td>
+	                  <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
+	                      <c:if test="${objBG.loai == 'baihoc'}">
 	                      <a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/${cid }/lesson/edit/${objBG.id_BaiHoc}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
+	                      </c:if>
 	                      <a href="${pageContext.request.contextPath }/admin/course/${kid }/cat/${cid }/lesson/delTemp/${objBG.id_BaiHoc}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
 	                  </td>
 					

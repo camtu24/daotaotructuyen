@@ -29,8 +29,6 @@
                   <th>Tên khóa học</th>
                   <th>Hình ảnh</th>
                   <th>Học phí</th>
-                  <th>Người tạo</th>
-                  <th>Danh sách học viên</th>
                   <th>Chức năng</th>
                 </tr>
               </thead>
@@ -38,9 +36,7 @@
               	<c:forEach items="${listC }" var="objC">
 	                <tr class="gradeX">
 	                  <td style="text-align: center;">${objC.id_KhoaHoc}</td>
-	                  <td>
-	                 	<a href="${pageContext.request.contextPath }/admin/course/${objC.id_KhoaHoc}/cats">${objC.tenKhoaHoc}</a>
-	                  </td>
+	                  <td>${objC.tenKhoaHoc}</td>
 	                  <td style="text-align: center;">
 	                  	<c:if test="${not empty objC.hinhAnh }">
                            <img width="150px" src="${pageContext.request.contextPath}/files/${objC.hinhAnh}" />
@@ -50,15 +46,11 @@
 					   	</c:if>
                       </td>
 	                  <td>${objC.hocPhi}</td>
-	                  <td>${objC.nguoiTao}</td>
-	                  <td width="13%" style="text-align: center;">
-	                 	 <a href="${pageContext.request.contextPath }/admin/course/liststudent/${objC.id_KhoaHoc}"><i class="icon icon-inbox"></i></a>
-	                  </td>
 
-	                  <td width="22%" style="text-align: center;">
+	                  <td width="29%" style="text-align: center;">
 	                      <a href="${pageContext.request.contextPath }/admin/course/view/${objC.id_KhoaHoc}" class="btn btn-info"><i class="icon-eye-open"></i> View</a>
 	                      <a href="${pageContext.request.contextPath }/admin/course/restore/${objC.id_KhoaHoc}" class="btn btn-success"><i class="icon-refresh"></i> Restore</a>
-	                      <a style="margin:10px" href="${pageContext.request.contextPath }/admin/course/delete/${objC.id_KhoaHoc}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
+	                      <a href="${pageContext.request.contextPath }/admin/course/delete/${objC.id_KhoaHoc}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
 	                  </td>
 	                </tr>
                 </c:forEach>

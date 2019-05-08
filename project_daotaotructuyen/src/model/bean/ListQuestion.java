@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.sql.Timestamp;
+
 public class ListQuestion {
 
 	private int id_CauHoi;
@@ -12,6 +14,12 @@ public class ListQuestion {
 	private String dapAnDung;
 	private double diem;
 	private int id_BaiHoc;
+	private int id_KetQua;
+	private String traLoi;
+	private int ketQua;
+	private float diemDung;
+	private Timestamp thoiGian;
+	private String username;
 	public ListQuestion() {
 		super();
 	}
@@ -29,6 +37,28 @@ public class ListQuestion {
 		this.dapAnDung = dapAnDung;
 		this.diem = diem;
 		this.id_BaiHoc = id_BaiHoc;
+	}
+	
+	public ListQuestion(int id_CauHoi, int stt, String cauHoi, String option1, String option2, String option3,
+			String option4, String dapAnDung, double diem, int id_BaiHoc, int id_KetQua, String traLoi, int ketQua,
+			float diemDung, Timestamp thoiGian, String username) {
+		super();
+		this.id_CauHoi = id_CauHoi;
+		this.stt = stt;
+		this.cauHoi = cauHoi;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.dapAnDung = dapAnDung;
+		this.diem = diem;
+		this.id_BaiHoc = id_BaiHoc;
+		this.id_KetQua = id_KetQua;
+		this.traLoi = traLoi;
+		this.ketQua = ketQua;
+		this.diemDung = diemDung;
+		this.thoiGian = thoiGian;
+		this.username = username;
 	}
 
 	public int getId_CauHoi() {
@@ -96,6 +126,54 @@ public class ListQuestion {
 
 	public void setStt(int stt) {
 		this.stt = stt;
+	}
+
+	public int getId_KetQua() {
+		return id_KetQua;
+	}
+
+	public void setId_KetQua(int id_KetQua) {
+		this.id_KetQua = id_KetQua;
+	}
+
+	public String getTraLoi() {
+		return traLoi;
+	}
+
+	public void setTraLoi(String traLoi) {
+		this.traLoi = traLoi;
+	}
+
+	public int getKetQua() {
+		return ketQua;
+	}
+
+	public void setKetQua(int ketQua) {
+		this.ketQua = ketQua;
+	}
+
+	public float getDiemDung() {
+		return diemDung;
+	}
+
+	public void setDiemDung(float diemDung) {
+		this.diemDung = diemDung;
+	}
+
+	public Timestamp getThoiGian() {
+		return thoiGian;
+	}
+
+	public void setThoiGian(Timestamp thoiGian) {
+		this.thoiGian = thoiGian;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 				
 }

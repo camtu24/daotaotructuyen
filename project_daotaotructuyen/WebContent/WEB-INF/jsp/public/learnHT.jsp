@@ -209,12 +209,12 @@
 							<div class="col-xs-12">
 								<div class="quiz-infomation">
 									B&#224;i thi gồm <strong>${sizeTest }</strong> c&#226;u hỏi <br />
-									Kết quả đạt được: <strong>3.2%</strong><br />
+									Kết quả đạt được: <strong>${kqua }%</strong><br />
 									Thời gian l&#224;m b&#224;i:
 										<strong>
 											15 ph&#250;t
 										</strong><br />
-									Ng&#224;y dự thi: <strong>22/04/2019</strong> <br />
+									Ng&#224;y dự thi: <strong><fmt:formatDate value="${ngaythi }" pattern="dd/MM/yyyy"/></strong> <br />
 		
 								</div>
 							</div>
@@ -227,7 +227,7 @@
 									</a>
 									
 									<ul class="list-inline list-dieu-huong-cau-hoi">
-										<c:forEach begin="1" end="${listTest.size() }" var="i">
+										<c:forEach begin="1" end="${listKQ.size() }" var="i">
 											<li data-thu-tu-cau-hoi="${i}">
 												<div class="quiz-navigation-item ">
 													<div class="quiz-content">
@@ -248,55 +248,61 @@
 							</div>
 							<div class="col-xs-12 col-md-12 list-quiz">
 								<div class="quiz-content margin-top-10">
-								<c:forEach begin="0" end="${listTest.size()-1 }" var="j">
+								<c:forEach begin="0" end="${listKQ.size()-1 }" var="j">
 									<div class="question" id="Cau-${j+1}">
 										<div class="row">
 											<div class="col-xs-12 col-md-2 reset-padding-right">
 												<div class="question-info">
 													<span class="question-number">C&#226;u hỏi ${j+1 }</span>
-													<span>Điểm: ${listTest.get(j).diem }</span>
+													<span>Điểm: ${listKQ.get(j).diem }</span>
+													<c:if test="${listKQ.get(j).ketQua == 1}">
+													<img class="check-DS" src="${defines.urlAdmin}/img/active.png" width="20px"/></c:if>
+													
+													<c:if test="${listKQ.get(j).ketQua == 0}">
+													<img class="check-DS" src="${defines.urlAdmin}/img/false.png" style="border-radius:50%" width="20px"/></c:if>
 												</div>
 											</div>
 											<div class="col-xs-12 col-md-10">
 												<div class="question-detail  ">
-													<span class="question-name"><p>${listTest.get(j).cauHoi }</p> </span>
+													<span class="question-name"><p>${listKQ.get(j).cauHoi }</p> </span>
 													<div class="answer-content ">
-														<div class="cau-don-trac-nghiem-mot-lua-chon" data-ma-cau-hoi="${listTest.get(j).id_CauHoi }">
+														<div class="cau-don-trac-nghiem-mot-lua-chon" data-ma-cau-hoi="${listKQ.get(j).id_CauHoi }">
 															<ul class="lst-phuong-an lst-pa-dung-sai">
+																
 																<li data-ma-cau-tra-loi="1755109">
-																   
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n A" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="A" id="rdoPhuongAn-A-${listTest.get(j).id_CauHoi }" disabled/>
-																		<label for="rdoPhuongAn-A-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-A-${listTest.get(j).id_CauHoi }">A. </label>
+																		
+																		<input <c:if test="${listKQ.get(j).traLoi == 'A'}">checked</c:if> class="radUserAnswer" role="radio" aria-label="Phương &#225;n A" type="radio" name="rad-phuong-an-${listKQ.get(j).id_CauHoi }" value="A" id="rdoPhuongAn-A-${listKQ.get(j).id_CauHoi }" disabled/>
+																		<label for="rdoPhuongAn-A-${listKQ.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-A-${listKQ.get(j).id_CauHoi }">A. </label>
 																		<div class="margin-left">
-																			<p>${listTest.get(j).option1 }</p>
+																			<p>${listKQ.get(j).option1 }</p>
 																		</div>
 																	</div>
 																</li>
 																<li data-ma-cau-tra-loi="1755110">														   
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n B" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="B" id="rdoPhuongAn-B-${listTest.get(j).id_CauHoi }" disabled/>
-																		<label for="rdoPhuongAn-B-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-B-${listTest.get(j).id_CauHoi }">B. </label>
+																		<input <c:if test="${listKQ.get(j).traLoi == 'B'}">checked</c:if> class="radUserAnswer" role="radio" aria-label="Phương &#225;n B" type="radio" name="rad-phuong-an-${listKQ.get(j).id_CauHoi }" value="B" id="rdoPhuongAn-B-${listKQ.get(j).id_CauHoi }" disabled/>
+																		<label for="rdoPhuongAn-B-${listKQ.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-B-${listKQ.get(j).id_CauHoi }">B. </label>
 																		<div class="margin-left">
-																			<p>${listTest.get(j).option2 }</p>
+																			<p>${listKQ.get(j).option2 }</p>
 																		</div>
 																	</div>
 																</li>
 																<li data-ma-cau-tra-loi="1755111">
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n C" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="C" id="rdoPhuongAn-C-${listTest.get(j).id_CauHoi }" disabled/>
-																		<label for="rdoPhuongAn-C-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-C-${listTest.get(j).id_CauHoi }">C. </label>
+																		<input <c:if test="${listKQ.get(j).traLoi == 'C'}">checked</c:if> class="radUserAnswer" role="radio" aria-label="Phương &#225;n C" type="radio" name="rad-phuong-an-${listKQ.get(j).id_CauHoi }" value="C" id="rdoPhuongAn-C-${listKQ.get(j).id_CauHoi }" disabled/>
+																		<label for="rdoPhuongAn-C-${listKQ.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-C-${listKQ.get(j).id_CauHoi }">C. </label>
 																		<div class="margin-left">
-																			<p>${listTest.get(j).option3 }</p>
+																			<p>${listKQ.get(j).option3 }</p>
 																		</div>
 																	</div>
 																</li>
 																<li data-ma-cau-tra-loi="1755108">
 																	<div class="phuong-an-detail">
-																		<input class="radUserAnswer" role="radio" aria-label="Phương &#225;n D" type="radio" name="rad-phuong-an-${listTest.get(j).id_CauHoi }" value="D" id="rdoPhuongAn-D-${listTest.get(j).id_CauHoi }" disabled/>
-																		<label for="rdoPhuongAn-D-${listTest.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-D-${listTest.get(j).id_CauHoi }">D. </label>
+																		<input <c:if test="${listKQ.get(j).traLoi == 'D'}">checked</c:if> class="radUserAnswer" role="radio" aria-label="Phương &#225;n D" type="radio" name="rad-phuong-an-${listKQ.get(j).id_CauHoi }" value="D" id="rdoPhuongAn-D-${listKQ.get(j).id_CauHoi }" disabled/>
+																		<label for="rdoPhuongAn-D-${listKQ.get(j).id_CauHoi }" aria-labelledby="rdoPhuongAn-D-${listKQ.get(j).id_CauHoi }">D. </label>
 																		<div class="margin-left">
-																			<p>${listTest.get(j).option4 }</p>
+																			<p>${listKQ.get(j).option4 }</p>
 																		</div>
 																	</div>
 																</li>

@@ -39,6 +39,7 @@ public class AdminOrderController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 2);
 	}
 	
 	@RequestMapping(value="/orders", method=RequestMethod.GET)

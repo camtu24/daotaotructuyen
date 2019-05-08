@@ -73,7 +73,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Hình ảnh</label>
-		                        <img src="${defines.urlAdmin}/img/user.png" alt="hinhanh" style = "width: 100px;height:100px"> <br>
+		                        <img src="${defines.urlAdmin}/img/user.png" alt="hinhanh" style = "width: 100px;height:100px">
 		                        <input type="file" name="hinhAnh" class="form-control border-input" >
 		                    </div>
 		                </div>
@@ -81,7 +81,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Giới tính</label>
-		                        <select name="gioiTinh" class="form-control" style="width: 72%">
+		                        <select name="gioiTinh" class="form-control" style="width: 74%">
                                    <option value="nam">Nam</option>
                                    <option value="nu">Nữ</option>
 		                        </select>
@@ -99,21 +99,21 @@
 		                <div class="col-md4">
 			                <div class="form-group">
 	                            <label>Trình độ học vấn</label>
-	                            <textarea name="trinhDoHocVan" style="height: 60px; width: 75%">${student.trinhDoHocVan }</textarea>
+	                            <textarea name="trinhDoHocVan" style="height: 60px; width: 72%">${student.trinhDoHocVan }</textarea>
 	                        </div>
                         </div>
                         
                         <div class="col-md4">
 	                        <div class="form-group">
 	                            <label>Mô tả</label>
-	                            <textarea name="moTaThem" style="height: 60px; width: 75%">${student.moTaThem }</textarea>
+	                            <textarea name="moTaThem" style="height: 60px; width: 72%">${student.moTaThem }</textarea>
 	                        </div>
                         </div>
                         
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Nhóm học viên</label>
-		                        <select name="id_Plhv" class="form-control" style="width: 72%">
+		                        <select name="id_Plhv" class="form-control" style="width: 74%">
 	                           		<c:forEach items="${listH }" var="objH">
 	                                   <option value="${objH.id_Plhv}">${objH.loaiHocVien }</option>
 	                                </c:forEach>
@@ -124,7 +124,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>
-		                        <select name="id_Role" class="form-control" style="width: 72%">
+		                        <select name="id_Role" class="form-control" style="width: 74%">
 	                           		<c:forEach items="${listRoles }" var="role">
 	                                   <option value="${role.id_Role}">${role.name }</option>
 	                                </c:forEach>

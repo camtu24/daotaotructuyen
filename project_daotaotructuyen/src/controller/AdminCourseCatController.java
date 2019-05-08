@@ -54,12 +54,13 @@ public class AdminCourseCatController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("slugUtil", slugUtil);
 		modelMap.addAttribute("countContact", contDao.countItem());
+		modelMap.addAttribute("active", 3);
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
 	}
 	
 	@RequestMapping(value="/course/{kid}/cats", method=RequestMethod.GET)
 	public String index(@PathVariable(value="kid", required=false) Integer kid,ModelMap modelMap) {
-		modelMap.addAttribute("listDM", dmucDao.getItemsByID(kid));
+		modelMap.addAttribute("listDM", dmucDao.getItemsByID(kid,1));
 		//modelMap.addAttribute("listBG", lessonDao.getItemsByIDKH(kid));
 		//ghi danh
 		//hocvien thường

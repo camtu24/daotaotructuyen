@@ -15,9 +15,9 @@ public class DanhMucBaiGiangDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	public List<DanhMucBaiGiang> getItemsByID(int id){
-		String sql = "SELECT id_dmb,tendanhmuc,motachung,id_khoahoc,ngaytao,nguoitao,storage FROM danhmucbaigiang WHERE id_khoahoc = ? && storage=1";
-		return jdbcTemplate.query(sql, new Object[] {id}, new BeanPropertyRowMapper<DanhMucBaiGiang>(DanhMucBaiGiang.class));
+	public List<DanhMucBaiGiang> getItemsByID(int id,int stor){
+		String sql = "SELECT id_dmb,tendanhmuc,motachung,id_khoahoc,ngaytao,nguoitao,storage FROM danhmucbaigiang WHERE id_khoahoc = ? && storage=?";
+		return jdbcTemplate.query(sql, new Object[] {id, stor}, new BeanPropertyRowMapper<DanhMucBaiGiang>(DanhMucBaiGiang.class));
 		
 	}
 
@@ -31,9 +31,9 @@ public class DanhMucBaiGiangDAO {
 		return jdbcTemplate.update(sql, new Object[] {cat.getTenDanhMuc(),cat.getMoTaChung(),cat.getId_KhoaHoc(),cat.getNguoiTao()});
 	}
 
-	public int storageItemByIDKH(int id) {
-		String sql = "UPDATE danhmucbaigiang SET storage=0 WHERE id_khoahoc=?";
-		return jdbcTemplate.update(sql, new Object[] {id});
+	public int storageItemByIDKH(int id, int stor) {
+		String sql = "UPDATE danhmucbaigiang SET storage=? WHERE id_khoahoc=?";
+		return jdbcTemplate.update(sql, new Object[] {stor,id});
 		
 	}
 

@@ -59,10 +59,10 @@ pageEncoding="UTF-8"%>
 			  <td> Tên khóa học</td>
 			  <td>${course.tenKhoaHoc }</td>
 			</tr>
-			<tr class="">
+			<%-- <tr class="">
 			  <td> Giảng viên</td>
 			  <td>${objS.tenChuDe }</td>
-			</tr>
+			</tr> --%>
 			<tr class="">
 			  <td> Số bài học</td>
 			  <td>${count }</td>

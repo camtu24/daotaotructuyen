@@ -1,34 +1,17 @@
-<div class="container">
-
-                <div class="col-md-12">
-
-                    <ul class="breadcrumb">
-                        <li><a href="${pageContext.request.contextPath }/">Home</a>
-                        </li>
-                        <li>Page not found</li>
-                    </ul>
-
-
-                    <div class="row" id="error-page">
-                        <div class="col-sm-6 col-sm-offset-3">
-                            <div class="box">
-
-                                <p class="text-center">
-                                    <img src="img/logo.png" alt="Obaju template">
-                                </p>
-
-                                <h3>We are sorry - this page is not here anymore</h3>
-                                <h4 class="text-muted">Error 404 - Page not found</h4>
-
-                                <p class="text-center">To continue please use the <strong>Search form</strong> or <strong>Menu</strong> above.</p>
-
-                                <p class="buttons"><a href="${pageContext.request.contextPath }/" class="btn btn-primary"><i class="fa fa-home"></i> Go to Homepage</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <!-- /.col-md-9 -->
-            </div>
+  <div id="container">
+    <div id="fof" class="clear">
+      <div class="clear">
+        <div class="one_half first">
+          <h1>404</h1>
+        </div>
+        <div class="one_half">
+          <h2>Error - Sorry Something Went Wrong !</h2>
+        </div>
+      </div>
+      <div class="divider2"></div>
+      <p class="notice">For Some Reason The Page You Requested Could Not Be Found On Our Server</p>
+      <p class="clear"><a class="fl_left" href="javascript:history.go(-1)">&laquo; Go Back</a>
+       <a class="fl_right" href="${pageContext.request.contextPath }/logout">Logout</a></p>
+    </div>
+    <div class="clear"></div>
+  </div>

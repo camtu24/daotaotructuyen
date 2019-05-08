@@ -4,7 +4,7 @@
 <div id="content">
 	<div id="content-header">
 		<div id="breadcrumb">
-			<a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
+			<a href="${pageContext.request.contextPath }/admin/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
 			<a href="${pageContext.request.contextPath }/admin/qtv" class="tip-bottom">Quản trị viên</a> <a href="#" class="current">Sửa quản trị viên</a>
 		</div>
 		<h1>Quản Trị Viên</h1>
@@ -86,7 +86,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Role</label>
-		                        <select name="id_Role" class="form-control" style="width: 100%">
+		                        <select name="id_Role" class="form-control" style="width: 74%">
 		                        <c:set var="id_role" value="${qtv.id_Role }"></c:set>
 	                           		<c:forEach items="${listRoles }" var="role">
 	                           			<c:choose>
@@ -104,7 +104,7 @@
 		                </div>
                     
                         <div class="form-group">
-                            <input type="submit" value="Thực hiện" class="btn btn-primary">
+                            <input style="margin-top:120px" type="submit" value="Thực hiện" class="btn btn-primary">
                         </div> 
                     </form>
 				</div>

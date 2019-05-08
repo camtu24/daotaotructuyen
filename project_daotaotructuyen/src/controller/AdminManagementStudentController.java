@@ -54,6 +54,7 @@ public class AdminManagementStudentController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 4);
 	}
 	
 	@RequestMapping(value="/management/students", method=RequestMethod.GET)
@@ -127,7 +128,7 @@ public class AdminManagementStudentController {
 	@RequestMapping(value="/management-student/detail/{username}-{kid}-{idDg}", method=RequestMethod.GET)
 	public String detailItem(@PathVariable("kid") int kid,@PathVariable("idDg") int idDg,@PathVariable("username") String username,ModelMap modelMap) {
 		
-		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
+		modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid,1));
 		modelMap.addAttribute("qthDao", qthDao);
 		modelMap.addAttribute("lessDao", lessDao);
 		modelMap.addAttribute("sa", saDao.getItem(idDg));

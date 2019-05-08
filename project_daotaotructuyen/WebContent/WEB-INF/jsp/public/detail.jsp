@@ -11,6 +11,9 @@
 	<div class = "thaoluan"></div>
 	<div>
 		<div class="ttkh">
+			<h3 class="detail-kh"><em class="icon-money"></em> HỌC PHÍ: ${course.hocPhi }VND</h3>
+		</div>
+		<div class="ttkh">
 			<h3 class="detail-kh"><em class="icon-book"></em> THÔNG TIN KHÓA HỌC</h3>
 			<div>
 				<c:if test="${not empty course.hinhAnh }">
@@ -60,57 +63,50 @@
 					<p style="font-size: 15px;">${item.moTaChung }</p>
 				</div>
 			</c:forEach>
-			<!-- <div>
-				<h5 style="font-size:18px;">>>> Phần 2</h5>
-				<p style="font-size: 15px;">Thực hành và hiểu sâu các công cụ lập trình/ Teamwork
-				Bạn sẽ được đào tạo để trở thành một lập trình Back End chuyên nghiệp
-				Được truyền kinh nghiệm "máu lửa" từ các Giảng viên chuyên nghiệp qua các dự án được lấy từ doanh nghiệp
-				Được đào tạo theo một LỘ TRÌNH chuẩn hóa qua các phương pháp giảng dạy TÍCH CỰC (Active Learning)
-				</p>
-			</div> -->
 
 		</div>
 		<div>
 			<h3 class="detail-kh" ><span class="icon-star icon-large"></span> Giảng viên</h3>
-			<ul class="clear">
-				<li class="one_half" style="margin: 0 9px;">
-				  <article class="clear">
-					<figure class="post-image"><img src="../images/demo/1200x400.gif" alt=""></figure>
-					<header>
-					  <h2 class="blog-post-title"><a href="#">Pellentesque Tempor Tellus</a></h2>
-					  <div class="blog-post-meta">
-						<ul>
-						  <li class="blog-post-date">
-							<time datetime="2000-04-06T08:15+00:00"><strong>Completed:</strong> 6<sup>th</sup> April 2000</time>
-						  </li>
-						  <li class="blog-post-cats"><a href="#">Category 1</a>, <a href="#">Category 2</a></li>
-						</ul>
-					  </div>
-					</header>
-					<p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus. Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.</p>
-					
-				  </article>
-				</li>
-				<li class="one_half" style="margin: 0 9px;">
-				  <article class="clear">
-					<figure class="post-image"><img src="../images/demo/1200x400.gif" alt=""></figure>
-					<header>
-					  <h2 class="blog-post-title"><a href="#">Pellentesque Tempor Tellus</a></h2>
-					  <div class="blog-post-meta">
-						<ul>
-						  <li class="blog-post-date">
-							<time datetime="2000-04-06T08:15+00:00"><strong>Completed:</strong> 6<sup>th</sup> April 2000</time>
-						  </li>
-						  <li class="blog-post-cats"><a href="#">Category 1</a>, <a href="#">Category 2</a></li>
-						</ul>
-					  </div>
-					</header>
-					<p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit mauris nulla hendimentesque elit semper nam a sapien urna sempus. Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget facilis elit sagittis felisi eger id justo maurisus convallicitur.</p>
-					
-				  </article>
-				</li>
-		 
-			  </ul>
+			<ul class="clear" style="margin-bottom:35px">
+					<li class="one_half1 first search">
+					  <article class="clear float" style="margin-bottom: 10px">
+						<div class="gach_img">
+							<figure class="post-image2">
+								<c:if test="${not empty GVC.hinhAnh }">
+			                       <img src="${pageContext.request.contextPath}/files/${GVC.hinhAnh}" alt="${GVC.hinhAnh}"/>
+			                   	</c:if>
+			                   	<c:if test="${empty GVC.hinhAnh }">
+			                      	<img src="${defines.urlPublic}/images/user-cmt.png" style = "height:250px" alt="hinhanh"/>
+							   	</c:if>
+							</figure>
+						</div>
+						<header>
+						  <h2 class="h2-tlq" ><a href="javascript:void(0)">${GVC.hoTen }</a></h2>
+						</header>
+						<p>* Chuyên môn chính: ${GVC.chuyenMonChinh }</p>
+					  </article>
+					</li>
+					<c:forEach items="${listGVT}" var="objGVT">
+	    				<li class="one_half1 first search">
+						  <article class="clear float" style="margin-bottom: 10px">
+							<div class="gach_img">
+								<figure class="post-image2">
+									<c:if test="${not empty objGVT.hinhAnh }">
+				                       <img src="${pageContext.request.contextPath}/files/${objGVT.hinhAnh}" alt="${objGVT.hinhAnh}"/>
+				                   	</c:if>
+				                   	<c:if test="${empty objGVT.hinhAnh }">
+				                      	<img src="${defines.urlPublic}/images/user-cmt.png" style = "height:250px" alt="hinhanh"/>
+								   	</c:if>
+								</figure>
+							</div>
+							<header>
+							  <h2 class="h2-tlq" ><a href="javascript:void(0)">${objGVT.hoTen }</a></h2>
+							</header>
+							<p>* Chuyên môn chính: ${objGVT.chuyenMonChinh }</p>
+						  </article>
+						</li>
+					</c:forEach>
+				  </ul>
 		</div>
 		<c:if test="${account.username != null }">
 			<c:set value = "${pageContext.request.contextPath}/${slugUtil.makeSlug(course.tenKhoaHoc)}-${course.id_KhoaHoc }/dangky/step2" var="orderUrl"></c:set>

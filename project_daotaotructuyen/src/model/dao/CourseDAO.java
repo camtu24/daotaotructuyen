@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import model.bean.Course;
+import model.bean.Teacher;
 
 @Repository
 public class CourseDAO {
@@ -39,9 +40,9 @@ public class CourseDAO {
 		return jdbcTemplate.update(sql, new Object[] {course.getTenKhoaHoc(),course.getHinhAnh(),course.getVideo(),course.getThongTinChung(),course.getMucTieu(),course.getKetQua(),course.getMieuTa(),course.getDoiTuongThamGia(),course.getHocPhi(),course.getId_ChuDe(),course.getId_KhoaHoc()});
 	}
 
-	public int storageItem(int id) {
-		String sql = "UPDATE khoahoc SET storage=0,phathanh=0 WHERE id_khoahoc=?";
-		return jdbcTemplate.update(sql, new Object[] {id});
+	public int storageItem(int id, int stor) {
+		String sql = "UPDATE khoahoc SET storage=?,phathanh=0 WHERE id_khoahoc=?";
+		return jdbcTemplate.update(sql, new Object[] {stor,id});
 	}
 	
 	public List<Course> getItemsStor() {
@@ -52,6 +53,11 @@ public class CourseDAO {
 	public List<Course> getItemsBySubjectDel(int sid) {
 		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,id_chude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc WHERE storage=1 && id_chude=? ORDER BY id_khoahoc DESC LIMIT 2";
 		return jdbcTemplate.query(sql,new Object[] {sid}, new BeanPropertyRowMapper<Course>(Course.class));
+	}
+	
+	public int delItem(int kid) {
+		String sql = "DELETE FROM khoahoc WHERE id_khoahoc=?";
+		return jdbcTemplate.update(sql, new Object[] {kid});
 	}
 	
 	/*public*/
@@ -103,6 +109,20 @@ public class CourseDAO {
 		String sql = "SELECT id_khoahoc,tenkhoahoc,thongtinchung,hinhanh,video,muctieu,ketqua,hocphi,id_giangvien,nguoitao,ngaytao,k.id_chude,tenchude,phathanh,storage,mieuta,doituongthamgia FROM khoahoc AS k INNER JOIN chude AS c ON k.id_chude=c.id_chude "
 				+ "WHERE tenkhoahoc LIKE '%"+search+"%' && storage=1 && phathanh=1 ORDER BY id_khoahoc DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Course>(Course.class));
+	}
+
+	public Teacher getItemGVC(int kid) {
+		try {
+			String sql = "SELECT g.hinhanh,chuyenmonchinh, id_khoahoc, k.id_giangvien, hoten FROM khoahoc AS k INNER JOIN giangvien AS g ON k.id_giangvien=g.id_giangvien WHERE id_khoahoc=?";
+			return jdbcTemplate.queryForObject(sql,new Object[] {kid},new BeanPropertyRowMapper<Teacher>(Teacher.class));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<Teacher> getItemsGVT(int kid) {
+		String sql = "SELECT g.hinhanh,chuyenmonchinh, k.id_khoahoc, t.id_giangvien, hoten FROM khoahoc AS k INNER JOIN themgiangvien AS t ON k.id_khoahoc=t.id_khoahoc INNER JOIN giangvien AS g ON t.id_giangvien=g.id_giangvien WHERE k.id_khoahoc=? && t.id_giangvien != k.id_giangvien";
+		return jdbcTemplate.query(sql,new Object[] {kid}, new BeanPropertyRowMapper<Teacher>(Teacher.class));
 	}
 
 }

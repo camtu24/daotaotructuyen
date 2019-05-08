@@ -10,19 +10,30 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<csrf disabled="true"/>
 		<intercept-url pattern="/admin" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/admin/orders" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
-		<!-- <intercept-url pattern="/admin/search/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN'" />
-		<intercept-url pattern="/admin/news/edit/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/news/del/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/news/add" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<!-- <intercept-url pattern="/admin/order/view/**" access="hasAnyRole('ROLE_ADMIN')" /> -->
 		
-		<intercept-url pattern="/admin/news/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
-		<intercept-url pattern="/admin/cats" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
-		<intercept-url pattern="/admin/cat/add" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
-		<intercept-url pattern="/admin/user/edit/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN','ROLE_USER')" />
+		<!-- <intercept-url pattern="/admin/qtv" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/qtv/add" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/qtv/edit/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/qtv/storage/**" access="hasRole('ROLE_ADMIN')" />
 		
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/**" access="permitAll"/>  permitAll: all đều truy cập được -->
+		<intercept-url pattern="/admin/students" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/student/add" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/student/edit/**" access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/student/storage/**" access="hasRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/admin/teachers" access="hasRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/teacher/add" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/teacher/edit/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/teacher/storage/**" access="hasRole('ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/admin/contact/view/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/courses/storage/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/accounts/storage/**" access="hasAnyRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/orders/storage/**" access="hasAnyRole('ROLE_ADMIN')" />
+		
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" /> -->
+		<!-- <intercept-url pattern="/**" access="permitAll"/> -->  <!-- permitAll: all đều truy cập được -->
 		
 		<form-login login-page='/auth/login' login-processing-url="/admin/auth/login"
             default-target-url="/admin" always-use-default-target="false"
@@ -32,7 +43,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
         <logout logout-url="/admin/auth/logout" logout-success-url="/auth/login"
             delete-cookies="JSESSIONID" invalidate-session="true" />
             
-        <access-denied-handler error-page="/403"/>
+        <access-denied-handler error-page="/404"/>
     </http>
     
     <http>

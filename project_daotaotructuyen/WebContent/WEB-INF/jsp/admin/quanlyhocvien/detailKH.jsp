@@ -15,7 +15,7 @@
     <hr>
     <div class="row-fluid">
       <div class="span12">
-      	<div class="widget-box" style="height:32%; width: 55%">
+      	<div class="widget-box" style="display: -webkit-box;height:32%; width: 55%">
       		<div class="info-stu">
       			<c:if test="${empty infoStu.hinhAnh }">
       			<img alt="Hình ảnh" src="${defines.urlAdmin }/img/user-cmt.png" style="width:35%"></c:if>

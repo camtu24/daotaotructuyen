@@ -42,6 +42,7 @@ public class AdminIndexController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 1);
 	}
 	
 	@RequestMapping("")

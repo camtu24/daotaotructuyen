@@ -7,7 +7,7 @@ Highcharts.chart('container', {
         text: 'Thống kê số lượng tổng thể'
     },
     subtitle: {
-        text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+        text: ''
     },
     xAxis: {
         type: 'category'
@@ -42,34 +42,34 @@ Highcharts.chart('container', {
             colorByPoint: true,
             data: [
                 {
-                    name: "Chrome",
-                    y: 100,
-                    drilldown: "Chrome"
+                    name: "Học viên",
+                    y: 30,
+                    drilldown: "Học viên"
                 },
                 {
-                    name: "Firefox",
-                    y: 10.57,
-                    drilldown: "Firefox"
+                    name: "Giảng viên",
+                    y: 10,
+                    drilldown: "Giảng viên"
                 },
                 {
-                    name: "Internet Explorer",
-                    y: 7.23,
-                    drilldown: "Internet Explorer"
+                    name: "Đơn hàng",
+                    y: 15,
+                    drilldown: "Đơn hàng"
                 },
                 {
-                    name: "Safari",
-                    y: 5.58,
-                    drilldown: "Safari"
+                    name: "Khóa học",
+                    y: 12,
+                    drilldown: "Khóa học"
                 },
                 {
-                    name: "Edge",
-                    y: 4.02,
-                    drilldown: "Edge"
+                    name: "Lớp học",
+                    y: 5,
+                    drilldown: "Lớp học"
                 },
                 {
-                    name: "Opera",
-                    y: 1.92,
-                    drilldown: "Opera"
+                    name: "Tin tức",
+                    y: 7,
+                    drilldown: "Tin tức"
                 },
                
             ]

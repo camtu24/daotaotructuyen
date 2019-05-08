@@ -99,23 +99,40 @@ public class PublicTrainController {
 		ChuDe subject = chuDeDao.getItem(idChuDe);
 		if(subject == null) {
 			return "public.train.error";
-		}else {
-			modelMap.addAttribute("listKH", courDao.getItemsAllByC(idChuDe));
-			modelMap.addAttribute("id_ChuDe", idChuDe);
-			modelMap.addAttribute("nameChuDe", nameChuDe);
-			modelMap.addAttribute("tenChuDe", subject.getTenChuDe());
 		}
+		
+		String cnameChuDe = SlugUtil.makeSlug(subject.getTenChuDe());
+		if((!cnameChuDe.equals(nameChuDe)) ) {
+			return "redirect:/danhmuckhoahoc/"+nameChuDe+"-"+idChuDe;
+		}
+		
+		modelMap.addAttribute("listKH", courDao.getItemsAllByC(idChuDe));
+		modelMap.addAttribute("id_ChuDe", idChuDe);
+		modelMap.addAttribute("nameChuDe", nameChuDe);
+		modelMap.addAttribute("tenChuDe", subject.getTenChuDe());
+		
 		return "public.train.cat";
 	}
 	
-	@RequestMapping(value="{nameChuDe}/{nameKH}-{kid}", method=RequestMethod.GET)
-	public String detail(@PathVariable("kid") int kid,ModelMap modelMap){
+	@RequestMapping(value="{nameChuDe}/{nameKH}-{kid}.html", method=RequestMethod.GET)
+	public String detail(@PathVariable("kid") int kid,ModelMap modelMap,@PathVariable("nameChuDe") String nameChuDe,@PathVariable("nameKH") String nameKH){
 		Course course = courDao.getItemDPH(kid);
+		
 		if(course == null) {
 			return "public.train.error";
 		}else {
+			String cnameKH = SlugUtil.makeSlug(course.getTenKhoaHoc());
+			
+			if((!cnameKH.equals(nameKH)) ) {
+				return "redirect:/"+nameKH+"-1000"+".html";
+			}
+			
 			modelMap.addAttribute("course", course);
-			modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid));
+			//giảng viên chính
+			modelMap.addAttribute("GVC", courDao.getItemGVC(kid));
+			//list giảng viên
+			modelMap.addAttribute("listGVT", courDao.getItemsGVT(kid));
+			modelMap.addAttribute("listDMBG", dmucDao.getItemsByID(kid,1));
 		}
 		return "public.train.detail";
 	}

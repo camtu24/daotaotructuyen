@@ -69,6 +69,10 @@
     <put-attribute name="body" value="/WEB-INF/jsp/admin/storage/course.jsp" />
   </definition>
   
+  <definition name="admin.course.view" extends="admin.template">
+    <put-attribute name="body" value="/WEB-INF/jsp/admin/storage/course-view.jsp" />
+  </definition>
+  
   <!-- ADMIN COURSE DANH MUC -->
   <definition name="admin.danhmuc.index" extends="admin.template">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/danhmucbaigiang/index.jsp" />
@@ -228,6 +232,11 @@
     <put-attribute name="body" value="/WEB-INF/jsp/error/error404.jsp" />
   </definition>
   
+  <!-- 404 -->
+   <definition name="404" extends="public.template1">
+    <put-attribute name="body" value="/WEB-INF/jsp/error/404.jsp" />
+  </definition>
+  
   <!-- END ADMIN NGUOI DUNG -->
   <!--AUTH TEMPLATE -->
   <definition name="auth.login" template="/WEB-INF/jsp/auth/login.jsp">
@@ -315,6 +324,9 @@
   </definition>
   
   <definition name="public.mycourse.learn" template="/WEB-INF/jsp/public/learn.jsp">
+  </definition>
+  
+  <definition name="public.mycourse.learnHT" template="/WEB-INF/jsp/public/learnHT.jsp">
   </definition>
   
   <!--AUTH TEMPLATE -->

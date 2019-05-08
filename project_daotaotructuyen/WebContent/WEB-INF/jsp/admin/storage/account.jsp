@@ -3,8 +3,8 @@
 <%@ include file = "/templates/taglib.jsp" %>
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Học Viên</a> </div>
-    <h1>Học viên</h1>
+    <div id="breadcrumb"> <a href="${pageContext.request.contextPath }/admin" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="current">Lưa Trữ Tài Khoản</a> </div>
+    <h1>Lưu trữ tài khoản</h1>
   </div>
   <div class="container-fluid">
   	<c:if test="${not empty msg }">
@@ -35,7 +35,8 @@
                   <th>Số điện thoại</th>
                   <th>Địa chỉ</th>
                   <th>Email</th>
-                  <th>Chức năng</th>
+                  <th>Ngày sinh</th>
+                 <!--  <th>Chức năng</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -47,11 +48,11 @@
 	                  <td>${objS.sdt }</td>
 	                  <td>${objS.email }</td>
 	                  <td>${objS.diaChi }</td>
-	                  <td width="22%" style="text-align: center;">
+	                  <td>${objS.ngaySinh }</td>
+	                  <%-- <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
-	                      <a href="${pageContext.request.contextPath }/admin/student/view/${objS.id_HocVien}" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
 	                      <a href="${pageContext.request.contextPath }/admin/student/restore/${objS.id_HocVien}" class="btn btn-primary"><i class="icon-refresh"></i> Restore</a>
-	                  </td>
+	                  </td> --%>
 	                </tr>
                 </c:forEach>
               </tbody>
@@ -77,7 +78,8 @@
                   <th>Số điện thoại</th>
                   <th>Email</th>
                   <th>Địa chỉ</th>
-                  <th>Chức năng</th>
+                  <th>Ngày sinh</th>
+                  <!-- <th>Chức năng</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -88,11 +90,11 @@
 	                  <td>${objT.username }</td>
 	                  <td>${objT.sdt }</td>
 	                  <td>${objT.email }</td>
-	                   <td>${objT.diaChi }</td>
-	                  <td width="22%" style="text-align: center;">
-	                      <a href="${pageContext.request.contextPath }/admin/teacher/view/${objT.id_GiangVien}" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
+	                  <td>${objT.diaChi }</td>
+	                  <td>${objS.ngaySinh }</td>
+	                  <%-- <td width="22%" style="text-align: center;">
 	                      <a href="${pageContext.request.contextPath }/admin/teacher/restore/${objT.id_GiangVien}" class="btn btn-primary"><i class=" icon-refresh"></i> Restore</a>
-	                  </td>
+	                  </td> --%>
 	                </tr>
                 </c:forEach>
               </tbody>
@@ -117,7 +119,8 @@
                   <th>Username</th>
                   <th>Số điện thoại</th>
                   <th>Email</th>
-                  <th>Chức năng</th>
+                  <th>Địa chỉ</th>
+                  <!-- <th>Chức năng</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -128,11 +131,11 @@
 	                  <td>${objQ.username }</td>
 	                  <td>${objQ.sdt }</td>
 	                  <td>${objQ.email }</td>
-	                  <td width="22%" style="text-align: center;">
+	                  <td>${objQ.diaChi }</td>
+	                  <%-- <td width="22%" style="text-align: center;">
 	                      <!-- <a href="" class="btn btn-success"><i class="icon-eye-open"></i> View</a> -->
-	                      <a href="${pageContext.request.contextPath }/admin/qtv/view/${objQ.id_Qtv}" class="btn btn-success"><i class="icon-eye-open"></i> Edit</a>
-	                      <a href="${pageContext.request.contextPath }/admin/qtv/restore/${objQ.id_Qtv}" class="btn btn-primary"><i class=" icon-refresh"></i> Restore</a>
-	                  </td>
+	                      <a href="${pageContext.request.contextPath }/admin/qtv/view/${objQ.id_Qtv}" class="btn btn-primary"><i class=" icon-refresh"></i> View</a>
+	                  </td> --%>
 	                </tr>
                 </c:forEach>
               </tbody>

@@ -40,10 +40,15 @@ public class AuthController {
 		return "public.login";
 	}
 	
-	@RequestMapping("/forgot")
+	@RequestMapping("/404")
+	public String index(){
+		return "404";
+	}
+	
+	/*@RequestMapping("/forgot")
 	public String forgotPassword(){
 		return "public.forgotPassword";
-	}
+	}*/
 	
 	/*@RequestMapping(value="/forgot", method=RequestMethod.POST)
 	public String forgotPassword(@RequestParam("email") String email, ModelMap modelMap,RedirectAttributes ra,HttpServletRequest request ) throws AddressException, MessagingException{

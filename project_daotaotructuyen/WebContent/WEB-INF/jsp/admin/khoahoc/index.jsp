@@ -58,13 +58,13 @@
 	                  <td width="13%" style="text-align: center;">
 	                 	 <a href="${pageContext.request.contextPath }/admin/course/liststudent/${objC.id_KhoaHoc}"><i class="icon icon-inbox"></i></a>
 	                  </td>
-	                  <td style="text-align: center" class="change-${objC.id_KhoaHoc }">
+	                  <td width="13%" style="text-align: center" class="change-${objC.id_KhoaHoc }">
 	                    <a href= "javascript:void(0)" onclick="return changeEnable(${objC.id_KhoaHoc },${objC.phatHanh })">
 		                    <c:if test="${objC.phatHanh == 1 }">
-	                       		<span class="label label-inactive" style="background-color : #00d627;">Đã phát hành</span>
+		                    	<img src="${defines.urlAdmin}/img/course-1.PNG"/>
 	                       	</c:if>
 	                       	<c:if test="${objC.phatHanh != 1 }">
-	                       		<span class="label label-inactive" style="background-color : #fe892b;">Chưa phát hành</span>
+	                       		<img src="${defines.urlAdmin}/img/course-2.PNG"/>
 	                       	</c:if>
                        	</a>
 	                  </td>

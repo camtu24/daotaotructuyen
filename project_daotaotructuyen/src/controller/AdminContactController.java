@@ -36,6 +36,7 @@ public class AdminContactController {
 		modelMap.addAttribute("slugUtil", slugUtil);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 5);
 	}
 	
 	@RequestMapping(value="/contacts", method=RequestMethod.GET)

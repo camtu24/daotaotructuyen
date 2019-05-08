@@ -26,8 +26,8 @@
 		              <div class="tieude">
 							<p>${objK.tenKhoaHoc }</p>
 						</div>
-		              <div class="blog-post-meta">
-		                <p>Giảng viên: </p>
+		              <div class="blog-post-meta" style="color:#ff9900;font-size: 1.2em;">
+		                <p>Học phí: ${objK.hocPhi }VND</p>
 		              </div>
 		            </header>
 		            <p>* ${objK.mieuTa }</p>

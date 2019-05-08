@@ -41,6 +41,7 @@ public class AdminSliderController {
 		modelMap.addAttribute("defines", defines);
 		modelMap.addAttribute("countContact", contDao.countItem());
 		modelMap.addAttribute("countOrder", ttdkDao.countItem());
+		modelMap.addAttribute("active", 7);
 	}
 	
 	@RequestMapping(value="/sliders", method=RequestMethod.GET)

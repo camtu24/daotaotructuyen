@@ -326,7 +326,7 @@
 		                  <td>${objD.tenTaiLieu }</td>
 		                  <td>${objD.loai }</td>
 		                  <td width="22%" style="text-align: center;">
-		                      <a href="${pageContext.request.contextPath }/download-document-${kid}-${objD.id_TaiLieu}" class="btn btn-info"><i class="icon-edit"></i> Edit</a>
+		                      <%-- <a href="${pageContext.request.contextPath }/download-document-${kid}-${objD.id_TaiLieu}" class="btn btn-info"><i class="icon-edit"></i> Edit</a> --%>
 		                      <a href="${pageContext.request.contextPath }/delete-document-${kid}-${objD.id_TaiLieu}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger"><i class="icon-remove-sign"></i> Delete</a>
 		                  </td>
 		                </tr>

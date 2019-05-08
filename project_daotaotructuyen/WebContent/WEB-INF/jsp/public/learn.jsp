@@ -2,14 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/templates/taglib.jsp" %>  
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Đào tạo trực tuyến</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${defines.urlPublic }/css/course.css" rel="stylesheet" type="text/css" media="all">
 <link href="${defines.urlAdmin }/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+<script src="${defines.urlPublic }/js/jquery-latest.min.js"></script>
 </head>
 <body class="">
 <div class="wrapper">
@@ -17,7 +17,7 @@
 	    <div class="tab">
 		  <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'courseTimeline')"><span class="icon-list-ul icon-large"></span></button>
 		  <button class="tablinks" onclick="openCity(event, 'Comment')"><em style="font-size:20px;" class="icon-comments-alt"></em></button>
-		  <button class="tablinks" onclick="openCity(event, 'Question')"><span class="icon-question-sign icon-large"></span></button>
+		  <!-- <button class="tablinks" onclick="openCity(event, 'Question')"><span class="icon-question-sign icon-large"></span></button> -->
 		  <button class="tablinks" onclick="openCity(event, 'Doccument')"><span class="icon-paste icon-large"></span></button>
 		</div>
 			
@@ -192,7 +192,7 @@
 			<c:if test="${lesson.loai == 'baihoc' }">
 			    <div>
 					<c:if test="${not empty lesson.video }">
-		                <video width="100%" height="490"  controls>
+		                <video width="100%" height="490" controls="controls">
 							<source src="${pageContext.request.contextPath }/files/${lesson.video}" type="video/mp4">
 							<!-- Trình duyệt của bạn không hỗ trợ thẻ video trong HTML5. -->
 						</video>
@@ -210,7 +210,7 @@
 						<div class="detail">
 							<p>B&#224;i thi gồm <b>52</b> c&#226;u hỏi</p>
 							<p>
-								Thời gian l&#224;m b&#224;i:                 <b>Kh&#244;ng x&#225;c định</b>
+								Thời gian l&#224;m b&#224;i:                 <b>15 phút</b>
 							</p>
 							<button type="submit" id="btn-lam-bai-kiem-tra" class="btn btn-start btn-expanded-width" onclick="startTest(${kid},${lesson.id_BaiHoc })">Bắt đầu l&#224;m b&#224;i</button>
 						</div>
@@ -227,12 +227,12 @@
 							<div class="col-xs-12">
 								<div class="quiz-infomation">
 									B&#224;i thi gồm <strong>${sizeTest }</strong> c&#226;u hỏi <br />
-									Tổng điểm: <strong>3.2</strong><br />
+									Tổng điểm: <strong>10</strong><br />
 									Thời gian l&#224;m b&#224;i:
 										<strong>
 											15 ph&#250;t
 										</strong><br />
-									Ng&#224;y dự thi: <strong>22/04/2019</strong> <br />
+									Ng&#224;y dự thi: <strong>2/05/2019</strong> <br />
 		
 								</div>
 							</div>
@@ -404,11 +404,42 @@
     </div>
 
 <!-- Scripts -->
-<script src="${defines.urlPublic }/js/jquery-latest.min.js"></script>
-<script src="${defines.urlPublic }/js/learn.js"></script>
-<c:if test="${lesson.loai == 'kiemtra' && less.hoanThanh == 1 }">
-	<script src="${defines.urlPublic }/js/counttime.js"></script>
-</c:if>
+<script type="text/javascript"></script>
+<script type="text/javascript">
+function openNav() {
+	  document.getElementById("full").style.width = "100%";
+	  document.getElementById("overflow1").style.width = "0";
+	}
+	function closeNav() {
+	  document.getElementById("full").style.width = "70%";
+	  document.getElementById("overflow1").style.width = "30%";
+	}
+
+	function openCity(evt, cityName) {
+	  var i, tabcontent, tablinks;
+	  tabcontent = document.getElementsByClassName("tabcontent1");
+	  for (i = 0; i < tabcontent.length; i++) {
+	    tabcontent[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+	    tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	  document.getElementById(cityName).style.display = "block";
+	  evt.currentTarget.className += " active";
+	}
+	//Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+
+
+	////////////////////////////////////////////////////
+	function showReply(idCmt){  
+	   $(".reply-action-"+idCmt).slideToggle();
+	}
+
+	////////////////////////////////////////////////////
+
+</script>
 
 <script>
  	function doComment(){
@@ -475,6 +506,10 @@
  	
  </script>
  
+<c:if test="${lesson.loai == 'kiemtra' && less.hoanThanh == 1 }">
+
+<script src="${defines.urlPublic }/js/counttime.js"></script>
+
  <script type="text/javascript">
 	//list đáp án
 	var answers = ${listDA};
@@ -629,5 +664,6 @@
         }
     }
  </script>
+ </c:if>
 </body>
 </html>

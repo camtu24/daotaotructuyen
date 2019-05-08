@@ -34,7 +34,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Chủ đề</label>
-		                        <select name="id_ChuDe" class="form-control" style="width: 72%">
+		                        <select name="id_ChuDe" class="form-control" style="width: 74%">
 		                          <c:set var="id_cd" value="${course.id_ChuDe }"></c:set>
 	                           		<c:forEach items="${listS }" var="Subj">
 	                           		   <c:choose>
@@ -95,7 +95,7 @@
 		                <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Mục tiêu (*)</label>
-		                    	<textarea name="mucTieu" style="height: 23px" rows="5" placeholder="Nhập mục tiêu" required>${course.mucTieu }</textarea>
+		                    	<textarea name="mucTieu" style="height: 90px; width:75%" placeholder="Nhập mục tiêu" required>${course.mucTieu }</textarea>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="course.mucTieu" cssStyle="color:red"></form:errors>
 		                    </div>
@@ -104,7 +104,7 @@
                         <div class="col-md4">
 		                    <div class="form-group">
 		                        <label>Kết quả (*)</label>
-		                        <textarea name="ketQua" style="height: 23px" rows="5" placeholder="Nhập kết quả" required>${course.ketQua }</textarea>
+		                        <textarea name="ketQua" style="height: 90px; width:75%" placeholder="Nhập kết quả" required>${course.ketQua }</textarea>
 		                    	<p style="color:red">${msg1 }</p>
                             	<form:errors path="course.ketQua" cssStyle="color:red"></form:errors>
 		                    </div>

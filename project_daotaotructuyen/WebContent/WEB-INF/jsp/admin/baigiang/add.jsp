@@ -45,7 +45,7 @@
 	                        </div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Thực hiện" class="btn btn-primary">
+                            <input style="margin-top: 575px;" type="submit" value="Thực hiện" class="btn btn-primary">
                         </div> 
                     </form>
 				</div>

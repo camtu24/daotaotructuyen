@@ -112,7 +112,7 @@ public class FileUploadController {
 	}
 	
 	@RequestMapping(value = "/admin/course/{kid}/cat/{cid}/lesson/addTest", method = RequestMethod.POST)
-	public String addTest(@ModelAttribute("lesson") Lesson lesson,RedirectAttributes ra,@PathVariable("kid") int kid,@PathVariable("cid") int cid,@RequestParam("test") CommonsMultipartFile cmf,HttpServletRequest request, HttpSession session) {
+	public String addTest(@ModelAttribute("lesson") Lesson lesson,RedirectAttributes ra,@PathVariable("kid") int kid,@PathVariable("cid") int cid,@RequestParam("test") CommonsMultipartFile cmf,HttpServletRequest request, HttpSession session, ModelMap modelMap) {
 		Account acc = (Account) session.getAttribute("account");
 		//ghi file
 		String fileName = cmf.getOriginalFilename();
@@ -137,7 +137,12 @@ public class FileUploadController {
 				e.printStackTrace();
 			}
 		}
-		
+		//kiểm tra trùng tên bài kiểm tra
+		if(lessDao.checkItem(lesson) > 0) {
+			modelMap.addAttribute("lesson", lesson);
+			ra.addAttribute("msg1", "Trùng tên bài kiểm tra!");
+			return "redirect:/admin/course/{kid}/cat/{cid}/lesson/addTest";
+		}
 		//lưu đối tượng
 		lesson.setNguoiTao(acc.getUsername());
 		lesson.setId_KhoaHoc(kid);

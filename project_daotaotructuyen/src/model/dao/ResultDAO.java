@@ -13,7 +13,7 @@ public class ResultDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public int addItem(Result rs) {
-		String sql = "INSERT INTO ketqua(traloi,ketqua,diem,username,id_cauhoi) VALUES(?,?,?,?,?)";
-		return jdbcTemplate.update(sql, new Object[] {rs.getTraLoi(), rs.getKetQua(),rs.getDiem(),rs.getUsername(),rs.getId_CauHoi()});
+		String sql = "INSERT INTO ketqua(traloi,ketqua,diemdung,username,id_cauhoi) VALUES(?,?,?,?,?)";
+		return jdbcTemplate.update(sql, new Object[] {rs.getTraLoi(), rs.getKetQua(),rs.getDiemDung(),rs.getUsername(),rs.getId_CauHoi()});
 	}
 }

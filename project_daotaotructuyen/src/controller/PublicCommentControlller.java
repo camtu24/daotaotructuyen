@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import constant.Defines;
 import model.bean.Comment;
@@ -33,7 +33,7 @@ public class PublicCommentControlller {
 		modelMap.addAttribute("defines", defines);
 	}
 	
-	@ResponseBody
+	//@ResponseBody
 	@RequestMapping(value="/comments", method=RequestMethod.POST)
 	public String comment(HttpServletResponse response,HttpServletRequest request,ModelMap modelMap,@RequestParam("acontent") String acontent,@RequestParam("aid") int aid,@RequestParam("ahoten") String ahoten,@RequestParam("ahinhanh") String ahinhanh) {
 		System.out.println("truyen thanh cong");
@@ -45,7 +45,10 @@ public class PublicCommentControlller {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		String chuoi="";
+		
 		try {
+			PrintWriter out = response.getWriter();
+			
 			Comment comment = new Comment(0, acontent, ahoten, null, ahinhanh, aid, 0);
 			cmtDao.addItem(comment);
 			
@@ -136,13 +139,14 @@ public class PublicCommentControlller {
 						"						</div>" +
 						"				</div>";
 			}
+			out.println(chuoi);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return chuoi;
+		return null;
 	}
 	
-	@ResponseBody
+	//@ResponseBody
 	@RequestMapping(value="/repcomments", method=RequestMethod.POST)
 	public String repComment(HttpServletResponse response,HttpServletRequest request,ModelMap modelMap,@RequestParam("acontent") String acontent,@RequestParam("aidCmt") int aidCmt,@RequestParam("aidLess") int aidLess,@RequestParam("ahoten") String ahoten,@RequestParam("ahinhanh") String ahinhanh) {
 		System.out.println("truyen thanh cong");
@@ -155,6 +159,8 @@ public class PublicCommentControlller {
 		response.setContentType("text/html");
 		String chuoi="";
 		try {
+			PrintWriter out = response.getWriter();
+			
 			Comment comment = new Comment(0, acontent, ahoten, null, ahinhanh, aidLess, aidCmt);
 			cmtDao.addItemRepCmt(comment);
 			
@@ -192,10 +198,11 @@ public class PublicCommentControlller {
 					}
 				}
 		
+				out.println(chuoi);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return chuoi;
+		return null;
 	}
 	
 }

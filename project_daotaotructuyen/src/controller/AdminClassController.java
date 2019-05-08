@@ -47,6 +47,7 @@ public class AdminClassController {
 	@ModelAttribute
 	public void addCommonsObject(ModelMap modelMap) {
 		modelMap.addAttribute("defines", defines);
+		modelMap.addAttribute("active", 3);
 	}
 	
 	@RequestMapping(value="/class", method=RequestMethod.GET)
@@ -119,7 +120,7 @@ public class AdminClassController {
 	}
 	
 	@RequestMapping(value="/class/del/{idClass}", method=RequestMethod.GET)
-	public String del(@PathVariable("idClass") int idClass, ModelMap modelMap,RedirectAttributes ra) {
+	public String delItem(@PathVariable("idClass") int idClass, ModelMap modelMap,RedirectAttributes ra) {
 		Lop lop = classDao.getItem(idClass);
 		if(lop != null) {
 			if(classDao.delItem(idClass) > 0) {

@@ -49,7 +49,10 @@ function initializeClock(id, endtime) {
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
   }
-  var deadline = new Date(Date.parse(new Date()) + 10 * 1000);
+  
+  
+  
+  var deadline = new Date(Date.parse(new Date()) + 15 *  60 * 1000);
   /*if(document.cookie && document.cookie.match('myClock')){
     // var deadline = document.cookie.match(/(^|;)myClock=([^;]+)/)[2];
     var deadline = getCookie('myClock');

@@ -17,7 +17,7 @@ a{	text-decoration: none;}
   cursor: pointer;
   transition: 0.3s;
   border-left: 1px solid #ccc;
-  width: 25%;
+  width: 33.333%;
   padding: 10px 0;
   transition: 0.3s;
   font-size: 17px;
@@ -61,14 +61,13 @@ a{	text-decoration: none;}
 }
 #overflow1{
 	height: 470px; 
-	transition: 0.3s;
+	transition: 0.4s;
 }
 #wrapper-left{height: 470px;overflow: auto;}
 #full{transition: 0.4s;}
 #overflow2{
-	height: 470px;
+	height: 502px;
     overflow: auto;
-
 }
 .header-newspaper{
     background-color: black;
@@ -468,4 +467,10 @@ margin-bottom: 5px;
     border-radius: 50%;
     padding: 3px;
     margin: 0px 5px -5px 0;
+}
+
+.question-info .check-DS{
+	position: absolute;
+    top: 8px;
+    left: 105px;
 }
